@@ -9,6 +9,7 @@ class PantryApp: Application() {
     lateinit var glossaryManager: GlossaryManager
     lateinit var workManager: WorkManager
     lateinit var notificationManager: NotificationManager
+    lateinit var httpManager: HTTPManager
 
     override fun onCreate() {
         super.onCreate()
@@ -17,19 +18,20 @@ class PantryApp: Application() {
     }
 
     /**
-     * Note for if you are testing the front-end Activities and Fragments:
-     * In your branch, while others work on implementing the actual managers,
-     * create a dummy manager with hardcode outputs to replace "Unit".
-     * By using Interfaces, you'll still be able to dev & test code
+     * As we implement each manager, we should replace the placeholders in PantryApp.
+     *
+     * If you're designing the front end and need to use some of the managers, then replace Placeholder
+     * with a dummy manager (e.g. PantryListManagerDummy) that returns hardcoded outputs for each function
      */
     private fun initManagers() {
-        pantryManager = Unit as PantryListManager
-        recipeListManager = Unit as RecipeListManager
-        shoppingListManager = Unit as ShoppingListManager
-        glossaryManager = Unit as GlossaryManager
+        pantryManager = Placeholder() as PantryListManager
+        recipeListManager = Placeholder() as RecipeListManager
+        shoppingListManager = Placeholder() as ShoppingListManager
+        glossaryManager = Placeholder() as GlossaryManager
+        httpManager = HTTPManagerStatic(this) as HTTPManager // work in progress
 
         // for phase 2. Let's not focus on notifications for now
-        workManager = Unit as WorkManager
-        notificationManager = Unit as NotificationManager
+        workManager = Placeholder() as WorkManager
+        notificationManager = Placeholder() as NotificationManager
     }
 }
