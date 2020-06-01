@@ -1,0 +1,32 @@
+{
+  "instance": [
+    {
+      "instanceID": 1,
+      "ingredientID": 1,
+      "amount": 2,
+      "unit": "lbs",
+      "expiration": "2020-08-20T07:00:00.000Z"
+    },
+    {
+      "instanceID": 2,
+      "ingredientID": 5,
+      "amount": 24,
+      "unit": "oz",
+      "expiration": "2020-08-20T07:00:00.000Z"
+    },
+    {
+      "instanceID": 3,
+      "ingredientID": 6,
+      "amount": 0.75,
+      "unit": "oz",
+      "expiration": "2020-08-20T07:00:00.000Z"
+    },
+    {
+      "instanceID": 4,
+      "ingredientID": 3,
+      "amount": 20,
+      "unit": "cloves",
+      "expiration": "2020-08-20T07:00:00.000Z"
+    }
+  ]
+}

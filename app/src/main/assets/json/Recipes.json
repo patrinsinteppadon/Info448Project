@@ -1,0 +1,56 @@
+{
+  "recipe": [
+    {
+      "id": 1,
+      "name": "Spaghetti",
+      "img": "imglink",
+      "ingredients": [
+        {
+          "id": 1,
+          "ingredientName": "Ground Beef",
+          "ingredientImg": "imglink"
+        },
+        {
+          "id": 2,
+          "ingredientName": "Onion",
+          "ingredientImg": "imglink"
+        },
+        {
+          "id": 3,
+          "ingredientName": "Garlic",
+          "ingredientImg": "imglink"
+        },
+        {
+          "id": 4,
+          "ingredientName": "Green Bell Pepper",
+          "ingredientImg": "imglink"
+        },
+        {
+          "id": 5,
+          "ingredientName": "Tomato Sauce",
+          "ingredientImg": "imglink"
+        },
+        {
+          "id": 6,
+          "ingredientName": "Oregano",
+          "ingredientImg": "imglink"
+        },
+        {
+          "id": 7,
+          "ingredientName": "Basil",
+          "ingredientImg": "imglink"
+        },
+        {
+          "id": 8,
+          "ingredientName": "Salt",
+          "ingredientImg": "imglink"
+        },
+        {
+          "id": 9,
+          "ingredientName": "Black Pepper",
+          "ingredientImg": "imglink"
+        }
+      ]
+    }
+  ]
+}
