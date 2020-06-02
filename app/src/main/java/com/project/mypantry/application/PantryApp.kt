@@ -24,7 +24,7 @@ class PantryApp: Application() {
      * with a dummy manager (e.g. PantryListManagerDummy) that returns hardcoded outputs for each function
      */
     private fun initManagers() {
-        pantryManager = PantryListManagerStatic() as PantryListManager
+        pantryManager = PantryListManagerStatic(this) as PantryListManager
         recipeListManager = Placeholder() as RecipeListManager
         shoppingListManager = Placeholder() as ShoppingListManager
         glossaryManager = Placeholder() as GlossaryManager

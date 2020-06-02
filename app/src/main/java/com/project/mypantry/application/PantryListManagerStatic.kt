@@ -1,10 +1,11 @@
 package com.project.mypantry.application
 
+import android.content.Context
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 
 
-class PantryListManagerStatic() : PantryListManager {
+class PantryListManagerStatic(private val context: Context) : PantryListManager {
 
     override var pantry: MutableList<IngredientInstance> = mutableListOf()
 
@@ -36,7 +37,7 @@ class PantryListManagerStatic() : PantryListManager {
     }
 
     override fun addToGroceries(ing: IngredientType) {
-        TODO("Not yet implemented")
+        (context as PantryApp).shoppingListManager.add(ing)
     }
 
     // sorts by expiration date
