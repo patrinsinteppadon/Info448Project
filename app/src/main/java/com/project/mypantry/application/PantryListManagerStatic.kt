@@ -29,9 +29,10 @@ class PantryListManagerStatic() : PantryListManager {
     override fun updateInstance(instanceID: Int, ing: IngredientInstance) {
         for (i in 0 until pantry.size) {
             if (pantry[i].instanceID == instanceID) {
-                // replace
+                pantry[i] = ing
             }
         }
+        sort()
     }
 
     override fun addToGroceries(ing: IngredientType) {
@@ -40,7 +41,7 @@ class PantryListManagerStatic() : PantryListManager {
 
     // sorts by expiration date
     override fun sort() {
-        TODO("Not yet implemented")
+        pantry.sortByDescending { it.expiration}
     }
 
     override fun sendNotification(ing: IngredientType) {
