@@ -27,7 +27,7 @@ class PantryApp: Application() {
         pantryManager = PantryListManagerStatic(this) as PantryListManager
         recipeListManager = Placeholder() as RecipeListManager
         shoppingListManager = Placeholder() as ShoppingListManager
-        glossaryManager = Placeholder() as GlossaryManager
+        glossaryManager = GlossaryManagerStatic(this) as GlossaryManager
         httpManager = HTTPManagerStatic(this) as HTTPManager // work in progress
 
         // for phase 2. Let's not focus on notifications for now
