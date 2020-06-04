@@ -6,16 +6,16 @@ import com.project.mypantry.objects.IngredientInstance
 
 class PantryViewModel: ViewModel() {
 
-    lateinit var pantryList: MutableLiveData<List<IngredientInstance>>
+    lateinit var expired = MutableLiveData<Boolean>(false)
 
     lateinit var pantryListManager: PantryListManager
     lateinit var apiManager: HTTPManager
 
-//    fun init(pantryListManager: PantryListManager, apiManager: HTTPManager) {
-//        this.pantryListManager = pantryListManager
-//        pantryList = MutableLiveData<List<IngredientInstance>>(this.pantryListManager.pantry)
-//        this.apiManager = apiManager
-//    }
+    fun init(pantryListManager: PantryListManager, apiManager: HTTPManager) {
+        this.pantryListManager = pantryListManager
+        pantryList = MutableLiveData<List<IngredientInstance>>(this.pantryListManager.pantry)
+        this.apiManager = apiManager
+    }
 
-//    fun delete
+    fun delete
 }
