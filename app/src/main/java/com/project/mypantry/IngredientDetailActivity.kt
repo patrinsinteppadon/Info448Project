@@ -22,6 +22,7 @@ class IngredientDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ingredient_detail)
+        title = "Ingredient Detail"
 
         val glossaryManager = (applicationContext as PantryApp).glossaryManager
         val pantryListManager = (applicationContext as PantryApp).pantryManager
