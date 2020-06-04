@@ -19,8 +19,8 @@ class RecipeListFragment: Fragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let { args ->
-            val songsAll = args.getParcelableArrayList<Recipe>(RECIPEs_KEY)
-            if (songsAll != null) {
+            val recipesAll = args.getParcelableArrayList<Recipe>(RECIPEs_KEY)
+            if (recipesAll != null) {
                 this.recipesAll = recipesAll
             }
         }
@@ -28,13 +28,13 @@ class RecipeListFragment: Fragment() {
     }
 
 
-    private var onSongSelectedListener: OnSongSelectedListener? = null
+    private var onRecipeSelectedListener: OnRecipeSelectedListener? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is OnSongSelectedListener) {
-            onSongSelectedListener = context
+        if (context is OnRecipeSelectedListener) {
+            onRecipeSelectedListener = context
         }
     }
 
@@ -69,7 +69,7 @@ class RecipeListFragment: Fragment() {
             rvRecepList.adapter = recipeAdapter
 
             recipeAdapter.onRecipeClicked = { someRecipe: Recipe ->
-                onSongSelectedListener?.onSongSelected(someRecipe)
+                onRecipeSelectedListener?.onRecipeSelected(someRecipe)
 
 
 
@@ -95,6 +95,6 @@ class RecipeListFragment: Fragment() {
 
 }
 
-interface OnSongSelectedListener {
-    fun onSongSelected(recipe: Recipe)
+interface OnRecipeSelectedListener {
+    fun onRecipeSelected(recipe: Recipe)
 }
