@@ -11,4 +11,6 @@ interface GlossaryManager {
 
     // note that there's no "add" for our MVP. It creates too many logistics issues
     fun search(regex: String): List<IngredientType>
+
+    fun getIngredientType(id: Int): IngredientType?
 }

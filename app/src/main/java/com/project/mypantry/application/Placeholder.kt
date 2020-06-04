@@ -35,6 +35,10 @@ class Placeholder: PantryListManager, ShoppingListManager, RecipeListManager,
     override fun addToPantry(){}
     override var glossary: List<IngredientType> = emptyList()
     override fun search(regex: String): List<IngredientType> {return emptyList()}
+    override fun getIngredientType(id: Int): IngredientType? {
+        TODO("Not yet implemented")
+    }
+
     override fun stopWork(workID: Int){}
     override fun postItNote(){}
     override fun sort(){}

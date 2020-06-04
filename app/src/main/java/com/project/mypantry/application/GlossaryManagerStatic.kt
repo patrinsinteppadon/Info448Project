@@ -24,6 +24,16 @@ class GlossaryManagerStatic(context: Context):GlossaryManager
         }
     }
 
+    override fun getIngredientType(id: Int): IngredientType? {
+        for (i in glossary) {
+            if (i.id == id) {
+                return i
+            }
+        }
+
+        return null
+    }
+
     private fun getJsonDataFromAsset(context: Context, fileName: String): String? {
         val jsonString: String
         try {
