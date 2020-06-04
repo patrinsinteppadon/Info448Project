@@ -4,13 +4,14 @@ import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 
 interface PantryListManager {
-    var pantry: List<IngredientInstance>
+    var pantry: MutableList<IngredientInstance>
 
     fun add(ing: IngredientInstance)
-    fun delete(ing: IngredientInstance)
+    fun delete(instanceID: Int)
     fun updateInstance(instanceID: Int, ing: IngredientInstance)
     fun addToGroceries(ing: IngredientType)
     fun sort() // always sorts by expiration date
+    fun getPantryList(): List<IngredientInstance>
 
     // phase 2 functions: let's work on these later
     fun sendNotification(ing: IngredientType)

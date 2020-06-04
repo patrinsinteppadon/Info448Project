@@ -1,5 +1,4 @@
-{
-  "type": [
+[
     {
       "id": 1,
       "ingredientName": "Ground Beef",
@@ -46,4 +45,3 @@
       "ingredientImg": "imglink"
     }
   ]
-}

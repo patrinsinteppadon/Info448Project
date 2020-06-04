@@ -13,11 +13,12 @@ import com.project.mypantry.objects.Recipe
  */
 class Placeholder: PantryListManager, ShoppingListManager, RecipeListManager,
                     WorkManager, GlossaryManager, NotificationManager {
-    override var pantry: List<IngredientInstance> = emptyList()
+    override var pantry: MutableList<IngredientInstance> = mutableListOf()
     override fun add(ing: IngredientInstance){}
-    override fun delete(ing: IngredientInstance) {}
+    override fun delete(instanceID: Int) {}
     override fun updateInstance(instanceID: Int, ing: IngredientInstance) {}
     override fun addToGroceries(ing: IngredientType){}
+    override fun getPantryList(): MutableList<IngredientInstance> {return mutableListOf()}
     override fun sendNotification(ing: IngredientType){}
     override fun aboutToExpire(): List<IngredientInstance>{return emptyList()}
     override var recipes: List<Recipe> = emptyList()
@@ -34,6 +35,10 @@ class Placeholder: PantryListManager, ShoppingListManager, RecipeListManager,
     override fun addToPantry(){}
     override var glossary: List<IngredientType> = emptyList()
     override fun search(regex: String): List<IngredientType> {return emptyList()}
+    override fun getIngredientType(id: Int): IngredientType? {
+        TODO("Not yet implemented")
+    }
+
     override fun stopWork(workID: Int){}
     override fun postItNote(){}
     override fun sort(){}
