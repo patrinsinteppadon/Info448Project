@@ -50,7 +50,7 @@ class RecipeListFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        updateSongListViews()
+        updateRecipeListViews()
 
 
     }
@@ -58,7 +58,7 @@ class RecipeListFragment: Fragment() {
 
 
 
-    private fun updateSongListViews() {
+    private fun updateRecipeListViews() {
         recipesAll?.let {
 
             val recipesMutfromAct = it.toMutableList()
