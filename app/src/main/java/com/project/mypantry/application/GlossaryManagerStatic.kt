@@ -16,12 +16,11 @@ class GlossaryManagerStatic(context: Context):GlossaryManager
         val g = Gson()
         val listType = object : TypeToken<List<IngredientType>>() {}.type
         glossary = g.fromJson(jsonFileString, listType)
-        Log.i("Toww", glossary.toString())
     }
 
     override fun search(regex: String): List<IngredientType> {
         return glossary.filter {
-            it.ingredientName.contains(regex, false)
+            it.ingredientName.contains(regex, true)
         }
     }
 

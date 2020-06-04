@@ -24,11 +24,12 @@ class TowsMain : AppCompatActivity() {
 
 
         btn1.setOnClickListener {
-            pantryApp.pantryManager.add(IngredientInstance(Random.nextInt(), Random.nextInt(), 5, "LBS", Date()))
+            val matches = pantryApp.glossaryManager.search("gr")
+            Log.i("Towwie", matches.toString())
         }
 
         btn2.setOnClickListener {
-            Log.i("Tow", pantryApp.pantryManager.getPantryList().toString())
+            Log.i("Tow", pantryApp.glossaryManager.glossary.toString())
         }
     }
 }
