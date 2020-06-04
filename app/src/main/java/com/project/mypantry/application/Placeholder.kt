@@ -11,28 +11,30 @@ import com.project.mypantry.objects.Recipe
  * If you're designing the front end and need to use some of the managers, then replace Placeholder
  * with a dummy manager (e.g. PantryListManagerDummy) that returns hardcoded outputs for each function
  */
-class Placeholder {
-    var pantry: List<IngredientInstance> = emptyList()
-    fun add(ing: IngredientInstance){}
-    fun delete(ing: IngredientInstance) {}
-    fun updateInstance(instanceID: Int, ing: IngredientInstance) {}
-    fun addToGroceries(ing: IngredientType){}
-    fun sendNotification(ing: IngredientType){}
-    fun aboutToExpire(): List<IngredientInstance>{return emptyList()}
-    var recipes: List<Recipe> = emptyList()
-    fun add(recipe: Recipe){}
-    fun delete(recipe: Recipe){}
-    fun update(recipe: Recipe){}
-    fun canBeCreated(recipe: Recipe): Boolean {return false}
-    var shoppingList: List<IngredientType> = emptyList()
-    fun add(type: IngredientType){}
-    fun delete(type: IngredientType){}
-    fun edit(type: IngredientType){}
-    fun check(index: Int){}
-    fun clearList(){}
-    fun addToPantry(){}
-    var glossary: List<IngredientType> = emptyList()
-    fun search(regex: String): List<IngredientType> {return emptyList()}
-    fun stopWork(workID: Int){}
-    fun postItNote(){}
+class Placeholder: PantryListManager, ShoppingListManager, RecipeListManager,
+                    WorkManager, GlossaryManager, NotificationManager {
+    override var pantry: List<IngredientInstance> = emptyList()
+    override fun add(ing: IngredientInstance){}
+    override fun delete(ing: IngredientInstance) {}
+    override fun updateInstance(instanceID: Int, ing: IngredientInstance) {}
+    override fun addToGroceries(ing: IngredientType){}
+    override fun sendNotification(ing: IngredientType){}
+    override fun aboutToExpire(): List<IngredientInstance>{return emptyList()}
+    override var recipes: List<Recipe> = emptyList()
+    override fun add(recipe: Recipe){}
+    override fun delete(recipe: Recipe){}
+    override fun update(recipe: Recipe){}
+    override fun canBeCreated(recipe: Recipe): Boolean {return false}
+    override var shoppingList: List<IngredientType> = emptyList()
+    override fun add(type: IngredientType){}
+    override fun delete(type: IngredientType){}
+    override fun edit(type: IngredientType){}
+    override fun check(index: Int){}
+    override fun clearList(){}
+    override fun addToPantry(){}
+    override var glossary: List<IngredientType> = emptyList()
+    override fun search(regex: String): List<IngredientType> {return emptyList()}
+    override fun stopWork(workID: Int){}
+    override fun postItNote(){}
+    override fun sort(){}
 }
