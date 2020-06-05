@@ -21,7 +21,7 @@ class Placeholder: PantryListManager, ShoppingListManager, RecipeListManager,
     override fun getPantryList(): MutableList<IngredientInstance> {return mutableListOf()}
     override fun sendNotification(ing: IngredientType){}
     override fun aboutToExpire(): List<IngredientInstance>{return emptyList()}
-    override var recipes: List<Recipe> = emptyList()
+    override var recipes: MutableList<Recipe> = mutableListOf()
     override fun add(recipe: Recipe){}
     override fun delete(recipe: Recipe){}
     override fun update(recipe: Recipe){}
