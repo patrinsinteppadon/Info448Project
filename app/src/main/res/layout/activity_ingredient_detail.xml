@@ -91,6 +91,18 @@
         android:layout_margin="12dp"/>
 
     <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/colorWarning"
+        android:text="Delete"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/btnSave"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/btnExpirationDate"
         android:text="Expiration Date"
         android:layout_width="wrap_content"

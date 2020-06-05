@@ -12,6 +12,7 @@ interface PantryListManager {
     fun addToGroceries(ing: IngredientType)
     fun sort() // always sorts by expiration date
     fun getPantryList(): List<IngredientInstance>
+    fun getSize(): Int
 
     // phase 2 functions: let's work on these later
     fun sendNotification(ing: IngredientType)

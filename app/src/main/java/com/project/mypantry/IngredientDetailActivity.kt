@@ -15,6 +15,8 @@ import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.viewModels.IngredientDetailViewModel
 import kotlinx.android.synthetic.main.activity_ingredient_detail.*
+import java.sql.Time
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
 
@@ -45,11 +47,16 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
         // i.e. if its not a new item, we have an existing ingredient ID
         if (ingredientInstance != null) {
             ingredientType = glossaryManager.getIngredientType(ingredientInstance.ingredientID)
+
+            // setting input field and start date
             etAmount.setText(ingredientInstance.amount.toString(), TextView.BufferType.EDITABLE)
             etUnit.setText(ingredientInstance.unit, TextView.BufferType.EDITABLE)
             theDate = ingredientInstance.expiration
             btnExpirationDate.text = "EXP: ${theDate.toString()}"
 
+            // delete button
+
+            // save button
             // setting onclick listener to update pantry
             btnSave.setOnClickListener {
                 pantryListManager.updateInstance(ingredientInstance.instanceID, ingredientInstance)
@@ -60,11 +67,13 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
             // else we get ingredient
             ingredientType = intent.getParcelableExtra<IngredientType>(ING_TYPE_EXTRA)
 
-            // setting onclick listener for new in pantry
+            // save button
+            // setting onclick listener for saving new instance into pantry
             btnSave.setOnClickListener {
-                pantryListManager.add(IngredientInstance(123, ingredientType.id,
+                val instanceId = pantryListManager.getSize()
+                pantryListManager.add(IngredientInstance(instanceId, ingredientType.id,
                     etAmount.text.toString().toInt(),
-                    etUnit.text.toString(), LocalDate.of(2,1,2)))
+                    etUnit.text.toString(), theDate?: LocalDate.now()))
 
                 finish()
             }

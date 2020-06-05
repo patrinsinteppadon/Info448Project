@@ -37,7 +37,7 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        setDateListener?.onDateSelected(LocalDate.of(year, month, day))
+        setDateListener?.onDateSelected(LocalDate.of(year, month + 1, day))
     }
 }
 

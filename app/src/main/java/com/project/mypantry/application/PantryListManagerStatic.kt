@@ -37,13 +37,17 @@ class PantryListManagerStatic(private val context: Context) : PantryListManager 
         sort()
     }
 
+    override fun getSize(): Int {
+        return pantry.size
+    }
+
     override fun addToGroceries(ing: IngredientType) {
         (context as PantryApp).shoppingListManager.add(ing)
     }
 
     // sorts by expiration date
     override fun sort() {
-        pantry.sortByDescending { it.expiration}
+        pantry.sortBy { it.expiration}
     }
 
     override fun sendNotification(ing: IngredientType) {

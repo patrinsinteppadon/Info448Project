@@ -19,6 +19,10 @@ class Placeholder: PantryListManager, ShoppingListManager, RecipeListManager,
     override fun updateInstance(instanceID: Int, ing: IngredientInstance) {}
     override fun addToGroceries(ing: IngredientType){}
     override fun getPantryList(): MutableList<IngredientInstance> {return mutableListOf()}
+    override fun getSize(): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun sendNotification(ing: IngredientType){}
     override fun aboutToExpire(): List<IngredientInstance>{return emptyList()}
     override var recipes: List<Recipe> = emptyList()

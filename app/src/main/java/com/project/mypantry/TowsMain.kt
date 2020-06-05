@@ -35,9 +35,7 @@ class TowsMain : FragmentActivity() {
 
         btn1.setOnClickListener {
             val intent: Intent = Intent(this, IngredientDetailActivity::class.java).apply {
-                putExtra(ING_INST_EXTRA, IngredientInstance(0, 2, 15, "lbs",
-                LocalDate.now()
-                ))
+                putExtra(ING_TYPE_EXTRA, pantryApp.glossaryManager.getIngredientType(1))
             }
             startActivity(intent)
         }
