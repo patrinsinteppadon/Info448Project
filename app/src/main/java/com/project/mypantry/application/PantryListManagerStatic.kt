@@ -12,6 +12,7 @@ class PantryListManagerStatic(private val context: Context) : PantryListManager 
     override fun add(ing: IngredientInstance) {
         ing.instanceID = pantry.size
         pantry.add(ing)
+
         sort()
     }
 

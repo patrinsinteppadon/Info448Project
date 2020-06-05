@@ -6,17 +6,20 @@ import android.os.Bundle
 import android.text.Editable
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import com.project.mypantry.application.PantryApp
 import com.project.mypantry.fragments.DatePickerFragment
 import com.project.mypantry.fragments.SetDateListener
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
+import com.project.mypantry.viewModels.IngredientDetailViewModel
 import kotlinx.android.synthetic.main.activity_ingredient_detail.*
 import java.time.LocalDate
 import java.util.*
 
 class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
+
 
     companion object {
         const val ING_INST_EXTRA = "ifyoungmetrodonttrussu"
@@ -45,6 +48,7 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
             etAmount.setText(ingredientInstance.amount.toString(), TextView.BufferType.EDITABLE)
             etUnit.setText(ingredientInstance.unit, TextView.BufferType.EDITABLE)
             theDate = ingredientInstance.expiration
+            btnExpirationDate.text = "EXP: ${theDate.toString()}"
 
             // setting onclick listener to update pantry
             btnSave.setOnClickListener {
@@ -58,7 +62,7 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
             // setting onclick listener for new in pantry
             btnSave.setOnClickListener {
-                pantryListManager.add(IngredientInstance(pantryListManager.getPantryList().size, ingredientType.id,
+                pantryListManager.add(IngredientInstance(123, ingredientType.id,
                     etAmount.text.toString().toInt(),
                     etUnit.text.toString(), LocalDate.of(2,1,2)))
 
@@ -84,7 +88,7 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
     override fun onDateSelected(date: LocalDate) {
         theDate = date
-        btnExpirationDate.text = theDate.toString()
+        btnExpirationDate.text = "EXP: ${theDate.toString()}"
     }
 
 }
