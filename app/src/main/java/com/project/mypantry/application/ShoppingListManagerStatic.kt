@@ -8,7 +8,7 @@ class ShoppingListManagerStatic: ShoppingListManager {
 
     override fun add(type: IngredientType) {
         shoppingList.add(type)
-        checkMap.put(type.id, false)
+        checkMap[type.id] = false
     }
 
     /** feel free to change arg if "type" would be more convenient as an InstanceID */
@@ -27,9 +27,14 @@ class ShoppingListManagerStatic: ShoppingListManager {
 
     // toggles checkbox of shoppingList[index] in the recyclerview.
     override fun check(index: Int) {
-
+        checkMap[index] = !(checkMap[index] != null && checkMap[index] == true)
     }
-    override fun clearList() {}
 
-    override fun addToPantry() {}// phase 2. Let's work on this later
+    override fun clearList() {
+        shoppingList.clear()
+        checkMap.clear()
+    }
+
+    // phase 2. Let's work on this later
+    override fun addToPantry() {}
 }
