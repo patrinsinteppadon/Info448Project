@@ -12,6 +12,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".GlossarySearchActivity"> </activity>
         <activity android:name=".IngredientDetailActivity" />
+        <activity android:name=".RecipeDetailActivity" />
         <activity android:name=".TowsMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
