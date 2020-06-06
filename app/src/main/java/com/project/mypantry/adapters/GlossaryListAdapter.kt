@@ -11,7 +11,7 @@ import com.project.mypantry.R
 import com.project.mypantry.objects.IngredientType
 
 class GlossaryListAdapter(private val context: Context,
-private val glossary: List<IngredientType>) : BaseAdapter() {
+private var glossary: List<IngredientType>) : BaseAdapter() {
 
     private val inflater: LayoutInflater
             = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -34,6 +34,11 @@ private val glossary: List<IngredientType>) : BaseAdapter() {
 
     override fun getCount(): Int {
         return glossary.size
+    }
+
+    fun updateGlossaryList(newList: List<IngredientType>) {
+        glossary = newList
+        notifyDataSetChanged()
     }
 
 }

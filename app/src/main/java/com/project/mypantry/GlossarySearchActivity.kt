@@ -32,13 +32,16 @@ class GlossarySearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_glossary_search)
         title = "Pick an Ingredient"
 
+        // initialize app and adapter
         app = (applicationContext as PantryApp)
         val glossaryManager = app.glossaryManager
         adapter = GlossaryListAdapter(this, glossaryManager.glossary)
 
+        // mount adapter to listView
         listView = lvIngredientType
         listView.adapter = adapter
 
+        // set item click listeners for listView
         listView.setOnItemClickListener { _, _, _, id ->
             if (intent.getBooleanExtra(FOR_PANTRY, false)) {
                 val intent: Intent = Intent(this, IngredientDetailActivity::class.java).apply {
@@ -71,18 +74,27 @@ class GlossarySearchActivity : AppCompatActivity() {
 
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+//                if (query != null) {
+//                    adapter.updateGlossaryList(app.glossaryManager.search(query))
+//                }
                 searchView.clearFocus()
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
-                    Log.i("Toww", app.glossaryManager.search(newText).toString())
+                    adapter.updateGlossaryList(app.glossaryManager.search(newText))
                 }
                 return true
             }
 
         })
+
+        searchView.setOnCloseListener {
+            searchView.setQuery("", true)
+            searchView.clearFocus()
+            true
+        }
 
         return true
 

@@ -41,6 +41,15 @@ class PantryListManagerStatic(private val context: Context) : PantryListManager 
         return pantry.size
     }
 
+    override fun get(id: Int): IngredientInstance? {
+        for (i in pantry) {
+            if(i.instanceID == id) {
+                return i
+            }
+        }
+        return null
+    }
+
     override fun addToGroceries(ing: IngredientType) {
         (context as PantryApp).shoppingListManager.add(ing)
     }

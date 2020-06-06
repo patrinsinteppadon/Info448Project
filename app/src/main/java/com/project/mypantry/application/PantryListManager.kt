@@ -17,4 +17,5 @@ interface PantryListManager {
     // phase 2 functions: let's work on these later
     fun sendNotification(ing: IngredientType)
     fun aboutToExpire(): List<IngredientInstance>
+    fun get(id: Int): IngredientInstance?
 }
