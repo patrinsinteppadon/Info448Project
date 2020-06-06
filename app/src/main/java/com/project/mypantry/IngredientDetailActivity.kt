@@ -3,22 +3,16 @@ package com.project.mypantry
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.widget.EditText
+import android.view.View
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import com.project.mypantry.application.PantryApp
 import com.project.mypantry.fragments.DatePickerFragment
 import com.project.mypantry.fragments.SetDateListener
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
-import com.project.mypantry.viewModels.IngredientDetailViewModel
 import kotlinx.android.synthetic.main.activity_ingredient_detail.*
-import java.sql.Time
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.util.*
 
 class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
@@ -35,7 +29,9 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ingredient_detail)
+        // initial setups
         title = "Ingredient Detail"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val glossaryManager = (applicationContext as PantryApp).glossaryManager
         val pantryListManager = (applicationContext as PantryApp).pantryManager
@@ -52,13 +48,23 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
             etAmount.setText(ingredientInstance.amount.toString(), TextView.BufferType.EDITABLE)
             etUnit.setText(ingredientInstance.unit, TextView.BufferType.EDITABLE)
             theDate = ingredientInstance.expiration
+
             btnExpirationDate.text = "EXP: ${theDate.toString()}"
 
             // delete button
+            btnDelete.visibility = View.VISIBLE
+            btnDelete.setOnClickListener {
+                pantryListManager.delete(ingredientInstance.instanceID)
+                finish()
+            }
+
 
             // save button
             // setting onclick listener to update pantry
             btnSave.setOnClickListener {
+                ingredientInstance.amount = etAmount.text.toString().toInt()
+                ingredientInstance.unit = etUnit.text.toString()
+                ingredientInstance.expiration = theDate as LocalDate
                 pantryListManager.updateInstance(ingredientInstance.instanceID, ingredientInstance)
                 finish()
             }
@@ -99,5 +105,11 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
         theDate = date
         btnExpirationDate.text = "EXP: ${theDate.toString()}"
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
+    }
+
 
 }
