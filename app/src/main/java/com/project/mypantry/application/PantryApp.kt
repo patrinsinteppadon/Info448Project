@@ -17,14 +17,6 @@ class PantryApp: Application() {
     override fun onCreate() {
         super.onCreate()
         initManagers()
-
-        // recipe test code
-        var testIngredientType = IngredientType(1, "Ham", "ham_img")
-        var testIngredientList = listOf(testIngredientType)
-        var testRecipe = Recipe(111, "Ham sandwich", 0, testIngredientList)
-        recipeListManager.add(testRecipe)
-        recipeListManager.update(testRecipe.id, testRecipe)
-        Log.i("patrin", recipeListManager.recipes.toString())
     }
 
     /**
@@ -36,7 +28,7 @@ class PantryApp: Application() {
     private fun initManagers() {
         pantryManager = PantryListManagerStatic(this) as PantryListManager
         recipeListManager = RecipeListManagerStatic(this) as RecipeListManager
-        shoppingListManager = Placeholder() as ShoppingListManager
+        shoppingListManager = ShoppingListManagerStatic() as ShoppingListManager
         glossaryManager = GlossaryManagerStatic(this) as GlossaryManager
         httpManager = HTTPManagerStatic(this) as HTTPManager // work in progress
 
