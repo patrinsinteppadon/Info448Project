@@ -3,8 +3,10 @@ package com.project.mypantry
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.Menu
 import android.widget.Adapter
@@ -34,8 +36,7 @@ class GlossarySearchActivity : AppCompatActivity() {
 
         // initialize app and adapter
         app = (applicationContext as PantryApp)
-        val glossaryManager = app.glossaryManager
-        adapter = GlossaryListAdapter(this, glossaryManager.glossary)
+        adapter = GlossaryListAdapter(this, app.glossaryManager.glossary)
 
         // mount adapter to listView
         listView = lvIngredientType
@@ -43,17 +44,23 @@ class GlossarySearchActivity : AppCompatActivity() {
 
         // set item click listeners for listView
         listView.setOnItemClickListener { _, _, _, id ->
+            // if for pantry
             if (intent.getBooleanExtra(FOR_PANTRY, false)) {
                 val intent: Intent = Intent(this, IngredientDetailActivity::class.java).apply {
                     putExtra(
                         IngredientDetailActivity.ING_TYPE_EXTRA,
-                        glossaryManager.getIngredientType(id.toInt())
+                        app.glossaryManager.getIngredientType(id.toInt())
                     )
                 }
                 startActivity(intent)
                 finish()
-            } else {
-                Toast.makeText(this, "Adding to shopping list", Toast.LENGTH_SHORT).show()
+            } else { // if for shopping list
+                app.glossaryManager.getIngredientType((id.toInt()))?.let {
+                    app.shoppingListManager.add(
+                        it
+                    )
+                }
+                finish()
             }
         }
 
@@ -74,9 +81,6 @@ class GlossarySearchActivity : AppCompatActivity() {
 
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-//                if (query != null) {
-//                    adapter.updateGlossaryList(app.glossaryManager.search(query))
-//                }
                 searchView.clearFocus()
                 return true
             }
@@ -99,4 +103,5 @@ class GlossarySearchActivity : AppCompatActivity() {
         return true
 
     }
+
 }
