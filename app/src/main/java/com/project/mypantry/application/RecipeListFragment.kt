@@ -2,38 +2,46 @@ package com.project.mypantry.application
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.project.mypantry.OnRecipeClickListener
 import com.project.mypantry.R
 import com.project.mypantry.objects.Recipe
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
 
 class RecipeListFragment: Fragment() {
-    private var recipesAll: List<Recipe>? = null
-
+    private var recipesAll: MutableList<Recipe> = mutableListOf()
+    private var onRecipeSelectedListener: OnRecipeClickListener? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i("Click", "Going to Recipe")
 
-        arguments?.let { args ->
-            val recipesAll = args.getParcelableArrayList<Recipe>(RECIPEs_KEY)
-            if (recipesAll != null) {
-                this.recipesAll = recipesAll
-            }
-        }
+        // Making test data to see if the view works
+        var testRecipe = Recipe(1, "food", "@tools:sample/backgrounds/scenic", mutableListOf())
+        var testRecipe2 = Recipe(2, "food", "@tools:sample/backgrounds/scenic", mutableListOf())
+        var testRecipe3 = Recipe(3, "food", "@tools:sample/backgrounds/scenic", mutableListOf())
+        recipesAll.add(testRecipe)
+        recipesAll.add(testRecipe2)
+        recipesAll.add(testRecipe3)
+
+//        arguments?.let { args ->
+//            val recipesAll = args.getParcelableArrayList<Recipe>(RECIPEs_KEY)
+//            if (recipesAll != null) {
+//                this.recipesAll = recipesAll
+//            }
+//        }
 
     }
-
-
-    private var onRecipeSelectedListener: OnRecipeSelectedListener? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is OnRecipeSelectedListener) {
+        if (context is OnRecipeClickListener) {
             onRecipeSelectedListener = context
         }
     }
@@ -43,7 +51,7 @@ class RecipeListFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return layoutInflater.inflate(R.layout.frag_list_recip, container, false)
+        return layoutInflater.inflate(R.layout.fragment_recipe_list, container, false)
     }
 
 
@@ -63,16 +71,12 @@ class RecipeListFragment: Fragment() {
 
             val recipesMutfromAct = it.toMutableList()
 
-            val recipeAdapter =
-                RecipeListAdapter(recipesMutfromAct)
+            val recipeAdapter = RecipeListAdapter(recipesMutfromAct)
 
             rvRecipeList.adapter = recipeAdapter
 
             recipeAdapter.onRecipeClicked = { someRecipe: Recipe ->
-                onRecipeSelectedListener?.onRecipeSelected(someRecipe)
-
-
-
+                onRecipeSelectedListener?.onRecipeItemClicked(someRecipe)
             }
 
 
@@ -95,6 +99,6 @@ class RecipeListFragment: Fragment() {
 
 }
 
-interface OnRecipeSelectedListener {
-    fun onRecipeSelected(recipe: Recipe)
-}
+//interface OnRecipeSelectedListener {
+//    fun onRecipeSelected(recipe: Recipe)
+//}

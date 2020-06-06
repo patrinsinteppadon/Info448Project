@@ -11,8 +11,7 @@ import com.project.mypantry.objects.Recipe
  * If you're designing the front end and need to use some of the managers, then replace Placeholder
  * with a dummy manager (e.g. PantryListManagerDummy) that returns hardcoded outputs for each function
  */
-class Placeholder: PantryListManager, ShoppingListManager, RecipeListManager,
-                    WorkManager, GlossaryManager, NotificationManager {
+class Placeholder: PantryListManager, ShoppingListManager, RecipeListManager, GlossaryManager {
     override var pantry: MutableList<IngredientInstance> = mutableListOf()
     override fun add(ing: IngredientInstance){}
     override fun delete(instanceID: Int) {}
@@ -39,7 +38,6 @@ class Placeholder: PantryListManager, ShoppingListManager, RecipeListManager,
         TODO("Not yet implemented")
     }
 
-    override fun stopWork(workID: Int){}
-    override fun postItNote(){}
+
     override fun sort(){}
 }

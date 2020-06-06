@@ -7,8 +7,8 @@ class PantryApp: Application() {
     lateinit var recipeListManager: RecipeListManager
     lateinit var shoppingListManager: ShoppingListManager
     lateinit var glossaryManager: GlossaryManager
-    lateinit var workManager: WorkManager
-    lateinit var notificationManager: NotificationManager
+    lateinit var workManager: ExpireWorkManager
+    lateinit var notificationManager: MessageNotificationManager
     lateinit var httpManager: HTTPManager
 
     override fun onCreate() {
@@ -31,7 +31,7 @@ class PantryApp: Application() {
         httpManager = HTTPManagerStatic(this) as HTTPManager // work in progress
 
         // for phase 2. Let's not focus on notifications for now
-        workManager = Placeholder() as WorkManager
-        notificationManager = Placeholder() as NotificationManager
+        workManager = ExpireWorkManager(this)
+        notificationManager = MessageNotificationManager(this)
     }
 }

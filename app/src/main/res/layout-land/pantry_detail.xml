@@ -8,40 +8,41 @@
     android:layout_margin="16dp">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/recipeImg"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintBottom_toTopOf="@+id/recipeTitle"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@id/info_container"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editButton"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/recipeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Ingredient Name"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/recipeImg"
+        app:layout_constraintStart_toStartOf="@+id/recipeImg"
+        app:layout_constraintTop_toBottomOf="@+id/recipeImg"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/info_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/imageView2"
+        app:layout_constraintStart_toEndOf="@id/recipeImg"
         app:layout_constraintTop_toBottomOf="@+id/editButton">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/column1_container"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/column2_container"
@@ -110,7 +111,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/column2_container"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
