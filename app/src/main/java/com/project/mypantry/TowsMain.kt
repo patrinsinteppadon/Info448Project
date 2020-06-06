@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
+import com.project.mypantry.GlossarySearchActivity.Companion.FOR_PANTRY
 import com.project.mypantry.IngredientDetailActivity.Companion.ING_INST_EXTRA
 import com.project.mypantry.IngredientDetailActivity.Companion.ING_TYPE_EXTRA
 import com.project.mypantry.application.PantryApp
@@ -43,9 +44,8 @@ class TowsMain : FragmentActivity() {
         }
 
         btn3.setOnClickListener {
-            val intent: Intent = Intent(this, IngredientDetailActivity::class.java).apply {
-                putExtra(ING_TYPE_EXTRA, pantryApp.glossaryManager.getIngredientType(1))
-                //putExtra(ING_INST_EXTRA, IngredientInstance(0, 5, 12, "lbs", LocalDate.now()))
+            val intent: Intent = Intent(this, GlossarySearchActivity::class.java).apply {
+                putExtra(FOR_PANTRY, true)
             }
             startActivity(intent)
         }
