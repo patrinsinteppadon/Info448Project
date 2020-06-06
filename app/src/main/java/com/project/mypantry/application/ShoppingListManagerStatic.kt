@@ -1,12 +1,13 @@
 package com.project.mypantry.application
 
+import android.content.Context
 import com.project.mypantry.objects.IngredientType
 
 /**
  * to access whether an item in the list is currently checked, see the `checkMap` var.
  * This map tracks each Type id and its current checkState
  */
-class ShoppingListManagerStatic: ShoppingListManager {
+class ShoppingListManagerStatic(private val context: Context): ShoppingListManager {
     override var shoppingList: MutableList<IngredientType> = mutableListOf()
     var checkMap: MutableMap<Int, Boolean> = mutableMapOf() // false means checkbox = unchecked
 
