@@ -19,14 +19,21 @@ class ShoppingListManagerStatic(private val context: Context): ShoppingListManag
     /** feel free to change arg if "type" would be more convenient as an InstanceID */
     override fun delete(type: IngredientType) {
         shoppingList.remove(type)
+        checkMap.remove(type.id)
     }
 
 
-    override fun edit(id: Int, type: IngredientType) {
+    override fun update(type: IngredientType) {
+        var didUpdate = false
         for (i in 0 until shoppingList.size) {
-            if (shoppingList[i].id == id) {
+            if (shoppingList[i].id == type.id) {
                 shoppingList[i] = type
+                didUpdate = true
             }
+        }
+
+        if (!didUpdate) {
+            throw IllegalArgumentException("IngredientType ID: ${type.id} is not already in shoppingList")
         }
     }
 

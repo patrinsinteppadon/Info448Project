@@ -12,17 +12,28 @@ class RecipeListManagerStatic(private val context: Context): RecipeListManager {
     }
 
     /**
-     * Patrin made this. Feel free to change the argument type if it's more convenient to
+     * Feel free to change the argument type if it's more convenient to
      * delete based on recipeID
      */
     override fun delete(recipe: Recipe) {
         recipes.remove(recipe)
     }
-    override fun update(recipeID: Int, recipe: Recipe) {
+
+    /**
+     * checks if recipe's id is in the recipeList.
+     * If so, replaces that element with the argument.
+     */
+    override fun update(recipe: Recipe) {
+        var didUpdate = false
         for (i in 0 until recipes.size) {
-            if (recipes[i].id == recipeID) {
+            if (recipes[i].id == recipe.id) {
                 recipes[i] = recipe
+                didUpdate = true
             }
+        }
+
+        if (!didUpdate) {
+            throw IllegalArgumentException("Recipe ID number: ${recipe.id} is not already in recipeList")
         }
     }
 
