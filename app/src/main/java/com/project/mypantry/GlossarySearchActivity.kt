@@ -56,15 +56,11 @@ class GlossarySearchActivity : AppCompatActivity() {
                 finish()
             } else { // if for shopping list
                 app.glossaryManager.getIngredientType((id.toInt()))?.let {
-                    app.shoppingListManager.add(
-                        it
-                    )
+                    app.shoppingListManager.add(it)
                 }
                 finish()
             }
         }
-
-        // set up search bar
 
 
     }
