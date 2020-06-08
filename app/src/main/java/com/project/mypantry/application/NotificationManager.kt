@@ -23,7 +23,7 @@ class MessageNotificationManager(private val context: Context) {
         createNotificationChannel()
     }
 
-    fun notifyUser(daysTillExpire: Long, ingredientName: String) {
+    fun notifyUser(daysTillExpire: Long, ingredientName: String, instanceID: Int) {
         val intent = Intent(context, TowsMain::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -40,7 +40,7 @@ class MessageNotificationManager(private val context: Context) {
             .setAutoCancel(true)
             .build()
 
-        notificationManagerCompat.notify(Random.nextInt(), notification)
+        notificationManagerCompat.notify(instanceID, notification)
     }
 
     private fun createNotificationChannel() {

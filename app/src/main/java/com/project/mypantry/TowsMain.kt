@@ -37,18 +37,6 @@ class TowsMain : FragmentActivity() {
         pantryListManager = pantryApp.pantryManager
         workManager = pantryApp.workManager
 
-        pantryListManager.add(IngredientInstance(pantryListManager.getSize(), 1, 1, "lbs",
-            LocalDate.now().plusDays(6)))
-        pantryListManager.add(IngredientInstance(pantryListManager.getSize(), 2, 2, "lbs",
-            LocalDate.now().plusDays(5)))
-        pantryListManager.add(IngredientInstance(pantryListManager.getSize(), 3, 1, "lbs",
-            LocalDate.now().plusDays(4)))
-        pantryListManager.add(IngredientInstance(pantryListManager.getSize(), 4, 5, "lbs",
-            LocalDate.now().plusDays(3)))
-        pantryListManager.add(IngredientInstance(pantryListManager.getSize(), 5, 3, "lbs",
-            LocalDate.now().plusDays(2)))
-        pantryListManager.add(IngredientInstance(pantryListManager.getSize(), 6, 5, "lbs",
-            LocalDate.now().plusDays(1)))
 
         btn1.setOnClickListener {
             val intent: Intent = Intent(this, IngredientDetailActivity::class.java).apply {
