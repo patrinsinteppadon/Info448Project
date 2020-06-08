@@ -3,13 +3,16 @@ package com.project.mypantry
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.project.mypantry.application.PantryApp
 import com.project.mypantry.application.RecipeListFragment
+import com.project.mypantry.application.ShoppingListFragment
 import com.project.mypantry.objects.IngredientInstance
+import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.objects.Recipe
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), OnRecipeClickListener {
+class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnShoppingClickListener {
     lateinit var pantryApp: PantryApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +24,15 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener {
         recipeButton.setOnClickListener {
             onRecipeIconClick()
         }
+
+        // test code to mount ShoppingListFragment
+        val shoppingListFragment = ShoppingListFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragContainer, shoppingListFragment, ShoppingListFragment.TAG)
+            .addToBackStack(ShoppingListFragment.TAG) // include this for bigger fragments
+            .commit()
+//        this.emailDetailFragment = emailDetailFragment
     }
 
 //    private fun getPantryListFragment() = supportFragmentManager.findFragmentByTag(PantryListFragment.TAG)
@@ -83,6 +95,10 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener {
         startActivity(intent)
     }
 
+    override fun onShoppingItemClicked(ing: IngredientType) {
+        Log.i("patrin", "Item is now checked!")
+    }
+
 //    override fun onPantryItemClicked(ing: IngredientInstance) {
 //        val intent = Intent(this, PantryDetailActivity::class.java)
 //        intent.putExtra("SELECTED_ING", ing)
@@ -98,4 +114,7 @@ interface OnPantryClickListener {
     fun onPantryItemClicked(ing: IngredientInstance)
 }
 
+interface OnShoppingClickListener {
+    fun onShoppingItemClicked(ing: IngredientType)
+}
 
