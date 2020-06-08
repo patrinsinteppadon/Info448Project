@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.project.mypantry.OnRecipeClickListener
+import com.project.mypantry.OnShoppingClickListener
 import com.project.mypantry.R
 import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.objects.Recipe
@@ -20,7 +21,8 @@ import kotlinx.android.synthetic.main.fragment_recipe_list.*
 // copy of it), then we'd have access to an updated list
 class ShoppingListFragment: Fragment() {
     private var recipesAll: MutableList<Recipe> = mutableListOf()
-    private var onShoppingItemSelectedListener: OnRecipeClickListener? = null
+    private var groceriesAll: MutableList<IngredientType> = mutableListOf()
+    private var onShoppingItemSelectedListener: OnShoppingClickListener? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +40,9 @@ class ShoppingListFragment: Fragment() {
         var testItem = IngredientType(1000, "Ham", "@tools:sample/backgrounds/scenic")
         var testItem2 = IngredientType(2000, "Cheese", "@tools:sample/backgrounds/scenic")
         var testItem3 = IngredientType(3000, "Dairy", "@tools:sample/backgrounds/scenic")
+        groceriesAll.add(testItem)
+        groceriesAll.add(testItem2)
+        groceriesAll.add(testItem3)
 
 //        arguments?.let { args ->
 //            val recipesAll = args.getParcelableArrayList<Recipe>(RECIPEs_KEY)
@@ -53,7 +58,7 @@ class ShoppingListFragment: Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is OnRecipeClickListener) {
+        if (context is OnShoppingClickListener) {
             onShoppingItemSelectedListener = context
         }
     }
@@ -73,12 +78,12 @@ class ShoppingListFragment: Fragment() {
     }
 
     private fun updateListViews() {
-        recipesAll?.let {
+        groceriesAll?.let {
             val shoppingAdapter = ShoppingListAdapter(it)
             rvShoppingList.adapter = shoppingAdapter
 
-            shoppingAdapter.onRecipeClicked = { someRecipe: Recipe ->
-                onShoppingItemSelectedListener?.onRecipeItemClicked(someRecipe)
+            shoppingAdapter.onItemClicked = { someIngredient: IngredientType ->
+                onShoppingItemSelectedListener?.onShoppingItemClicked(someIngredient)
             }
         }
     }

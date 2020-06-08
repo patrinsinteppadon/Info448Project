@@ -17,18 +17,17 @@ import com.project.mypantry.objects.IngredientType
 
 import kotlinx.android.synthetic.main.item_recipe.*
 
-class ShoppingListAdapter(initialRecipes: List<Recipe>, initialGroceries: List<IngredientType>): RecyclerView.Adapter<ShoppingListAdapter.RecipeViewHolder>()  {
-    private var allrecipes: List<Recipe> = initialRecipes.toList()  // This is so we create a duplicate of the list passed in
+class ShoppingListAdapter(initialGroceries: List<IngredientType>): RecyclerView.Adapter<ShoppingListAdapter.RecipeViewHolder>()  {
     private var allgroceries: List<IngredientType> = initialGroceries.toList()  // This is so we create a duplicate of the list passed in
     var onItemClicked: ((item: IngredientType) -> Unit)? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recipe_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.grocery_item, parent, false)
         return RecipeViewHolder(view)
     }
 
-    override fun getItemCount() = allrecipes.size
+    override fun getItemCount() = allgroceries.size
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val allTheGroceries = allgroceries[position]
