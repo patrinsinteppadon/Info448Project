@@ -1,5 +1,6 @@
 package com.project.mypantry.viewModels
 
+<<<<<<< HEAD
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -11,6 +12,12 @@ import com.project.mypantry.application.PantryApp
 import com.project.mypantry.application.PantryListManager
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
+=======
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.project.mypantry.managers.GlossaryManager
+import com.project.mypantry.managers.PantryListManager
+>>>>>>> tomdev
 import java.time.LocalDate
 
 class IngredientDetailViewModel: ViewModel() {

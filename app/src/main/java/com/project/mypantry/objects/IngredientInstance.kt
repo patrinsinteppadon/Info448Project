@@ -8,6 +8,7 @@ import java.util.*
 @Parcelize
 data class IngredientInstance (
     var instanceID: Int,
+    var name: String,
     var ingredientID: Int, // maybe doesn't have to be Int
     var amount: Int,
     var unit: String,

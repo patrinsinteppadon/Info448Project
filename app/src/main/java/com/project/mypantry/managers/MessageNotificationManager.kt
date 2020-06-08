@@ -1,4 +1,4 @@
-package com.project.mypantry.application
+package com.project.mypantry.managers
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

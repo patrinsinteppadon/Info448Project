@@ -2,7 +2,6 @@ package com.project.mypantry
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -13,13 +12,8 @@ import com.project.mypantry.IngredientDetailActivity.Companion.ING_INST_EXTRA
 import com.project.mypantry.IngredientDetailActivity.Companion.ING_TYPE_EXTRA
 import com.project.mypantry.application.ExpireWorkManager
 import com.project.mypantry.application.PantryApp
-import com.project.mypantry.application.PantryListManager
-import com.project.mypantry.objects.IngredientInstance
-import com.project.mypantry.objects.IngredientType
+import com.project.mypantry.managers.PantryListManager
 import kotlinx.android.synthetic.main.activity_tows_main.*
-import java.time.LocalDate
-import java.util.*
-import kotlin.random.Random
 
 class TowsMain : FragmentActivity() {
     private lateinit var pantryApp: PantryApp

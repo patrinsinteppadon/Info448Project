@@ -42,7 +42,7 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
         val pantryListManager = (applicationContext as PantryApp).pantryManager
 
 
-        val ingredientInstance = intent.getParcelableExtra<IngredientInstance>(ING_INST_EXTRA)
+        val ingredientInstance = intent.getParcelableExtra<IngredientInstance>("SELECTED_ING")
         val ingredientType: IngredientType?
 
         // getting ingredient type
@@ -75,7 +75,6 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
         // set concrete values: Ingredient Name and Photo from ingredientType
         tvImagePlaceholder.text = ingredientType.ingredientImg
         tvIngredientType.text = ingredientType.ingredientName
-
 
         // observe amount, unit and expiration date
         ingredientDetailViewModel.theAmount.observe(this) {

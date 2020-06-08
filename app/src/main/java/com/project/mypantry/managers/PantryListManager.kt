@@ -1,4 +1,4 @@
-package com.project.mypantry.application
+package com.project.mypantry.managers
 
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType

@@ -1,10 +1,11 @@
-package com.project.mypantry.application
+package com.project.mypantry.managers
 
 import android.content.Context
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.Recipe
 
-class RecipeListManagerStatic(private val context: Context): RecipeListManager {
+class RecipeListManagerStatic(private val context: Context):
+    RecipeListManager {
     override var recipes: MutableList<Recipe> = mutableListOf()
 
     override fun add(recipe: Recipe) {
