@@ -3,23 +3,30 @@ package com.project.mypantry
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.project.mypantry.application.ApiManager
 import com.project.mypantry.application.PantryApp
 import com.project.mypantry.application.RecipeListFragment
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.Recipe
+import com.project.mypantry.objects.ResultsModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), OnRecipeClickListener {
     lateinit var pantryApp: PantryApp
+    private lateinit var apiManager: ApiManager
+    private val TAG = "pantryApp"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         pantryApp = application as PantryApp
+        apiManager = (application as PantryApp).apiManager
 
         recipeButton.setOnClickListener {
             onRecipeIconClick()
+            fetchRecipeWithRetroFit()
         }
     }
 
@@ -53,6 +60,18 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener {
         }
     }
 
+    private fun fetchRecipeWithRetroFit() {
+        apiManager.getListOfRecipe({ listrecipe ->
+            listrecipe.forEach {             Log.i(TAG, "List of recipes: " + it)
+            }
+        })
+
+    }
+
+
+
+
+
 //    private fun onGroceryIconClick() {
 //        var groceryListFragment = getGroceryListFragment()
 //        if (groceryListFragment == null) {
@@ -81,6 +100,7 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener {
         val intent = Intent(this, RecipeDetailActivity::class.java)
         intent.putExtra("SELECTED_RECIPE", recipe)
         startActivity(intent)
+
     }
 
 //    override fun onPantryItemClicked(ing: IngredientInstance) {

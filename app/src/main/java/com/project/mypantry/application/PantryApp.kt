@@ -1,11 +1,18 @@
 package com.project.mypantry.application
 
 import android.app.Application
-import android.util.Log
-import com.project.mypantry.objects.IngredientType
-import com.project.mypantry.objects.Recipe
+import com.project.mypantry.objects.ResultsModel
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.Query
 
 class PantryApp: Application() {
+    lateinit var apiManager: ApiManager
     lateinit var pantryManager: PantryListManager
     lateinit var recipeListManager: RecipeListManager
     lateinit var shoppingListManager: ShoppingListManager
@@ -13,11 +20,43 @@ class PantryApp: Application() {
     lateinit var workManager: ExpireWorkManager
     lateinit var notificationManager: MessageNotificationManager
     lateinit var httpManager: HTTPManager
+    private lateinit var recipeService: RecipeService
 
     override fun onCreate() {
         super.onCreate()
         initManagers()
+
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(logging)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
+//            .baseUrl("https://raw.githubusercontent.com")
+            .addConverterFactory(GsonConverterFactory.create()) // this will automatically apply Gson conversion :)
+            .client(client)
+            .build()
+        recipeService = retrofit.create(RecipeService::class.java)
+
+        // Load managers
+        apiManager = ApiManager(recipeService)
+
     }
+
+    interface RecipeService {
+        @Headers("x-rapidapi-host: spoonacular-recipe-food-nutrition-v1.p.rapidapi.com", "x-rapidapi-key: 6d0dc23c60msh9a34ddaa986f734p12fe5ajsn57b0f1b0f01b")
+        @GET("/recipes/findByIngredients")
+        fun allRecipes(
+            @Query("number") numRet: Int,
+            @Query("ranking") showRank: Int,
+            @Query("ignorePantry") pantryYN: Boolean,
+            @Query("ingredients") allIngred: String
+        ): Call<List<ResultsModel>>
+    }
+
 
     /**
      * As we implement each manager, we should replace the placeholders in PantryApp.
@@ -36,4 +75,6 @@ class PantryApp: Application() {
         workManager = ExpireWorkManager(this)
         notificationManager = MessageNotificationManager(this)
     }
+
+
 }

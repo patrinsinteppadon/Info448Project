@@ -16,6 +16,7 @@ import com.project.mypantry.objects.Recipe
  */
 class HTTPManagerStatic(private val context: Context): HTTPManager {
     override var responseAsObject: JsonResponse? = null
+
     companion object {
         const val PANTRY_JSON_URL = "NO URL YET"
         const val TAG = "MyPantry"

@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_recipe_list.*
 class RecipeListFragment: Fragment() {
     private var recipesAll: MutableList<Recipe> = mutableListOf()
     private var onRecipeSelectedListener: OnRecipeClickListener? = null
+    private lateinit var apiManager: ApiManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,8 @@ class RecipeListFragment: Fragment() {
         recipesAll.add(testRecipe2)
         recipesAll.add(testRecipe3)
 
+
+
 //        arguments?.let { args ->
 //            val recipesAll = args.getParcelableArrayList<Recipe>(RECIPEs_KEY)
 //            if (recipesAll != null) {
@@ -37,6 +40,8 @@ class RecipeListFragment: Fragment() {
 //        }
 
     }
+
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -60,11 +65,21 @@ class RecipeListFragment: Fragment() {
 
         updateRecipeListViews()
 
+        btnFetch.setOnClickListener {
+            fetchRecipeWithRetroFit()
+            Log.i(TAG, "update view 1")
+        }
 
     }
 
 
-
+    private fun fetchRecipeWithRetroFit() {
+        apiManager.getListOfRecipe({ listrecipe ->
+            val cont= listrecipe
+            Log.i(TAG, "List of recipe: " + cont)
+            Log.i(TAG, "Single recipe: " + cont[0])
+        })
+    }
 
     private fun updateRecipeListViews() {
         recipesAll?.let {
