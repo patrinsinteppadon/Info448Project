@@ -49,6 +49,5 @@ class ExpireWorkManager(context: Context) {
 
     fun stopAllWork() {
         workManager.cancelAllWorkByTag(WORKER_TAG)
-        val x = workManager.getWorkInfosByTag(WORKER_TAG)
     }
 }

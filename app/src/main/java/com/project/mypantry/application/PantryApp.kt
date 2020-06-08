@@ -42,29 +42,29 @@ class PantryApp: Application() {
         workManager = ExpireWorkManager(this)
         notificationManager = MessageNotificationManager(this)
 
-        pantryManager.add(
-            IngredientInstance(pantryManager.getSize(), 1, 1, "lbs",
-            LocalDate.now().plusDays(6))
-        )
-        pantryManager.add(
-            IngredientInstance(pantryManager.getSize(), 2, 2, "lbs",
-            LocalDate.now().plusDays(5))
-        )
-        pantryManager.add(
-            IngredientInstance(pantryManager.getSize(), 3, 1, "lbs",
-            LocalDate.now().plusDays(4))
-        )
-        pantryManager.add(
-            IngredientInstance(pantryManager.getSize(), 4, 5, "lbs",
-            LocalDate.now().plusDays(3))
-        )
-        pantryManager.add(
-            IngredientInstance(pantryManager.getSize(), 5, 3, "lbs",
-            LocalDate.now().plusDays(2))
-        )
-        pantryManager.add(
-            IngredientInstance(pantryManager.getSize(), 6, 5, "lbs",
-            LocalDate.now().plusDays(1))
-        )
+//        pantryManager.add(
+//            IngredientInstance(pantryManager.getSize(), 1, 1, "lbs",
+//            LocalDate.now().plusDays(6))
+//        )
+//        pantryManager.add(
+//            IngredientInstance(pantryManager.getSize(), 2, 2, "lbs",
+//            LocalDate.now().plusDays(5))
+//        )
+//        pantryManager.add(
+//            IngredientInstance(pantryManager.getSize(), 3, 1, "lbs",
+//            LocalDate.now().plusDays(4))
+//        )
+//        pantryManager.add(
+//            IngredientInstance(pantryManager.getSize(), 4, 5, "lbs",
+//            LocalDate.now().plusDays(3))
+//        )
+//        pantryManager.add(
+//            IngredientInstance(pantryManager.getSize(), 5, 3, "lbs",
+//            LocalDate.now().plusDays(2))
+//        )
+//        pantryManager.add(
+//            IngredientInstance(pantryManager.getSize(), 6, 5, "lbs",
+//            LocalDate.now().plusDays(1))
+//        )
     }
 }

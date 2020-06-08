@@ -18,13 +18,10 @@ class ExpireWorker(context: Context, workParams: WorkerParameters): Worker(conte
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun doWork(): Result {
-        val x = pantryManager.aboutToExpire()
-        for (ing in  x) {
+        for (ing in  pantryManager.aboutToExpire()) {
             notificationManager.notifyUser(Duration.between(LocalDate.now().atStartOfDay(), ing.expiration.atStartOfDay()).toDays(),
                 glossaryManager.getIngredientType(ing.ingredientID)?.ingredientName?:"", ing.ingredientID)
 
-//            Log.i("Tow", "Ingredient Name: ${glossaryManager.getIngredientType(ing.ingredientID)?.ingredientName}, " +
-//                    "${Duration.between(LocalDate.now().atStartOfDay(), ing.expiration.atStartOfDay()).toDays()} days")
         }
 
         return Result.success()
