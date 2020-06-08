@@ -2,6 +2,7 @@ package com.project.mypantry.application
 
 import android.app.Application
 import com.project.mypantry.objects.ResultsModel
+import com.project.mypantry.objects.pantryResultsMod
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -13,6 +14,8 @@ import retrofit2.http.Query
 
 class PantryApp: Application() {
     lateinit var apiManager: ApiManager
+    lateinit var apiManagerTwo: ApiManager
+
     lateinit var pantryManager: PantryListManager
     lateinit var recipeListManager: RecipeListManager
     lateinit var shoppingListManager: ShoppingListManager
@@ -21,6 +24,7 @@ class PantryApp: Application() {
     lateinit var notificationManager: MessageNotificationManager
     lateinit var httpManager: HTTPManager
     private lateinit var recipeService: RecipeService
+    private lateinit var recipeServiceTwo: RecipeService
 
     override fun onCreate() {
         super.onCreate()
@@ -39,10 +43,18 @@ class PantryApp: Application() {
             .addConverterFactory(GsonConverterFactory.create()) // this will automatically apply Gson conversion :)
             .client(client)
             .build()
-        recipeService = retrofit.create(RecipeService::class.java)
 
+        /////////////Build Second HTTP call here //////////
+        val retrofitCalltwo = Retrofit.Builder()
+            .baseUrl("https://raw.githubusercontent.com")
+            .addConverterFactory(GsonConverterFactory.create()) // this will automatically apply Gson conversion :)
+            .build()
+        //////////////////////////////////////////
+        recipeService = retrofit.create(RecipeService::class.java)
+        recipeServiceTwo = retrofitCalltwo.create(RecipeService::class.java)
         // Load managers
-        apiManager = ApiManager(recipeService)
+        apiManager = ApiManager(recipeService,recipeServiceTwo)
+        apiManagerTwo = ApiManager(recipeService,recipeServiceTwo)
 
     }
 
@@ -55,6 +67,9 @@ class PantryApp: Application() {
             @Query("ignorePantry") pantryYN: Boolean,
             @Query("ingredients") allIngred: String
         ): Call<List<ResultsModel>>
+
+        @GET("LiamAlbright/codesnippetspantry/master/Recipes.json")
+        fun allPantryRep (): Call<pantryResultsMod>
     }
 
 
