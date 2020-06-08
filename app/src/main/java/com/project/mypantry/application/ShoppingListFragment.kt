@@ -11,6 +11,7 @@ import com.project.mypantry.OnRecipeClickListener
 import com.project.mypantry.R
 import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.objects.Recipe
+import kotlinx.android.synthetic.main.fragment_grocery_list.*
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
 
 // TODO: Convert recipesAll into the list from shoppingListManager
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_recipe_list.*
 // copy of it), then we'd have access to an updated list
 class ShoppingListFragment: Fragment() {
     private var recipesAll: MutableList<Recipe> = mutableListOf()
-    private var onRecipeSelectedListener: OnRecipeClickListener? = null
+    private var onShoppingItemSelectedListener: OnRecipeClickListener? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +54,7 @@ class ShoppingListFragment: Fragment() {
         super.onAttach(context)
 
         if (context is OnRecipeClickListener) {
-            onRecipeSelectedListener = context
+            onShoppingItemSelectedListener = context
         }
     }
 
@@ -63,7 +64,7 @@ class ShoppingListFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return layoutInflater.inflate(R.layout.fragment_recipe_list, container, false)
+        return layoutInflater.inflate(R.layout.fragment_grocery_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,10 +75,10 @@ class ShoppingListFragment: Fragment() {
     private fun updateListViews() {
         recipesAll?.let {
             val shoppingAdapter = ShoppingListAdapter(it)
-            rvRecipeList.adapter = shoppingAdapter
+            rvShoppingList.adapter = shoppingAdapter
 
             shoppingAdapter.onRecipeClicked = { someRecipe: Recipe ->
-                onRecipeSelectedListener?.onRecipeItemClicked(someRecipe)
+                onShoppingItemSelectedListener?.onRecipeItemClicked(someRecipe)
             }
         }
     }
@@ -95,7 +96,3 @@ class ShoppingListFragment: Fragment() {
     }
 
 }
-
-//interface OnRecipeSelectedListener {
-//    fun onRecipeSelected(recipe: Recipe)
-//}
