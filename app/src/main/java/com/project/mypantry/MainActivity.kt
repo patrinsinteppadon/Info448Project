@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
     }
 
 
-    override fun onShoppingItemClicked(ing: IngredientType) {
+    override fun onShoppingItemClicked(ing: IngredientInstance) {
         Log.i("patrin", "Item is now checked!")
     }
 
@@ -122,6 +122,6 @@ interface OnPantryClickListener {
 }
 
 interface OnShoppingClickListener {
-    fun onShoppingItemClicked(ing: IngredientType)
+    fun onShoppingItemClicked(ing: IngredientInstance)
 }
 

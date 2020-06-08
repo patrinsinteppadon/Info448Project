@@ -1,23 +1,14 @@
 package com.project.mypantry.viewModels
 
-<<<<<<< HEAD
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.project.mypantry.application.GlossaryManager
-import com.project.mypantry.application.PantryApp
-import com.project.mypantry.application.PantryListManager
-import com.project.mypantry.objects.IngredientInstance
-import com.project.mypantry.objects.IngredientType
-=======
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.project.mypantry.managers.GlossaryManager
 import com.project.mypantry.managers.PantryListManager
->>>>>>> tomdev
+import com.project.mypantry.objects.IngredientInstance
+import com.project.mypantry.objects.IngredientType
 import java.time.LocalDate
 
 class IngredientDetailViewModel: ViewModel() {
@@ -80,10 +71,10 @@ class IngredientDetailViewModel: ViewModel() {
     fun save() {
         if (ingredientInstance != null) {
             ingredientInstance?.let{pantryListManager.updateInstance(it.instanceID,
-                IngredientInstance(it.instanceID, ingredientType.id, theAmount.value!!, theUnit.value!!, theDate.value!!))}
+                IngredientInstance(it.instanceID, "name", ingredientType.id, theAmount.value!!, theUnit.value!!, theDate.value!!))}
         } else {
             val instanceId = pantryListManager.getSize()
-            pantryListManager.add(IngredientInstance(instanceId, ingredientType.id,
+            pantryListManager.add(IngredientInstance(instanceId, "name", ingredientType.id,
                 theAmount.value!!, theUnit.value!!, theDate.value!!))
         }
     }

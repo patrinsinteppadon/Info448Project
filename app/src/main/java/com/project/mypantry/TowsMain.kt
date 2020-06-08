@@ -10,7 +10,7 @@ import androidx.work.WorkManager
 import com.project.mypantry.GlossarySearchActivity.Companion.FOR_PANTRY
 import com.project.mypantry.IngredientDetailActivity.Companion.ING_INST_EXTRA
 import com.project.mypantry.IngredientDetailActivity.Companion.ING_TYPE_EXTRA
-import com.project.mypantry.application.ExpireWorkManager
+import com.project.mypantry.managers.ExpireWorkManager
 import com.project.mypantry.application.PantryApp
 import com.project.mypantry.managers.PantryListManager
 import kotlinx.android.synthetic.main.activity_tows_main.*
@@ -60,6 +60,6 @@ class TowsMain : FragmentActivity() {
 
     override fun onStart() {
         super.onStart()
-        workManager.stopAllWork()
+        workManager.stopWork()
     }
 }

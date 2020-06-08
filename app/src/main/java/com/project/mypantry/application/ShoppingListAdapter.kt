@@ -12,40 +12,40 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.project.mypantry.objects.Recipe
 import com.project.mypantry.R
+import com.project.mypantry.objects.IngredientInstance
 
 import kotlinx.android.synthetic.main.item_recipe.*
 
-class ShoppingListAdapter(initialRecipes: List<Recipe>): RecyclerView.Adapter<ShoppingListAdapter.RecipeViewHolder>()  {
-    private var allrecipes: List<Recipe> = initialRecipes.toList()  // This is so we create a duplicate of the list passed in
-    var onRecipeClicked: ((recipe: Recipe) -> Unit)? = null
+class ShoppingListAdapter(initialGroceries: List<IngredientInstance>): RecyclerView.Adapter<ShoppingListAdapter.RecipeViewHolder>()  {
+    private var allGroc: List<IngredientInstance> = initialGroceries.toList()  // This is so we create a duplicate of the list passed in
+    var onGroceryClicked: ((ing: IngredientInstance) -> Unit)? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recipe_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.grocery_item, parent, false)
         return RecipeViewHolder(view)
     }
 
-    override fun getItemCount() = allrecipes.size
+    override fun getItemCount() = allGroc.size
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        val allTheRecipes = allrecipes[position]
-        holder.bind(allTheRecipes)
+        val ing = allGroc[position]
+        holder.bind(ing)
     }
 
     inner class RecipeViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val tvTitle = itemView.findViewById<TextView>(R.id.textView)
-        //private val tvDescip = itemView.findViewById<TextView>(R.id.recipeDesc)
-        private val ivCovers = itemView.findViewById<ImageView>(R.id.imageView)
+        private val tvTitle = itemView.findViewById<TextView>(R.id.name)
+        private val ivCovers = itemView.findViewById<ImageView>(R.id.ingPic)
 
-        fun bind(recipe: Recipe) {
-            tvTitle.text = recipe.name
+        fun bind(ing: IngredientInstance) {
+            tvTitle.text = ing.name
             //tvDescip.text = recipe.ingredients.toString()
             ivCovers.setImageResource(R.drawable.ic_launcher_background)
 //            val myUri = Uri.parse(recipe.smallImageURL)
 //            Picasso.get().load(myUri).into(ivCovers);
 
             itemView.setOnClickListener{
-                onRecipeClicked?.invoke(recipe)
+                onGroceryClicked?.invoke(ing)
             }
         }
 

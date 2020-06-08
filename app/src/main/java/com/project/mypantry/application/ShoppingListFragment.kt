@@ -1,38 +1,44 @@
 package com.project.mypantry.application
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.project.mypantry.OnRecipeClickListener
+import com.project.mypantry.OnShoppingClickListener
 import com.project.mypantry.R
+import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.objects.Recipe
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
+import java.time.LocalDate
 
 // TODO: Convert recipesAll into the list from shoppingListManager
 // maybe this fragment can initialize with shoppingListManager.shoppingList
 // as an argument? If that gives us the same instance of the list (rather than a
 // copy of it), then we'd have access to an updated list
 class ShoppingListFragment: Fragment() {
-    private var recipesAll: MutableList<Recipe> = mutableListOf()
-    private var onRecipeSelectedListener: OnRecipeClickListener? = null
+    private var groceriesAll: MutableList<IngredientInstance> = mutableListOf()
+    private var onGrocerySelectedListener: OnShoppingClickListener? = null
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i("patrin", "Check out this ShoppingList frag")
 
         // Making test data to see if the view works
-        var testRecipe = Recipe(1, "ham sandwich", "@tools:sample/backgrounds/scenic", mutableListOf())
-        var testRecipe2 = Recipe(2, "pizza", "@tools:sample/backgrounds/scenic", mutableListOf())
-        var testRecipe3 = Recipe(3, "hotdog", "@tools:sample/backgrounds/scenic", mutableListOf())
-        recipesAll.add(testRecipe)
-        recipesAll.add(testRecipe2)
-        recipesAll.add(testRecipe3)
+        var testIng = IngredientInstance(1, "Ground Beef",1, 20, "lbs", LocalDate.of(1999, 7, 4))
+        var testIng2 = IngredientInstance(2, "Onion",2, 20, "onions", LocalDate.of(1999, 7, 4))
+        var testIng3 = IngredientInstance(3, "Oregano",3, 20, "oz", LocalDate.of(1999, 7, 4))
+        groceriesAll.add(testIng)
+        groceriesAll.add(testIng2)
+        groceriesAll.add(testIng3)
 
         var testItem = IngredientType(1000, "Ham", "@tools:sample/backgrounds/scenic")
         var testItem2 = IngredientType(2000, "Cheese", "@tools:sample/backgrounds/scenic")
@@ -52,8 +58,8 @@ class ShoppingListFragment: Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is OnRecipeClickListener) {
-            onRecipeSelectedListener = context
+        if (context is OnShoppingClickListener) {
+            onGrocerySelectedListener = context
         }
     }
 
@@ -72,12 +78,12 @@ class ShoppingListFragment: Fragment() {
     }
 
     private fun updateListViews() {
-        recipesAll?.let {
+        groceriesAll?.let {
             val shoppingAdapter = ShoppingListAdapter(it)
             rvRecipeList.adapter = shoppingAdapter
 
-            shoppingAdapter.onRecipeClicked = { someRecipe: Recipe ->
-                onRecipeSelectedListener?.onRecipeItemClicked(someRecipe)
+            shoppingAdapter.onGroceryClicked = { ing: IngredientInstance ->
+                onGrocerySelectedListener?.onShoppingItemClicked(ing)
             }
         }
     }

@@ -1,12 +1,9 @@
 package com.project.mypantry.managers
 
 import android.content.Context
-<<<<<<< HEAD:app/src/main/java/com/project/mypantry/application/PantryListManagerStatic.kt
 import android.os.Build
 import androidx.annotation.RequiresApi
-=======
 import com.project.mypantry.application.PantryApp
->>>>>>> tomdev:app/src/main/java/com/project/mypantry/managers/PantryListManagerStatic.kt
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import java.time.LocalDate
