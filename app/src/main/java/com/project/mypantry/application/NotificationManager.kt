@@ -10,6 +10,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.project.mypantry.MainActivity
 import com.project.mypantry.R
+import com.project.mypantry.TowsMain
 import kotlin.random.Random
 
 /**
@@ -22,8 +23,8 @@ class MessageNotificationManager(private val context: Context) {
         createNotificationChannel()
     }
 
-    fun notifyUser() {
-        val intent = Intent(context, MainActivity::class.java).apply {
+    fun notifyUser(daysTillExpire: Long, ingredientName: String, instanceID: Int) {
+        val intent = Intent(context, TowsMain::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
@@ -31,15 +32,15 @@ class MessageNotificationManager(private val context: Context) {
 
         val notification = NotificationCompat.Builder(context, "MESSAGE_CHANNEL_ID")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("Don't Pick Up")
-            .setContentText("Food in your pantry is about to expire!")
+            .setContentTitle("Food expiring soon")
+            .setContentText("$ingredientName expiring in $daysTillExpire days")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .build()
 
-        notificationManagerCompat.notify(Random.nextInt(), notification)
+        notificationManagerCompat.notify(instanceID, notification)
     }
 
     private fun createNotificationChannel() {
