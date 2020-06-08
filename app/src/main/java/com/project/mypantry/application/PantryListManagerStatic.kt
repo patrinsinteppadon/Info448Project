@@ -1,8 +1,11 @@
 package com.project.mypantry.application
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
+import java.time.LocalDate
 
 
 class PantryListManagerStatic(private val context: Context) : PantryListManager {
@@ -63,7 +66,14 @@ class PantryListManagerStatic(private val context: Context) : PantryListManager 
         TODO("Not yet implemented")
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun aboutToExpire(): List<IngredientInstance> {
-        TODO("Not yet implemented")
+        val result = mutableListOf<IngredientInstance>()
+        for (ing in pantry) {
+            if (ing.expiration < LocalDate.now().plusDays(4)) {
+                result.add(ing)
+            }
+        }
+        return result.toList()
     }
 }
