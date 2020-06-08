@@ -1,11 +1,9 @@
 package com.project.mypantry.viewModels
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.project.mypantry.application.GlossaryManager
-import com.project.mypantry.application.PantryApp
-import com.project.mypantry.application.PantryListManager
+import com.project.mypantry.managers.GlossaryManager
+import com.project.mypantry.managers.PantryListManager
 import java.time.LocalDate
 
 class IngredientDetailViewModel: ViewModel() {

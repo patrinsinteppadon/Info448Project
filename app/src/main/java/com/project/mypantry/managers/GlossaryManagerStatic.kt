@@ -1,13 +1,13 @@
-package com.project.mypantry.application
+package com.project.mypantry.managers
 
 import android.content.Context
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.project.mypantry.objects.IngredientType
 import java.io.IOException
 
-class GlossaryManagerStatic(context: Context):GlossaryManager
+class GlossaryManagerStatic(context: Context):
+    GlossaryManager
 {
     override lateinit var glossary: List<IngredientType>
 

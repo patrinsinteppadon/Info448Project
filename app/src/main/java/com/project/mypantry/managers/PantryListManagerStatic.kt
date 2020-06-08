@@ -1,11 +1,13 @@
-package com.project.mypantry.application
+package com.project.mypantry.managers
 
 import android.content.Context
+import com.project.mypantry.application.PantryApp
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 
 
-class PantryListManagerStatic(private val context: Context) : PantryListManager {
+class PantryListManagerStatic(private val context: Context) :
+    PantryListManager {
 
     override var pantry: MutableList<IngredientInstance> = mutableListOf()
 

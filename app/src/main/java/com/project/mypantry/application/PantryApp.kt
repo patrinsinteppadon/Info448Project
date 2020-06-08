@@ -1,9 +1,11 @@
 package com.project.mypantry.application
 
+import android.app.Activity
 import android.app.Application
+import android.os.Bundle
 import android.util.Log
-import com.project.mypantry.objects.IngredientType
-import com.project.mypantry.objects.Recipe
+import com.project.mypantry.managers.*
+import java.lang.ref.WeakReference
 
 class PantryApp: Application() {
     lateinit var pantryManager: PantryListManager
@@ -17,6 +19,7 @@ class PantryApp: Application() {
     override fun onCreate() {
         super.onCreate()
         initManagers()
+        registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
     }
 
     /**
@@ -26,14 +29,53 @@ class PantryApp: Application() {
      * with a dummy manager (e.g. PantryListManagerDummy) that returns hardcoded outputs for each function
      */
     private fun initManagers() {
-        pantryManager = PantryListManagerStatic(this) as PantryListManager
-        recipeListManager = RecipeListManagerStatic(this) as RecipeListManager
-        shoppingListManager = ShoppingListManagerStatic(this) as ShoppingListManager
-        glossaryManager = GlossaryManagerStatic(this) as GlossaryManager
+        pantryManager = PantryListManagerStatic(
+            this
+        ) as PantryListManager
+        recipeListManager = RecipeListManagerStatic(
+            this
+        ) as RecipeListManager
+        shoppingListManager = ShoppingListManagerStatic(
+            this
+        ) as ShoppingListManager
+        glossaryManager = GlossaryManagerStatic(
+            this
+        ) as GlossaryManager
         httpManager = HTTPManagerStatic(this) as HTTPManager // work in progress
 
         // for phase 2. Let's not focus on notifications for now
         workManager = ExpireWorkManager(this)
-        notificationManager = MessageNotificationManager(this)
+        notificationManager =
+            MessageNotificationManager(this)
+    }
+
+    private val activityLifecycleCallbacks = object: ActivityLifecycleCallbacks {
+        private var activityReferences = 0
+        private var isActivityConfigurationChanging = false
+        private var weakActivity = WeakReference<Activity?>(null)
+        var isAppForegrounded = false
+
+        override fun onActivityPaused(activity: Activity) {}
+        override fun onActivityStarted(activity: Activity) {
+            if (++activityReferences == 1 && !isActivityConfigurationChanging) {
+                // app enters foreground
+                isAppForegrounded = true
+                workManager.stopWork()
+            }
+            weakActivity = WeakReference(activity)
+        }
+        override fun onActivityDestroyed(activity: Activity) {}
+        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+        override fun onActivityStopped(activity: Activity) {
+            isActivityConfigurationChanging = activity.isChangingConfigurations
+            if (--activityReferences == 0 && !isActivityConfigurationChanging) {
+                // App enters background
+                isAppForegrounded = false
+                workManager.startWork()
+            }
+            weakActivity.clear()
+        }
+        override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
+        override fun onActivityResumed(activity: Activity) {}
     }
 }

@@ -1,4 +1,4 @@
-package com.project.mypantry.application
+package com.project.mypantry.managers
 
 import android.content.Context
 import android.util.Log
@@ -14,7 +14,8 @@ import com.project.mypantry.objects.Recipe
  * Used to request *static JSON* data, for the sake
  * of building a minimum product.
  */
-class HTTPManagerStatic(private val context: Context): HTTPManager {
+class HTTPManagerStatic(private val context: Context):
+    HTTPManager {
     override var responseAsObject: JsonResponse? = null
     companion object {
         const val PANTRY_JSON_URL = "NO URL YET"
@@ -24,7 +25,8 @@ class HTTPManagerStatic(private val context: Context): HTTPManager {
     override fun downloadLists() {
         val queue = Volley.newRequestQueue(context)
         val request = StringRequest(
-            Request.Method.GET, PANTRY_JSON_URL,
+            Request.Method.GET,
+            PANTRY_JSON_URL,
             { response -> // success
                 responseAsObject = Gson().fromJson(response, JsonResponse::class.java)
                 // TODO: How can I send the results of responseAsObject to the other managers?

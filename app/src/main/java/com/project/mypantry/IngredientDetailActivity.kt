@@ -37,7 +37,7 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
         val pantryListManager = (applicationContext as PantryApp).pantryManager
 
 
-        val ingredientInstance = intent.getParcelableExtra<IngredientInstance>(ING_INST_EXTRA)
+        val ingredientInstance = intent.getParcelableExtra<IngredientInstance>("SELECTED_ING")
         val ingredientType: IngredientType?
 
         // i.e. if its not a new item, we have an existing ingredient ID
@@ -71,13 +71,13 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
         } else {
             // else we get ingredient
-            ingredientType = intent.getParcelableExtra<IngredientType>(ING_TYPE_EXTRA)
+            ingredientType = intent.getParcelableExtra<IngredientType>("TEST_TYPE")
 
             // save button
             // setting onclick listener for saving new instance into pantry
             btnSave.setOnClickListener {
                 val instanceId = pantryListManager.getSize()
-                pantryListManager.add(IngredientInstance(instanceId, ingredientType.id,
+                pantryListManager.add(IngredientInstance(instanceId, "name", ingredientType.id,
                     etAmount.text.toString().toInt(),
                     etUnit.text.toString(), theDate?: LocalDate.now()))
 

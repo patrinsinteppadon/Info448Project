@@ -1,4 +1,4 @@
-package com.project.mypantry.application
+package com.project.mypantry.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.project.mypantry.OnRecipeClickListener
 import com.project.mypantry.R
+import com.project.mypantry.application.RecipeListAdapter
 import com.project.mypantry.objects.Recipe
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
 
@@ -71,7 +72,10 @@ class RecipeListFragment: Fragment() {
 
             val recipesMutfromAct = it.toMutableList()
 
-            val recipeAdapter = RecipeListAdapter(recipesMutfromAct)
+            val recipeAdapter =
+                RecipeListAdapter(
+                    recipesMutfromAct
+                )
 
             rvRecipeList.adapter = recipeAdapter
 

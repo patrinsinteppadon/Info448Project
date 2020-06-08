@@ -1,9 +1,11 @@
-package com.project.mypantry.application
+package com.project.mypantry.managers
 
 import android.content.Context
 import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.project.mypantry.application.ExpireWorker
 import java.util.concurrent.TimeUnit
 
 /**
@@ -21,6 +23,10 @@ class ExpireWorkManager(context: Context) {
             .setConstraints(constraints)
             .build()
 
-        workManager.enqueue(workRequest)
+        workManager.enqueueUniquePeriodicWork("StartNotifications", ExistingPeriodicWorkPolicy.KEEP, workRequest)
+    }
+
+    fun stopWork() {
+        workManager.cancelAllWork()
     }
 }
