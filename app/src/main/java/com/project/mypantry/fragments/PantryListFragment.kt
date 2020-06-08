@@ -11,13 +11,14 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.project.mypantry.OnPantryClickListener
 import com.project.mypantry.R
+import com.project.mypantry.application.PantryApp
 import com.project.mypantry.application.PantryListAdapter
 import com.project.mypantry.managers.PantryListManager
 import com.project.mypantry.objects.IngredientInstance
 import kotlinx.android.synthetic.main.fragment_pantry_list.*
 
 class PantryListFragment(context: Context): Fragment() {
-        private var ingAll: MutableList<IngredientInstance> = (context as PantryListManager).getPantryList().toMutableList()
+        private var ingAll: MutableList<IngredientInstance> = (context as PantryApp).pantryManager.getPantryList().toMutableList()
         private var onPantryClickedListener: OnPantryClickListener? = null
 
 
