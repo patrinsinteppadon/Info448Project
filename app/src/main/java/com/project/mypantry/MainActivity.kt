@@ -24,15 +24,6 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnShoppingClick
         recipeButton.setOnClickListener {
             onRecipeIconClick()
         }
-
-        // test code to mount ShoppingListFragment
-        val shoppingListFragment = ShoppingListFragment()
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fragContainer, shoppingListFragment, ShoppingListFragment.TAG)
-            .addToBackStack(ShoppingListFragment.TAG) // include this for bigger fragments
-            .commit()
-//        this.emailDetailFragment = emailDetailFragment
     }
 
 //    private fun getPantryListFragment() = supportFragmentManager.findFragmentByTag(PantryListFragment.TAG)
