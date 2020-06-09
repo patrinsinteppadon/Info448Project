@@ -1,4 +1,4 @@
-package com.project.mypantry
+package com.project.mypantry.activity
 
 import android.content.Intent
 import android.os.Build
@@ -6,10 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
-import androidx.work.WorkManager
-import com.project.mypantry.GlossarySearchActivity.Companion.FOR_PANTRY
-import com.project.mypantry.IngredientDetailActivity.Companion.ING_INST_EXTRA
-import com.project.mypantry.IngredientDetailActivity.Companion.ING_TYPE_EXTRA
+import com.project.mypantry.R
+import com.project.mypantry.activity.GlossarySearchActivity.Companion.FOR_PANTRY
+import com.project.mypantry.activity.IngredientDetailActivity.Companion.ING_INST_EXTRA
 import com.project.mypantry.managers.ExpireWorkManager
 import com.project.mypantry.application.PantryApp
 import com.project.mypantry.managers.PantryListManager

@@ -1,11 +1,12 @@
-package com.project.mypantry
+package com.project.mypantry.activity
 
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.project.mypantry.GlossarySearchActivity.Companion.FOR_PANTRY
+import com.project.mypantry.activity.GlossarySearchActivity.Companion.FOR_PANTRY
+import com.project.mypantry.R
 import com.project.mypantry.application.PantryApp
 import com.project.mypantry.fragments.ShoppingListFragment
 import com.project.mypantry.fragments.PantryListFragment
@@ -15,7 +16,10 @@ import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.objects.Recipe
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickListener, OnShoppingClickListener {
+class MainActivity : AppCompatActivity(),
+    OnRecipeClickListener,
+    OnPantryClickListener,
+    OnShoppingClickListener {
     lateinit var pantryApp: PantryApp
     private var pantryListFrag: PantryListFragment? = null
 

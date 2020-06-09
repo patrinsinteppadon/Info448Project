@@ -8,10 +8,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.project.mypantry.MainActivity
 import com.project.mypantry.R
-import com.project.mypantry.TowsMain
-import kotlin.random.Random
+import com.project.mypantry.activity.TowsMain
 
 /**
  * Phase 2: Let's worry about notifications and stuff later

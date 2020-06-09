@@ -1,4 +1,4 @@
-package com.project.mypantry
+package com.project.mypantry.activity
 
 import android.app.Activity
 import android.os.Build
@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.observe
+import com.project.mypantry.R
 import com.project.mypantry.application.PantryApp
 import com.project.mypantry.fragments.DatePickerFragment
 import com.project.mypantry.fragments.SetDateListener

@@ -1,4 +1,4 @@
-package com.project.mypantry.application
+package com.project.mypantry.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.mypantry.R
+import com.project.mypantry.application.PantryApp
 import com.project.mypantry.objects.IngredientInstance
 
 class PantryListAdapter(

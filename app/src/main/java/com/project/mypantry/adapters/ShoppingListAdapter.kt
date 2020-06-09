@@ -7,12 +7,11 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.project.mypantry.IngredientDetailActivity
+import com.project.mypantry.activity.IngredientDetailActivity
 import com.project.mypantry.R
 import com.project.mypantry.managers.ShoppingListManager
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
-
 class ShoppingListAdapter(private val shoppingManager: ShoppingListManager): RecyclerView.Adapter<ShoppingListAdapter.RecipeViewHolder>()  {
     var onGroceryClicked: ((ing: IngredientType) -> Unit)? = null
 

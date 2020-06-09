@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.project.mypantry.OnPantryClickListener
+import com.project.mypantry.activity.OnPantryClickListener
 import com.project.mypantry.R
 import com.project.mypantry.application.PantryApp
-import com.project.mypantry.application.PantryListAdapter
+import com.project.mypantry.adapters.PantryListAdapter
 import com.project.mypantry.objects.IngredientInstance
 import kotlinx.android.synthetic.main.fragment_pantry_list.*
 
@@ -26,7 +26,6 @@ class PantryListFragment(): Fragment() {
         @RequiresApi(Build.VERSION_CODES.O)
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-
         }
 
         override fun onAttach(context: Context) {

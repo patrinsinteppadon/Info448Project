@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.project.mypantry.OnShoppingClickListener
+import com.project.mypantry.activity.OnShoppingClickListener
 import com.project.mypantry.R
 import com.project.mypantry.adapters.ShoppingListAdapter
 import com.project.mypantry.application.PantryApp

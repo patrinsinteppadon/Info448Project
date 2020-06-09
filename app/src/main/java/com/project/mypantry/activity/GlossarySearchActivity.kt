@@ -1,23 +1,17 @@
-package com.project.mypantry
+package com.project.mypantry.activity
 
 import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.view.Menu
-import android.widget.Adapter
-import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import com.project.mypantry.R
 import com.project.mypantry.adapters.GlossaryListAdapter
 import com.project.mypantry.application.PantryApp
-import com.project.mypantry.objects.IngredientType
 import kotlinx.android.synthetic.main.activity_glossary_search.*
 
 class GlossarySearchActivity : AppCompatActivity() {

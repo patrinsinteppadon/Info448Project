@@ -2,7 +2,6 @@
   "instance": [
     {
       "instanceID": 1,
-      "name": "Ground Beef",
       "ingredientID": 1,
       "amount": 2,
       "unit": "lbs",
@@ -10,7 +9,6 @@
     },
     {
       "instanceID": 2,
-      "name": "Tomato Sauce",
       "ingredientID": 5,
       "amount": 24,
       "unit": "oz",
@@ -18,7 +16,6 @@
     },
     {
       "instanceID": 3,
-      "name": "Oregano",
       "ingredientID": 6,
       "amount": 0.75,
       "unit": "oz",
@@ -26,7 +23,6 @@
     },
     {
       "instanceID": 4,
-      "name": "Garlic",
       "ingredientID": 3,
       "amount": 20,
       "unit": "cloves",
