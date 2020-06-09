@@ -33,9 +33,9 @@ class ShoppingListFragment: Fragment() {
         Log.i("patrin", "Check out this ShoppingList frag")
 
         // Making test data to see if the view works
-        var testIng = IngredientInstance(1, "Ground Beef",1, 20, "lbs", LocalDate.of(1999, 7, 4))
-        var testIng2 = IngredientInstance(2, "Onion",2, 20, "onions", LocalDate.of(1999, 7, 4))
-        var testIng3 = IngredientInstance(3, "Oregano",3, 20, "oz", LocalDate.of(1999, 7, 4))
+        var testIng = IngredientInstance(1,1, 20, "lbs", LocalDate.of(1999, 7, 4))
+        var testIng2 = IngredientInstance(2,2, 20, "onions", LocalDate.of(1999, 7, 4))
+        var testIng3 = IngredientInstance(3,3, 20, "oz", LocalDate.of(1999, 7, 4))
         groceriesAll.add(testIng)
         groceriesAll.add(testIng2)
         groceriesAll.add(testIng3)

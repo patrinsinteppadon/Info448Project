@@ -38,7 +38,7 @@ class ShoppingListAdapter(initialGroceries: List<IngredientInstance>): RecyclerV
         private val ivCovers = itemView.findViewById<ImageView>(R.id.ingPic)
 
         fun bind(ing: IngredientInstance) {
-            tvTitle.text = ing.name
+            tvTitle.text = "need to change"
             //tvDescip.text = recipe.ingredients.toString()
             ivCovers.setImageResource(R.drawable.ic_launcher_background)
 //            val myUri = Uri.parse(recipe.smallImageURL)
