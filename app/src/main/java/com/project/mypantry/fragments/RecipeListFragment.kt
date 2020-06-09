@@ -1,6 +1,7 @@
 package com.project.mypantry.fragments
 
 import android.content.Context
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,27 +22,12 @@ class RecipeListFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i("Click", "Going to Recipe")
-
-        // Making test data to see if the view works
-//        var testRecipe = Recipe(1, "food", "@tools:sample/backgrounds/scenic", mutableListOf())
-//        var testRecipe2 = Recipe(2, "food", "@tools:sample/backgrounds/scenic", mutableListOf())
-//        var testRecipe3 = Recipe(3, "food", "@tools:sample/backgrounds/scenic", mutableListOf())
-//        recipesAll.add(testRecipe)
-//        recipesAll.add(testRecipe2)
-//        recipesAll.add(testRecipe3)
-
-//        arguments?.let { args ->
-//            val recipesAll = args.getParcelableArrayList<Recipe>(RECIPEs_KEY)
-//            if (recipesAll != null) {
-//                this.recipesAll = recipesAll
-//            }
-//        }
 
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
 
         recipesAll = (context.applicationContext as PantryApp).recipeListManager.recipes
 
@@ -64,7 +50,9 @@ class RecipeListFragment: Fragment() {
 
         updateRecipeListViews()
 
-
+        // DEMO CODE ==========================
+        rvRecipeList.visibility = View.GONE
+        tvComingSoon.visibility = View.VISIBLE
     }
 
 

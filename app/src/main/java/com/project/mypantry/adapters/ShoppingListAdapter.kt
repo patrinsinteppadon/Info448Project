@@ -15,7 +15,8 @@ import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import com.squareup.picasso.Picasso
 
-class ShoppingListAdapter(private val shoppingManager: ShoppingListManager): RecyclerView.Adapter<ShoppingListAdapter.RecipeViewHolder>()  {
+class ShoppingListAdapter(private val shoppingManager: ShoppingListManager, private val context: Context):
+    RecyclerView.Adapter<ShoppingListAdapter.RecipeViewHolder>()  {
     var onGroceryClicked: ((ing: IngredientType) -> Unit)? = null
     private var shoppingList: List<IngredientType> = shoppingManager.shoppingList
 
@@ -45,9 +46,8 @@ class ShoppingListAdapter(private val shoppingManager: ShoppingListManager): Rec
             tvTitle.text = ing.ingredientName
             cbGrocery.isChecked = shoppingManager.isChecked(ing.id)
 
-//            ivCovers.setImageResource(R.drawable.ic_launcher_background)
-
-            Picasso.get().load(ing.ingredientImg)
+            var localImgLink = context.resources.getIdentifier(ing.ingredientImg, "drawable", context.packageName)
+            Picasso.get().load(localImgLink)
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(ivCovers);
 

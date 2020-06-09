@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity(),
         title = "My Pantry"
         pantryListFrag = getPantryListFragment()
         clearButton.visibility = View.GONE
+        addButton.visibility = View.VISIBLE
         if (pantryListFrag == null) {
             pantryListFrag = PantryListFragment()
             supportFragmentManager.popBackStack()
@@ -91,6 +92,9 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun onRecipeIconClick() {
+        title = "Recipes"
+        clearButton.visibility = View.GONE
+        addButton.visibility = View.GONE
         var recipeListFragment = getRecipeListFragment()
         if (recipeListFragment == null) {
             recipeListFragment =
@@ -106,6 +110,7 @@ class MainActivity : AppCompatActivity(),
     private fun onGroceryIconClick() {
         title = "Shopping List"
         clearButton.visibility = View.VISIBLE
+        addButton.visibility = View.VISIBLE
         shoppingListFrag = getGroceryListFragment()
         if (shoppingListFrag == null) {
             shoppingListFrag = ShoppingListFragment()

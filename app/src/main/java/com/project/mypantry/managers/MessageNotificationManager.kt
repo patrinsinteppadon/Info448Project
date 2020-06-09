@@ -9,6 +9,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.project.mypantry.R
+import com.project.mypantry.activity.MainActivity
 import com.project.mypantry.activity.TowsMain
 
 /**
@@ -22,7 +23,7 @@ class MessageNotificationManager(private val context: Context) {
     }
 
     fun notifyUser(daysTillExpire: Long, ingredientName: String, instanceID: Int) {
-        val intent = Intent(context, TowsMain::class.java).apply {
+        val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
