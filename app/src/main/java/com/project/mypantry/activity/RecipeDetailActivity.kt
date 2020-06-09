@@ -28,7 +28,7 @@ class RecipeDetailActivity: AppCompatActivity() {
             recipeImg.setImageResource(R.drawable.beforeyougo)
 //            val image: ImageView = findViewById(R.id.recipeImg)
 //            Picasso.get().load("https://picsum.photos/seed/Can%27tTouchThis/50").into(image)
-            ingredList.adapter = RecipeIngredientListAdapter((application as PantryApp), recipe.ingredients)
+            ingredList.adapter = RecipeIngredientListAdapter((application as PantryApp), recipe)
         }
     }
 

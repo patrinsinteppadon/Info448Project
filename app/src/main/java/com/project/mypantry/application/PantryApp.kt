@@ -79,7 +79,9 @@ class PantryApp: Application() {
             IngredientInstance(pantryManager.getSize(),  6, 5, "lbs",
             LocalDate.now().plusDays(1))
         )
-        recipeListManager.add(Recipe(1, "Recipe", "imglink", listOf(IngredientType(1, "ingredient name", "imglink"))))
+        val map = HashMap<Int, Int>()
+        map[1] = 20
+        recipeListManager.add(Recipe(1, "Recipe", "imglink", listOf(IngredientType(1, "Beef", "imglink")), map))
     }
 
     private val activityLifecycleCallbacks = object: ActivityLifecycleCallbacks {

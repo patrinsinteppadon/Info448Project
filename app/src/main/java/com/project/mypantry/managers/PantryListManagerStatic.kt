@@ -65,6 +65,16 @@ class PantryListManagerStatic(private val context: Context) :
         pantry.sortBy { it.expiration}
     }
 
+    override fun getCount(ing: IngredientType): Int {
+        var count = 0
+        for (i in pantry) {
+            if(i.ingredientID == ing.id) {
+                count += i.amount
+            }
+        }
+        return count
+    }
+
     override fun sendNotification(ing: IngredientType) {
         TODO("Not yet implemented")
     }
