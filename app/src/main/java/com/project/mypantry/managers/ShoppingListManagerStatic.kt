@@ -13,7 +13,7 @@ class ShoppingListManagerStatic(private val context: Context):
     var checkMap: MutableMap<Int, Boolean> = mutableMapOf() // false means checkbox = unchecked
 
     init {
-        // Making test data to see if the view works
+        // Making test data to see if shoppingListFragment works
         var testType = IngredientType(1000, "Ham", "PLACEHOLDER_IMG")
         var testType1 = IngredientType(2000, "Eggs", "PLACEHOLDER_IMG")
         var testType2 = IngredientType(3000, "Milk", "PLACEHOLDER_IMG")
@@ -22,6 +22,8 @@ class ShoppingListManagerStatic(private val context: Context):
         add(testType1)
         add(testType2)
         add(testType3)
+        check(testType.id)
+        check(testType2.id)
     }
 
     override fun add(type: IngredientType) {
