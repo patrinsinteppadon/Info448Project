@@ -12,9 +12,11 @@ import androidx.fragment.app.Fragment
 import com.project.mypantry.OnRecipeClickListener
 import com.project.mypantry.OnShoppingClickListener
 import com.project.mypantry.R
+import com.project.mypantry.managers.ShoppingListManager
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.objects.Recipe
+import kotlinx.android.synthetic.main.fragment_grocery_list.*
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
 import java.time.LocalDate
 
@@ -23,7 +25,8 @@ import java.time.LocalDate
 // as an argument? If that gives us the same instance of the list (rather than a
 // copy of it), then we'd have access to an updated list
 class ShoppingListFragment: Fragment() {
-    private var groceriesAll: MutableList<IngredientInstance> = mutableListOf()
+    private var shoppingManager: ShoppingListManager? = null
+    private var groceriesAll: MutableList<IngredientType> = mutableListOf()
     private var onGrocerySelectedListener: OnShoppingClickListener? = null
 
 
@@ -36,13 +39,9 @@ class ShoppingListFragment: Fragment() {
         var testIng = IngredientInstance(1,1, 20, "lbs", LocalDate.of(1999, 7, 4))
         var testIng2 = IngredientInstance(2,2, 20, "onions", LocalDate.of(1999, 7, 4))
         var testIng3 = IngredientInstance(3,3, 20, "oz", LocalDate.of(1999, 7, 4))
-        groceriesAll.add(testIng)
-        groceriesAll.add(testIng2)
-        groceriesAll.add(testIng3)
-
-        var testItem = IngredientType(1000, "Ham", "@tools:sample/backgrounds/scenic")
-        var testItem2 = IngredientType(2000, "Cheese", "@tools:sample/backgrounds/scenic")
-        var testItem3 = IngredientType(3000, "Dairy", "@tools:sample/backgrounds/scenic")
+//        groceriesAll.add(testIng)
+//        groceriesAll.add(testIng2)
+//        groceriesAll.add(testIng3)
 
 //        arguments?.let { args ->
 //            val recipesAll = args.getParcelableArrayList<Recipe>(RECIPEs_KEY)
@@ -53,10 +52,12 @@ class ShoppingListFragment: Fragment() {
 
     }
 
-    //TODO: make MainActivity an interface called OnShoppingListClickListener
-    // this will implement an onClickListener for this fragment. I think?
+    //TODO: make sure that `shoppingManager` gets a reference to shoppingListManager as intended
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+        // reference to shoppingListManager here
+        shoppingManager = (context.applicationContext as PantryApp).shoppingListManager
 
         if (context is OnShoppingClickListener) {
             onGrocerySelectedListener = context
@@ -69,7 +70,7 @@ class ShoppingListFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return layoutInflater.inflate(R.layout.fragment_recipe_list, container, false)
+        return layoutInflater.inflate(R.layout.fragment_grocery_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,9 +81,9 @@ class ShoppingListFragment: Fragment() {
     private fun updateListViews() {
         groceriesAll?.let {
             val shoppingAdapter = ShoppingListAdapter(it)
-            rvRecipeList.adapter = shoppingAdapter
+            rvShoppingList.adapter = shoppingAdapter
 
-            shoppingAdapter.onGroceryClicked = { ing: IngredientInstance ->
+            shoppingAdapter.onGroceryClicked = { ing: IngredientType ->
                 onGrocerySelectedListener?.onShoppingItemClicked(ing)
             }
         }
@@ -101,7 +102,3 @@ class ShoppingListFragment: Fragment() {
     }
 
 }
-
-//interface OnRecipeSelectedListener {
-//    fun onRecipeSelected(recipe: Recipe)
-//}
