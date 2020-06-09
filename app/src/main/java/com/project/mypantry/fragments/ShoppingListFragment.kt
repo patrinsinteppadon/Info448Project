@@ -22,7 +22,8 @@ import kotlinx.android.synthetic.main.fragment_grocery_list.*
 // copy of it), then we'd have access to an updated listq
 class ShoppingListFragment: Fragment() {
     private lateinit var shoppingManager: ShoppingListManager
-    private var groceriesAll: MutableList<IngredientType> = mutableListOf()
+    lateinit var adapter: ShoppingListAdapter
+    //private var groceriesAll: MutableList<IngredientType> = mutableListOf()
     private var onGrocerySelectedListener: OnShoppingClickListener? = null
 
 
@@ -54,21 +55,23 @@ class ShoppingListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateListViews()
+        setAdapter()
     }
 
-    private fun updateListViews() {
-        groceriesAll?.let {
-            val shoppingAdapter =
-                ShoppingListAdapter(shoppingManager)
-            rvShoppingList.adapter = shoppingAdapter
+    private fun setAdapter() {
+        adapter = ShoppingListAdapter(shoppingManager)
+
+        rvShoppingList.adapter = adapter
 
 //            shoppingAdapter.updateChecks(shoppingManager) // gives shoppingListManager to the adapter
-            shoppingAdapter.onGroceryClicked = { ing: IngredientType ->
-                onGrocerySelectedListener?.onShoppingItemClicked(ing)
-            }
-
+        adapter.onGroceryClicked = { ing: IngredientType ->
+            onGrocerySelectedListener?.onShoppingItemClicked(ing)
         }
+
+    }
+
+    fun updateAdapter() {
+        adapter.update(shoppingManager.shoppingList)
     }
 
     companion object {

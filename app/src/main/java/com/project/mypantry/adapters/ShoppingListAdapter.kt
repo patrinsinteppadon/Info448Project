@@ -14,20 +14,22 @@ import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 class ShoppingListAdapter(private val shoppingManager: ShoppingListManager): RecyclerView.Adapter<ShoppingListAdapter.RecipeViewHolder>()  {
     var onGroceryClicked: ((ing: IngredientType) -> Unit)? = null
+    private var shoppingList: List<IngredientType> = shoppingManager.shoppingList
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.grocery_item, parent, false)
         return RecipeViewHolder(view)
     }
 
-    override fun getItemCount() = shoppingManager.shoppingList.size
+    override fun getItemCount() = shoppingList.size
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        val ing = shoppingManager.shoppingList[position]
+        val ing = shoppingList[position]
         holder.bind(ing)
     }
 
-    fun update() {
+    fun update(newList: List<IngredientType>) {
+        shoppingList = newList
         notifyDataSetChanged()
     }
 
