@@ -72,7 +72,6 @@ class ShoppingListFragment: Fragment() {
     }
 
     companion object {
-        // Keys for intents
         val TAG: String = ShoppingListFragment::class.java.simpleName
         const val RECIPEs_KEY = "RECIPEs_KEY"
     }
