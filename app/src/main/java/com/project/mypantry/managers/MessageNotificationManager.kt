@@ -22,7 +22,7 @@ class MessageNotificationManager(private val context: Context) {
         createNotificationChannel()
     }
 
-    fun notifyUser(daysTillExpire: Long, ingredientName: String, instanceID: Int) {
+    fun notifyUser() {
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -30,16 +30,17 @@ class MessageNotificationManager(private val context: Context) {
         val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val notification = NotificationCompat.Builder(context, "MESSAGE_CHANNEL_ID")
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("Food expiring soon")
-            .setContentText("$ingredientName expiring in $daysTillExpire days")
+            .setSmallIcon(R.drawable.ic_outline_fastfood_24)
+            .setContentTitle("Smart Pantry")
+            .setContentText("Food in your pantry is expiring in less than 3 days")
+          //  .setContentText("$ingredientName expiring in $daysTillExpire days")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .build()
 
-        notificationManagerCompat.notify(instanceID, notification)
+        notificationManagerCompat.notify(123, notification)
     }
 
     private fun createNotificationChannel() {

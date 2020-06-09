@@ -13,16 +13,15 @@ import java.time.temporal.TemporalAmount
 class ExpireWorker(context: Context, workParams: WorkerParameters): Worker(context, workParams) {
     private val notificationManager = (context as PantryApp).notificationManager
     private val pantryManager = (context as PantryApp).pantryManager
-    private val glossaryManager = (context as PantryApp).glossaryManager
+    //private val glossaryManager = (context as PantryApp).glossaryManager
 
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun doWork(): Result {
-        for (ing in  pantryManager.aboutToExpire()) {
-            notificationManager.notifyUser(Duration.between(LocalDate.now().atStartOfDay(), ing.expiration.atStartOfDay()).toDays(),
-                glossaryManager.getIngredientType(ing.ingredientID)?.ingredientName?:"", ing.ingredientID)
-
+        if (pantryManager.aboutToExpire().isNotEmpty()) {
+            notificationManager.notifyUser()
         }
+
 
         return Result.success()
     }
