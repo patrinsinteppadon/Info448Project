@@ -120,6 +120,9 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
     // TODO: Along with this, will probably need to include a listener for when the checkbox was clicked
     override fun onShoppingItemClicked(ing: IngredientType) {
         Log.i("patrin", "Item has been clicked!")
+        val intent = Intent(this, IngredientDetailActivity::class.java)
+        intent.putExtra(IngredientDetailActivity.ING_TYPE_EXTRA, ing)
+        startActivityForResult(intent, 123)
     }
 
     override fun onPantryItemClicked(ing: IngredientInstance) {

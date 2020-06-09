@@ -1,4 +1,5 @@
 package com.project.mypantry.adapters
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -6,6 +7,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.project.mypantry.IngredientDetailActivity
 import com.project.mypantry.R
 import com.project.mypantry.managers.ShoppingListManager
 import com.project.mypantry.objects.IngredientInstance
@@ -43,6 +45,8 @@ class ShoppingListAdapter(private val shoppingManager: ShoppingListManager): Rec
 
             itemView.setOnClickListener{
                 onGroceryClicked?.invoke(ing)
+
+
             }
 
             cbGrocery.setOnClickListener {

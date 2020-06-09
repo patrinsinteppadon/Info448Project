@@ -1,6 +1,7 @@
 package com.project.mypantry.managers
 
 import android.content.Context
+import android.util.Log
 import com.project.mypantry.objects.IngredientType
 
 /**
@@ -29,6 +30,7 @@ class ShoppingListManagerStatic(private val context: Context):
     override fun add(type: IngredientType) {
         shoppingList.add(type)
         checkMap[type.id] = false
+        Log.i("patrin", "added an item yeet")
     }
 
     /** feel free to change arg if "type" would be more convenient as an InstanceID */
