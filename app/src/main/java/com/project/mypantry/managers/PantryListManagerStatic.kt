@@ -25,6 +25,7 @@ class PantryListManagerStatic(private val context: Context) :
         for (i in 0 until pantry.size) {
             if (pantry[i].instanceID == instanceID) {
                 pantry.removeAt(i)
+                return
             }
         }
     }

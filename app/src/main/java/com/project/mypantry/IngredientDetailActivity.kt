@@ -1,5 +1,6 @@
 package com.project.mypantry
 
+import android.app.Activity
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -52,7 +53,7 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
             btnDelete.visibility = View.VISIBLE
             btnDelete.setOnClickListener {
                 ingredientDetailViewModel.delete()
-                finish()
+                saveChange()
             }
         } else {
             ingredientType = intent.getParcelableExtra<IngredientType>(ING_TYPE_EXTRA)
@@ -121,7 +122,7 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
         btnSave.setOnClickListener {
             ingredientDetailViewModel.save()
-            finish()
+            saveChange()
         }
 
         ibAddAmount.setOnClickListener{
@@ -132,8 +133,14 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
             ingredientDetailViewModel.subtractAmount()
         }
 
-
     }
+
+    private fun saveChange(){
+        setResult(Activity.RESULT_OK)
+        finish()
+    }
+
+
 
     override fun onDateSelected(date: LocalDate) {
         ingredientDetailViewModel.changeDate(date)
