@@ -12,6 +12,8 @@ import com.project.mypantry.R
 import com.project.mypantry.managers.ShoppingListManager
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
+import com.squareup.picasso.Picasso
+
 class ShoppingListAdapter(private val shoppingManager: ShoppingListManager): RecyclerView.Adapter<ShoppingListAdapter.RecipeViewHolder>()  {
     var onGroceryClicked: ((ing: IngredientType) -> Unit)? = null
     private var shoppingList: List<IngredientType> = shoppingManager.shoppingList
@@ -41,9 +43,9 @@ class ShoppingListAdapter(private val shoppingManager: ShoppingListManager): Rec
         fun bind(ing: IngredientType) {
             tvTitle.text = ing.ingredientName
             cbGrocery.isChecked = shoppingManager.isChecked(ing.id)
-//            ivCovers.setImageResource(ing.ingredientImg)
-            ivCovers.setImageResource(R.drawable.ic_launcher_background)
 
+            ivCovers.setImageResource(R.drawable.ic_launcher_background)
+            Picasso.get().load("https://spoonacular.com/cdn/ingredients_100x100/fresh-ground-beef.jpg").into(ivCovers);
             itemView.setOnClickListener{
                 onGroceryClicked?.invoke(ing)
 

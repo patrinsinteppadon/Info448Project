@@ -49,7 +49,6 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:2.3.4"
     implementation "com.squareup.picasso:picasso:2.71828"
 
-
     //added dependenceies
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation 'com.ericchee:songdataprovider:1.0.5'

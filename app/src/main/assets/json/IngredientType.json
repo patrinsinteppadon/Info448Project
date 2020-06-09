@@ -2,46 +2,46 @@
     {
       "id": 1,
       "ingredientName": "Ground Beef",
-      "ingredientImg": "imglink"
+      "ingredientImg": "basil"
     },
     {
       "id": 2,
       "ingredientName": "Onion",
-      "ingredientImg": "imglink"
+      "ingredientImg": "@drawable/onion"
     },
     {
       "id": 3,
       "ingredientName": "Garlic",
-      "ingredientImg": "imglink"
+      "ingredientImg": "@drawable/garlic"
     },
     {
       "id": 4,
       "ingredientName": "Green Bell Pepper",
-      "ingredientImg": "imglink"
+      "ingredientImg": "@drawable/greenpepper"
     },
     {
       "id": 5,
       "ingredientName": "Tomato Sauce",
-      "ingredientImg": "imglink"
+      "ingredientImg": "@drawable/groundbeef"
     },
     {
       "id": 6,
       "ingredientName": "Oregano",
-      "ingredientImg": "imglink"
+      "ingredientImg": "@drawable/oregano"
     },
     {
       "id": 7,
       "ingredientName": "Basil",
-      "ingredientImg": "imglink"
+      "ingredientImg": "@drawable/basil"
     },
     {
       "id": 8,
       "ingredientName": "Salt",
-      "ingredientImg": "imglink"
+      "ingredientImg": "@drawable/salt"
     },
     {
       "id": 9,
       "ingredientName": "Black Pepper",
-      "ingredientImg": "imglink"
+      "ingredientImg": "@drawable/pepper"
     }
   ]
