@@ -1,4 +1,5 @@
 package com.project.mypantry.adapters
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -44,11 +45,14 @@ class ShoppingListAdapter(private val shoppingManager: ShoppingListManager): Rec
             tvTitle.text = ing.ingredientName
             cbGrocery.isChecked = shoppingManager.isChecked(ing.id)
 
-            ivCovers.setImageResource(R.drawable.ic_launcher_background)
-            Picasso.get().load("https://spoonacular.com/cdn/ingredients_100x100/fresh-ground-beef.jpg").into(ivCovers);
+//            ivCovers.setImageResource(R.drawable.ic_launcher_background)
+
+            Picasso.get().load(ing.ingredientImg)
+                .placeholder(R.drawable.ic_launcher_background)
+                .into(ivCovers);
+
             itemView.setOnClickListener{
                 onGroceryClicked?.invoke(ing)
-
 
             }
 

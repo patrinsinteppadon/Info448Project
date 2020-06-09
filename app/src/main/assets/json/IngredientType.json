@@ -2,46 +2,46 @@
     {
       "id": 1,
       "ingredientName": "Ground Beef",
-      "ingredientImg": "basil"
+      "ingredientImg": "https://spoonacular.com/cdn/ingredients_100x100/fresh-ground-beef.jpg"
     },
     {
       "id": 2,
       "ingredientName": "Onion",
-      "ingredientImg": "@drawable/onion"
+      "ingredientImg": "https://spoonacular.com/cdn/ingredients_100x100/brown-onion.png"
     },
     {
       "id": 3,
       "ingredientName": "Garlic",
-      "ingredientImg": "@drawable/garlic"
+      "ingredientImg": "https://spoonacular.com/cdn/ingredients_100x100/garlic.png"
     },
     {
       "id": 4,
       "ingredientName": "Green Bell Pepper",
-      "ingredientImg": "@drawable/greenpepper"
+      "ingredientImg": "https://spoonacular.com/cdn/ingredients_100x100/green-pepper.jpg"
     },
     {
       "id": 5,
       "ingredientName": "Tomato Sauce",
-      "ingredientImg": "@drawable/groundbeef"
+      "ingredientImg": "https://spoonacular.com/cdn/ingredients_100x100/tomato-sauce-or-pasta-sauce.jpg"
     },
     {
       "id": 6,
       "ingredientName": "Oregano",
-      "ingredientImg": "@drawable/oregano"
+      "ingredientImg": "https://spoonacular.com/cdn/ingredients_100x100/oregano.jpg"
     },
     {
       "id": 7,
       "ingredientName": "Basil",
-      "ingredientImg": "@drawable/basil"
+      "ingredientImg": "https://spoonacular.com/cdn/ingredients_100x100/oregano.jpg"
     },
     {
       "id": 8,
       "ingredientName": "Salt",
-      "ingredientImg": "@drawable/salt"
+      "ingredientImg": "https://spoonacular.com/cdn/ingredients_100x100/salt.jpg"
     },
     {
       "id": 9,
       "ingredientName": "Black Pepper",
-      "ingredientImg": "@drawable/pepper"
+      "ingredientImg": "https://spoonacular.com/cdn/ingredients_100x100/pepper.jpg"
     }
   ]
