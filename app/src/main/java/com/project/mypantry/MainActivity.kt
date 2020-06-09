@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.project.mypantry.application.PantryApp
+import com.project.mypantry.application.ShoppingListFragment
 import com.project.mypantry.fragments.PantryListFragment
 import com.project.mypantry.fragments.RecipeListFragment
 import com.project.mypantry.objects.IngredientInstance
@@ -32,6 +33,9 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
         recipeButton.setOnClickListener {
             onRecipeIconClick()
         }
+        groceryButton.setOnClickListener {
+            onGroceryIconClick()
+        }
         addButton.setOnClickListener {
             onAddClick()
         }
@@ -43,7 +47,8 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
     private fun getRecipeListFragment() = supportFragmentManager.findFragmentByTag(
         RecipeListFragment.TAG)
 
-//    private fun getGroceryListFragment() = supportFragmentManager.findFragmentByTag(GroceryListFragment.TAG)
+    private fun getGroceryListFragment() = supportFragmentManager.findFragmentByTag(
+        ShoppingListFragment.TAG)
 
     private fun onPantryIconClick() {
         pantryListFrag = getPantryListFragment()
@@ -70,18 +75,19 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
         }
     }
 
-//    private fun onGroceryIconClick() {
-//        var groceryListFragment = getGroceryListFragment()
-//        if (groceryListFragment == null) {
-//            groceryListFragment = GroceryListFragment()
-//            supportFragmentManager.popBackStack()
-//            supportFragmentManager.beginTransaction()
-//                .add(R.id.fragContainer, groceryListFragment, GroceryListFragment.TAG)
-//                .addToBackStack(GroceryListFragment.TAG)
-//                .commit()
-//        }
-//    }
-//
+    private fun onGroceryIconClick() {
+        Log.i("patrin", "Tabbing to ShoppingList")
+        var groceryListFragment = getGroceryListFragment()
+        if (groceryListFragment == null) {
+            groceryListFragment = ShoppingListFragment()
+            supportFragmentManager.popBackStack()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragContainer, groceryListFragment, ShoppingListFragment.TAG)
+                .addToBackStack(ShoppingListFragment.TAG)
+                .commit()
+        }
+    }
+
     private fun onAddClick() {
         if (supportFragmentManager.primaryNavigationFragment is RecipeListFragment) {
 //            val intent = Intent(this, RecipeDetailActivity::class.java)
@@ -104,9 +110,9 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
         startActivity(intent)
     }
 
-
+    // TODO: Along with this, will probably need to include a listener for when the checkbox was clicked
     override fun onShoppingItemClicked(ing: IngredientType) {
-        Log.i("patrin", "Item is now checked!")
+        Log.i("patrin", "Item has been clicked!")
     }
 
     override fun onPantryItemClicked(ing: IngredientInstance) {
