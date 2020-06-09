@@ -37,7 +37,7 @@
             app:layout_constraintTop_toTopOf="@+id/ingPic" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/cbGrocery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

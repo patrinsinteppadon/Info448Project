@@ -72,10 +72,10 @@ class IngredientDetailViewModel: ViewModel() {
         if (ingredientInstance != null) {
             Log.i("Save", "It is saving")
             ingredientInstance?.let{pantryListManager.updateInstance(it.instanceID,
-                IngredientInstance(it.instanceID, "name", ingredientType.id, theAmount.value!!, theUnit.value!!, theDate.value!!))}
+                IngredientInstance(it.instanceID, ingredientType.id, theAmount.value!!, theUnit.value!!, theDate.value!!))}
         } else {
             val instanceId = pantryListManager.getSize()
-            pantryListManager.add(IngredientInstance(instanceId, "name", ingredientType.id,
+            pantryListManager.add(IngredientInstance(instanceId, ingredientType.id,
                 theAmount.value!!, theUnit.value!!, theDate.value!!))
         }
     }

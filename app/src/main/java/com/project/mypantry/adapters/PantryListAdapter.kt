@@ -7,12 +7,22 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.mypantry.R
+import com.project.mypantry.application.PantryApp
 import com.project.mypantry.objects.IngredientInstance
 
-class PantryListAdapter(initialPantry: List<IngredientInstance>): RecyclerView.Adapter<PantryListAdapter.PantryViewHolder>() {
+class PantryListAdapter(
+    initialPantry: List<IngredientInstance>,
+    pantryApp: PantryApp
+): RecyclerView.Adapter<PantryListAdapter.PantryViewHolder>() {
     private var allIng: List<IngredientInstance> = initialPantry.toList()  // This is so we create a duplicate of the list passed in
     var onPantryClicked: ((ingredient: IngredientInstance) -> Unit)? = null
+    private val app: PantryApp = pantryApp
 
+
+    fun update(newList: List<IngredientInstance>) {
+        allIng = newList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PantryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.pantry_item, parent, false)
@@ -33,13 +43,14 @@ class PantryListAdapter(initialPantry: List<IngredientInstance>): RecyclerView.A
 
 
         fun bind(ing: IngredientInstance) {
-            name.text = ing.name
+            name.text = app.glossaryManager.getIngredientType(ing.ingredientID)?.ingredientName
             ivCovers.setImageResource(R.drawable.ic_launcher_background)
             expDate.text = "Expiration Date:\n" + ing.expiration.toString()
 
             itemView.setOnClickListener{
                 onPantryClicked?.invoke(ing)
             }
+
         }
 
 
