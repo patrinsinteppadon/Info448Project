@@ -1,24 +1,20 @@
-package com.project.mypantry.application
+package com.project.mypantry.fragments
 
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.project.mypantry.OnRecipeClickListener
 import com.project.mypantry.OnShoppingClickListener
 import com.project.mypantry.R
+import com.project.mypantry.adapters.ShoppingListAdapter
+import com.project.mypantry.application.PantryApp
 import com.project.mypantry.managers.ShoppingListManager
-import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
-import com.project.mypantry.objects.Recipe
 import kotlinx.android.synthetic.main.fragment_grocery_list.*
-import kotlinx.android.synthetic.main.fragment_recipe_list.*
-import java.time.LocalDate
 
 // TODO: Convert recipesAll into the list from shoppingListManager
 // maybe this fragment can initialize with shoppingListManager.shoppingList
@@ -63,7 +59,8 @@ class ShoppingListFragment: Fragment() {
 
     private fun updateListViews() {
         groceriesAll?.let {
-            val shoppingAdapter = ShoppingListAdapter(shoppingManager)
+            val shoppingAdapter =
+                ShoppingListAdapter(shoppingManager)
             rvShoppingList.adapter = shoppingAdapter
 
 //            shoppingAdapter.updateChecks(shoppingManager) // gives shoppingListManager to the adapter

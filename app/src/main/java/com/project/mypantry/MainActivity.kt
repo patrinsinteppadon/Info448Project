@@ -6,14 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.project.mypantry.application.PantryApp
-import com.project.mypantry.application.ShoppingListFragment
+import com.project.mypantry.fragments.ShoppingListFragment
 import com.project.mypantry.fragments.PantryListFragment
 import com.project.mypantry.fragments.RecipeListFragment
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.objects.Recipe
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_pantry_list.*
 
 class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickListener, OnShoppingClickListener {
     lateinit var pantryApp: PantryApp
@@ -79,7 +78,8 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
         Log.i("patrin", "Tabbing to ShoppingList")
         var groceryListFragment = getGroceryListFragment()
         if (groceryListFragment == null) {
-            groceryListFragment = ShoppingListFragment()
+            groceryListFragment =
+                ShoppingListFragment()
             supportFragmentManager.popBackStack()
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragContainer, groceryListFragment, ShoppingListFragment.TAG)

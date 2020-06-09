@@ -1,5 +1,4 @@
-package com.project.mypantry.application
-import android.util.Log
+package com.project.mypantry.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,7 +42,6 @@ class ShoppingListAdapter(private val shoppingManager: ShoppingListManager): Rec
 
             cbGrocery.setOnClickListener {
                 shoppingManager.check(ing.id)
-                Log.i("patrin", shoppingManager.isChecked(ing.id).toString())
             }
         }
     }
