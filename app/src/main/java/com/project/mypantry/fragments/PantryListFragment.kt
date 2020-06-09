@@ -9,16 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.project.mypantry.OnPantryClickListener
+import com.project.mypantry.activity.OnPantryClickListener
 import com.project.mypantry.R
 import com.project.mypantry.application.PantryApp
-import com.project.mypantry.application.PantryListAdapter
-import com.project.mypantry.managers.PantryListManager
+import com.project.mypantry.adapters.PantryListAdapter
 import com.project.mypantry.objects.IngredientInstance
 import kotlinx.android.synthetic.main.fragment_pantry_list.*
 
-class PantryListFragment(context: Context): Fragment() {
-        private var ingAll: MutableList<IngredientInstance> = (context as PantryApp).pantryManager.getPantryList().toMutableList()
+class PantryListFragment: Fragment() {
+        private lateinit var ingAll: MutableList<IngredientInstance>
         private var onPantryClickedListener: OnPantryClickListener? = null
 
 
@@ -26,6 +25,8 @@ class PantryListFragment(context: Context): Fragment() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             Log.i("Click", "Going to Recipe")
+
+            ingAll = (context?.applicationContext as PantryApp).pantryManager.getPantryList().toMutableList()
 
             // Making test data to see if the view works
 //            var testIng = IngredientInstance(1, "Ground Beef",1, 20, "lbs", LocalDate.of(1999, 7, 4))
@@ -66,7 +67,8 @@ class PantryListFragment(context: Context): Fragment() {
         }
 
         private fun setPantryAdapter() {
-            val pantryAdapter = PantryListAdapter(ingAll)
+            val pantryAdapter =
+                PantryListAdapter(ingAll)
 
             pantryList.adapter = pantryAdapter
 

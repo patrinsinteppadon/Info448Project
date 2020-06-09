@@ -1,7 +1,8 @@
-package com.project.mypantry
+package com.project.mypantry.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.project.mypantry.R
 import com.project.mypantry.objects.Recipe
 import kotlinx.android.synthetic.main.recipe_detail.*
 

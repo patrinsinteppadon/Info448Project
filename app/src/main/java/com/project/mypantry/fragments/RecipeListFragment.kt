@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.project.mypantry.OnRecipeClickListener
+import com.project.mypantry.activity.OnRecipeClickListener
 import com.project.mypantry.R
-import com.project.mypantry.application.RecipeListAdapter
+import com.project.mypantry.adapters.RecipeListAdapter
 import com.project.mypantry.objects.Recipe
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
 
@@ -90,19 +90,5 @@ class RecipeListFragment: Fragment() {
     companion object {
         // Keys for intents
         val TAG: String = RecipeListFragment::class.java.simpleName
-        const val RECIPEs_KEY = "RECIPEs_KEY"
-
-
     }
-
-
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
-
 }
-
-//interface OnRecipeSelectedListener {
-//    fun onRecipeSelected(recipe: Recipe)
-//}

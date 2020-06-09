@@ -1,4 +1,4 @@
-package com.project.mypantry.application
+package com.project.mypantry.fragments
 
 import android.content.Context
 import android.os.Build
@@ -9,12 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.project.mypantry.OnRecipeClickListener
-import com.project.mypantry.OnShoppingClickListener
+import com.project.mypantry.activity.OnShoppingClickListener
 import com.project.mypantry.R
+import com.project.mypantry.adapters.ShoppingListAdapter
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
-import com.project.mypantry.objects.Recipe
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
 import java.time.LocalDate
 
@@ -79,7 +78,8 @@ class ShoppingListFragment: Fragment() {
 
     private fun updateListViews() {
         groceriesAll?.let {
-            val shoppingAdapter = ShoppingListAdapter(it)
+            val shoppingAdapter =
+                ShoppingListAdapter(it)
             rvRecipeList.adapter = shoppingAdapter
 
             shoppingAdapter.onGroceryClicked = { ing: IngredientInstance ->
