@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.project.mypantry.GlossarySearchActivity.Companion.FOR_PANTRY
 import com.project.mypantry.IngredientDetailActivity.Companion.FOR_SHOPPING
 import com.project.mypantry.IngredientDetailActivity.Companion.ING_INST_EXTRA
@@ -52,6 +53,11 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
         addButton.setOnClickListener {
             onAddClick()
         }
+
+        clearButton.setOnClickListener {
+            pantryApp.shoppingListManager.clearList()
+            shoppingListFrag?.updateAdapter()
+        }
     }
 
     private fun getPantryListFragment() = supportFragmentManager.findFragmentByTag(
@@ -64,7 +70,9 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
         ShoppingListFragment.TAG) as? ShoppingListFragment
 
     private fun onPantryIconClick() {
+        title = "My Pantry"
         pantryListFrag = getPantryListFragment()
+        clearButton.visibility = View.GONE
         if (pantryListFrag == null) {
             pantryListFrag = PantryListFragment()
             supportFragmentManager.popBackStack()
@@ -89,7 +97,8 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
     }
 
     private fun onGroceryIconClick() {
-        Log.i("patrin", "Tabbing to ShoppingList")
+        title = "Shopping List"
+        clearButton.visibility = View.VISIBLE
         shoppingListFrag = getGroceryListFragment()
         if (shoppingListFrag == null) {
             shoppingListFrag = ShoppingListFragment()
@@ -141,6 +150,16 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
         val intent = Intent(this, IngredientDetailActivity::class.java)
         intent.putExtra(ING_INST_EXTRA, ing)
         startActivityForResult(intent, EDIT_PANTRY_RC)
+    }
+
+    override fun onBackPressed() {
+        // if there's more than 1 stack
+        // else just finish the activity
+        if (supportFragmentManager.backStackEntryCount > 1) {
+            onSupportNavigateUp()
+        } else {
+            finish()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

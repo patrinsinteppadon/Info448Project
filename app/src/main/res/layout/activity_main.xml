@@ -6,13 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
+    <LinearLayout
+        android:id="@+id/llButtons"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:layout_weight="1"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#8BC34A"
+            android:text="Add" />
+
+    </LinearLayout>
+
+
+
 
     <FrameLayout
         android:id="@+id/fragContainer"
@@ -21,8 +43,7 @@
         app:layout_constraintBottom_toTopOf="@id/navBar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addButton" >
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@id/llButtons" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navBar"

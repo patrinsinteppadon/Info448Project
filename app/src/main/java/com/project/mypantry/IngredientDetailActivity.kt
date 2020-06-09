@@ -19,6 +19,7 @@ import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.viewModels.IngredientDetailViewModel
 import kotlinx.android.synthetic.main.activity_ingredient_detail.*
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
@@ -57,6 +58,7 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
                 saveChange()
             }
         } else {
+            btnSave.text = "Add To Pantry"
             ingredientType = intent.getParcelableExtra<IngredientType>(ING_TYPE_EXTRA)
         }
 
@@ -85,7 +87,8 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
         ingredientDetailViewModel.theDate.observe(this) {
             if (it != null) {
-                btnExpirationDate.text = "EXP: ${it.toString()}"
+                val dateString = it.format(DateTimeFormatter.ofPattern("dd LLLL"))
+                btnExpirationDate.text = "Best Before: $dateString"
             }
         }
 

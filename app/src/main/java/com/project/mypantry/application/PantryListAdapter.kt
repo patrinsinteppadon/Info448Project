@@ -1,13 +1,16 @@
 package com.project.mypantry.application
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.project.mypantry.R
 import com.project.mypantry.objects.IngredientInstance
+import java.time.format.DateTimeFormatter
 
 class PantryListAdapter(
     initialPantry: List<IngredientInstance>,
@@ -30,6 +33,7 @@ class PantryListAdapter(
 
     override fun getItemCount() = allIng.size
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: PantryViewHolder, position: Int) {
         val ingredient = allIng[position]
         holder.bind(ingredient)
@@ -39,12 +43,16 @@ class PantryListAdapter(
         private val name = itemView.findViewById<TextView>(R.id.name)
         private val ivCovers = itemView.findViewById<ImageView>(R.id.ingPic)
         private val expDate = itemView.findViewById<TextView>(R.id.expDate)
+        private val amountAndUnit = itemView.findViewById<TextView>(R.id.amountAndUnit)
 
 
+        @RequiresApi(Build.VERSION_CODES.O)
         fun bind(ing: IngredientInstance) {
             name.text = app.glossaryManager.getIngredientType(ing.ingredientID)?.ingredientName
+            amountAndUnit.text = "${ing.amount} ${ing.unit}"
             ivCovers.setImageResource(R.drawable.ic_launcher_background)
-            expDate.text = "Expiration Date:\n" + ing.expiration.toString()
+            val dateString = ing.expiration.format(DateTimeFormatter.ofPattern("dd LLLL"))
+            expDate.text = "Best Before:\n $dateString"
 
             itemView.setOnClickListener{
                 onPantryClicked?.invoke(ing)

@@ -9,7 +9,7 @@
         <ImageView
             android:id="@+id/ingPic"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="80dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/app_name"
@@ -23,9 +23,9 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
             android:text="Item Name"
-            app:layout_constraintBottom_toBottomOf="@+id/ingPic"
             app:layout_constraintStart_toEndOf="@+id/ingPic"
             app:layout_constraintTop_toTopOf="@+id/ingPic" />
 
@@ -33,9 +33,19 @@
             android:id="@+id/expDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Expiration Date:\nMM/DD/YYYY"
             android:textAlignment="textEnd"
-            app:layout_constraintBottom_toBottomOf="@+id/ingPic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ingPic" />
+
+        <TextView
+            android:id="@+id/amountAndUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/ingPic"
+            app:layout_constraintStart_toEndOf="@+id/ingPic"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 </androidx.constraintlayout.widget.ConstraintLayout>
