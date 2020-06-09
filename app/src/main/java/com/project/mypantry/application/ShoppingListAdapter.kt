@@ -1,6 +1,7 @@
 package com.project.mypantry.application
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,14 +42,22 @@ class ShoppingListAdapter(initialGroceries: List<IngredientType>): RecyclerView.
 
         fun bind(item: IngredientType) {
             tvTitle.text = item.ingredientName
-            //tvDescip.text = recipe.ingredients.toString()
+            cbGrocery.isChecked = false
             ivCovers.setImageResource(R.drawable.ic_launcher_background)
-//            val myUri = Uri.parse(recipe.smallImageURL)
-//            Picasso.get().load(myUri).into(ivCovers);
 
             itemView.setOnClickListener{
                 onItemClicked?.invoke(item)
+                Log.i("patrin", item.ingredientName)
             }
+
+            // onClickListener when the checkbox is clicked
+            cbGrocery.setOnClickListener {
+                Log.i("patrin", cbGrocery.isChecked.toString())
+            }
+//            cbGrocery.setOnCheckedChangeListener {
+//                // onCheckBoxTicked?.invoke(item)
+//                // add onCheckBoxTicked to the onShoppingClickListener
+//            }
         }
 
 
