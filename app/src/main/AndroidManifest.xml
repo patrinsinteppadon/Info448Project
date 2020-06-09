@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.project.mypantry">
-    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".application.PantryApp"
@@ -11,12 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GlossarySearchActivity"> </activity>
-        <activity android:name=".IngredientDetailActivity" />
-        <activity android:name=".RecipeDetailActivity" />
-        <activity android:name=".TowsMain">
+        <activity
+            android:name=".activity.GlossarySearchActivity"
+            android:configChanges="orientation">
         </activity>
-        <activity android:name=".MainActivity" >
+        <activity android:name=".activity.IngredientDetailActivity" />
+        <activity android:name=".activity.RecipeDetailActivity" />
+        <activity android:name=".activity.TowsMain">
+        </activity>
+        <activity android:name=".activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

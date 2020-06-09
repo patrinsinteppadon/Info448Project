@@ -1,21 +1,19 @@
 package com.project.mypantry.application
 
+import android.app.Activity
 import android.app.Application
-import com.project.mypantry.objects.ResultsModel
-import com.project.mypantry.objects.pantryResultsMod
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Query
+import android.os.Build
+import android.os.Bundle
+import android.util.Log
+import androidx.annotation.RequiresApi
+import com.project.mypantry.objects.IngredientInstance
+import com.project.mypantry.objects.IngredientType
+import com.project.mypantry.objects.Recipe
+import java.time.LocalDate
+import com.project.mypantry.managers.*
+import java.lang.ref.WeakReference
 
 class PantryApp: Application() {
-    lateinit var apiManager: ApiManager
-    lateinit var apiManagerTwo: ApiManager
-
     lateinit var pantryManager: PantryListManager
     lateinit var recipeListManager: RecipeListManager
     lateinit var shoppingListManager: ShoppingListManager
@@ -23,55 +21,13 @@ class PantryApp: Application() {
     lateinit var workManager: ExpireWorkManager
     lateinit var notificationManager: MessageNotificationManager
     lateinit var httpManager: HTTPManager
-    private lateinit var recipeService: RecipeService
-    private lateinit var recipeServiceTwo: RecipeService
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
         super.onCreate()
         initManagers()
-
-        val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
-
-        val client = OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .build()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
-//            .baseUrl("https://raw.githubusercontent.com")
-            .addConverterFactory(GsonConverterFactory.create()) // this will automatically apply Gson conversion :)
-            .client(client)
-            .build()
-
-        /////////////Build Second HTTP call here //////////
-        val retrofitCalltwo = Retrofit.Builder()
-            .baseUrl("https://raw.githubusercontent.com")
-            .addConverterFactory(GsonConverterFactory.create()) // this will automatically apply Gson conversion :)
-            .build()
-        //////////////////////////////////////////
-        recipeService = retrofit.create(RecipeService::class.java)
-        recipeServiceTwo = retrofitCalltwo.create(RecipeService::class.java)
-        // Load managers
-        apiManager = ApiManager(recipeService,recipeServiceTwo)
-        apiManagerTwo = ApiManager(recipeService,recipeServiceTwo)
-
+        registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
     }
-
-    interface RecipeService {
-        @Headers("x-rapidapi-host: spoonacular-recipe-food-nutrition-v1.p.rapidapi.com", "x-rapidapi-key: 6d0dc23c60msh9a34ddaa986f734p12fe5ajsn57b0f1b0f01b")
-        @GET("/recipes/findByIngredients")
-        fun allRecipes(
-            @Query("number") numRet: Int,
-            @Query("ranking") showRank: Int,
-            @Query("ignorePantry") pantryYN: Boolean,
-            @Query("ingredients") allIngred: String
-        ): Call<List<ResultsModel>>
-
-        @GET("LiamAlbright/codesnippetspantry/master/Recipes.json")
-        fun allPantryRep (): Call<pantryResultsMod>
-    }
-
 
     /**
      * As we implement each manager, we should replace the placeholders in PantryApp.
@@ -79,17 +35,80 @@ class PantryApp: Application() {
      * If you're designing the front end and need to use some of the managers, then replace Placeholder
      * with a dummy manager (e.g. PantryListManagerDummy) that returns hardcoded outputs for each function
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initManagers() {
-        pantryManager = PantryListManagerStatic(this) as PantryListManager
-        recipeListManager = RecipeListManagerStatic(this) as RecipeListManager
-        shoppingListManager = ShoppingListManagerStatic(this) as ShoppingListManager
-        glossaryManager = GlossaryManagerStatic(this) as GlossaryManager
+        pantryManager = PantryListManagerStatic(
+            this
+        ) as PantryListManager
+        recipeListManager = RecipeListManagerStatic(
+            this
+        ) as RecipeListManager
+        shoppingListManager = ShoppingListManagerStatic(
+            this
+        ) as ShoppingListManager
+        glossaryManager = GlossaryManagerStatic(
+            this
+        ) as GlossaryManager
         httpManager = HTTPManagerStatic(this) as HTTPManager // work in progress
 
         // for phase 2. Let's not focus on notifications for now
         workManager = ExpireWorkManager(this)
         notificationManager = MessageNotificationManager(this)
+
+        pantryManager.add(
+            IngredientInstance(pantryManager.getSize(), 1, 1, "lbs",
+            LocalDate.now().plusDays(6))
+        )
+        pantryManager.add(
+            IngredientInstance(pantryManager.getSize(),  2, 2, "lbs",
+            LocalDate.now().plusDays(5))
+        )
+        pantryManager.add(
+            IngredientInstance(pantryManager.getSize(),  3, 1, "lbs",
+            LocalDate.now().plusDays(4))
+        )
+        pantryManager.add(
+            IngredientInstance(pantryManager.getSize(),  4, 5, "lbs",
+            LocalDate.now().plusDays(3))
+        )
+        pantryManager.add(
+            IngredientInstance(pantryManager.getSize(),  5, 3, "lbs",
+            LocalDate.now().plusDays(2))
+        )
+        pantryManager.add(
+            IngredientInstance(pantryManager.getSize(),  6, 5, "lbs",
+            LocalDate.now().plusDays(1))
+        )
+        recipeListManager.add(Recipe(1, "Recipe", "imglink", listOf(IngredientType(1, "ingredient name", "imglink"))))
     }
 
+    private val activityLifecycleCallbacks = object: ActivityLifecycleCallbacks {
+        private var activityReferences = 0
+        private var isActivityConfigurationChanging = false
+        private var weakActivity = WeakReference<Activity?>(null)
+        var isAppForegrounded = false
 
+        override fun onActivityPaused(activity: Activity) {}
+        override fun onActivityStarted(activity: Activity) {
+            if (++activityReferences == 1 && !isActivityConfigurationChanging) {
+                // app enters foreground
+                isAppForegrounded = true
+                workManager.stopWork()
+            }
+            weakActivity = WeakReference(activity)
+        }
+        override fun onActivityDestroyed(activity: Activity) {}
+        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+        override fun onActivityStopped(activity: Activity) {
+            isActivityConfigurationChanging = activity.isChangingConfigurations
+            if (--activityReferences == 0 && !isActivityConfigurationChanging) {
+                // App enters background
+                isAppForegrounded = false
+                workManager.startWork()
+            }
+            weakActivity.clear()
+        }
+        override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
+        override fun onActivityResumed(activity: Activity) {}
+    }
 }

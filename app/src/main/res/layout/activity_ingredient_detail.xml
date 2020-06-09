@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IngredientDetailActivity" >
+    tools:context=".activity.IngredientDetailActivity" >
 
     <TextView
         android:id="@+id/tvUnit"
@@ -21,13 +21,11 @@
         android:id="@+id/etUnit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
         android:ems="10"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/etAmount"
-        app:layout_constraintHorizontal_bias="0.511"
-        app:layout_constraintStart_toStartOf="@+id/etAmount"
-        app:layout_constraintTop_toBottomOf="@+id/etAmount" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvTheAmount"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <TextView
         android:id="@+id/tvImagePlaceholder"
@@ -51,17 +49,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvImagePlaceholder" />
 
-    <EditText
-        android:id="@+id/etAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvAmount"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
@@ -76,10 +63,9 @@
         android:layout_marginStart="40dp"
         android:text="Amount"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/etAmount"
+        app:layout_constraintBottom_toTopOf="@+id/tvUnit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etAmount"
-        app:layout_constraintVertical_bias="0.384" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <Button
         android:id="@+id/btnSave"
@@ -103,12 +89,47 @@
 
     <Button
         android:id="@+id/btnExpirationDate"
-        android:text="Expiration Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Expiration Date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUnit" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTheAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAmount"
+        app:layout_constraintEnd_toStartOf="@+id/ibSubtractAmount"
+        app:layout_constraintStart_toEndOf="@+id/tvAmount" />
+
+    <ImageButton
+        android:id="@+id/ibAddAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/ibSubtractAmount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ibSubtractAmount"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+
+    <ImageButton
+        android:id="@+id/ibSubtractAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAmount"
+        app:layout_constraintEnd_toStartOf="@+id/ibAddAmount"
+        app:layout_constraintTop_toTopOf="@+id/tvAmount"
+        app:srcCompat="@drawable/ic_baseline_remove_circle_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

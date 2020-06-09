@@ -1,11 +1,16 @@
-package com.project.mypantry.application
+package com.project.mypantry.managers
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.project.mypantry.application.PantryApp
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
+import java.time.LocalDate
 
 
-class PantryListManagerStatic(private val context: Context) : PantryListManager {
+class PantryListManagerStatic(private val context: Context) :
+    PantryListManager {
 
     override var pantry: MutableList<IngredientInstance> = mutableListOf()
 
@@ -20,6 +25,7 @@ class PantryListManagerStatic(private val context: Context) : PantryListManager 
         for (i in 0 until pantry.size) {
             if (pantry[i].instanceID == instanceID) {
                 pantry.removeAt(i)
+                return
             }
         }
     }
@@ -41,6 +47,15 @@ class PantryListManagerStatic(private val context: Context) : PantryListManager 
         return pantry.size
     }
 
+    override fun get(id: Int): IngredientInstance? {
+        for (i in pantry) {
+            if(i.instanceID == id) {
+                return i
+            }
+        }
+        return null
+    }
+
     override fun addToGroceries(ing: IngredientType) {
         (context as PantryApp).shoppingListManager.add(ing)
     }
@@ -54,7 +69,14 @@ class PantryListManagerStatic(private val context: Context) : PantryListManager 
         TODO("Not yet implemented")
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun aboutToExpire(): List<IngredientInstance> {
-        TODO("Not yet implemented")
+        val result = mutableListOf<IngredientInstance>()
+        for (ing in pantry) {
+            if (ing.expiration < LocalDate.now().plusDays(4)) {
+                result.add(ing)
+            }
+        }
+        return result.toList()
     }
 }

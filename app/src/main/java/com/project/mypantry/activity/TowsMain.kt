@@ -1,26 +1,23 @@
-package com.project.mypantry
+package com.project.mypantry.activity
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
-import com.project.mypantry.IngredientDetailActivity.Companion.ING_INST_EXTRA
-import com.project.mypantry.IngredientDetailActivity.Companion.ING_TYPE_EXTRA
+import com.project.mypantry.R
+import com.project.mypantry.activity.GlossarySearchActivity.Companion.FOR_PANTRY
+import com.project.mypantry.activity.IngredientDetailActivity.Companion.ING_INST_EXTRA
+import com.project.mypantry.managers.ExpireWorkManager
 import com.project.mypantry.application.PantryApp
-import com.project.mypantry.application.PantryListManager
-import com.project.mypantry.objects.IngredientInstance
-import com.project.mypantry.objects.IngredientType
+import com.project.mypantry.managers.PantryListManager
 import kotlinx.android.synthetic.main.activity_tows_main.*
-import java.time.LocalDate
-import java.util.*
-import kotlin.random.Random
 
 class TowsMain : FragmentActivity() {
     private lateinit var pantryApp: PantryApp
     private lateinit var pantryListManager: PantryListManager
+    private lateinit var workManager: ExpireWorkManager
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -30,22 +27,22 @@ class TowsMain : FragmentActivity() {
 
         // init pantryApp and managers
         pantryApp = (application as PantryApp)
-
+        pantryListManager = pantryApp.pantryManager
+        workManager = pantryApp.workManager
 
 
         btn1.setOnClickListener {
             val intent: Intent = Intent(this, IngredientDetailActivity::class.java).apply {
                 //putExtra(ING_TYPE_EXTRA, pantryApp.glossaryManager.getIngredientType(1))
-                val x = pantryApp.pantryManager.getPantryList()[pantryApp.pantryManager.getSize() - 1]
+                val x = pantryApp.pantryManager.get(pantryApp.pantryManager.getSize() - 1)
                 putExtra(ING_INST_EXTRA, x)
             }
             startActivity(intent)
         }
 
         btn3.setOnClickListener {
-            val intent: Intent = Intent(this, IngredientDetailActivity::class.java).apply {
-                putExtra(ING_TYPE_EXTRA, pantryApp.glossaryManager.getIngredientType(1))
-                //putExtra(ING_INST_EXTRA, IngredientInstance(0, 5, 12, "lbs", LocalDate.now()))
+            val intent: Intent = Intent(this, GlossarySearchActivity::class.java).apply {
+                putExtra(FOR_PANTRY, true)
             }
             startActivity(intent)
         }
@@ -53,5 +50,15 @@ class TowsMain : FragmentActivity() {
         btn2.setOnClickListener {
             Log.i("Tow", pantryApp.pantryManager.getPantryList().toString())
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        workManager.startWork()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        workManager.stopWork()
     }
 }

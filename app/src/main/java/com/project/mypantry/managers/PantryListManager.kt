@@ -1,4 +1,4 @@
-package com.project.mypantry.application
+package com.project.mypantry.managers
 
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
@@ -17,4 +17,5 @@ interface PantryListManager {
     // phase 2 functions: let's work on these later
     fun sendNotification(ing: IngredientType)
     fun aboutToExpire(): List<IngredientInstance>
+    fun get(id: Int): IngredientInstance?
 }
