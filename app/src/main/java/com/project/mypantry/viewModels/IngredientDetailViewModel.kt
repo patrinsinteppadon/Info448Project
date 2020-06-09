@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.project.mypantry.managers.GlossaryManager
 import com.project.mypantry.managers.PantryListManager
+import com.project.mypantry.managers.ShoppingListManager
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import java.time.LocalDate
@@ -23,13 +24,16 @@ class IngredientDetailViewModel: ViewModel() {
     // managers
     private lateinit var glossaryManager: GlossaryManager
     private lateinit var pantryListManager: PantryListManager
+    private lateinit var shoppingListManager: ShoppingListManager
     lateinit var ingredientType: IngredientType
     private var ingredientInstance: IngredientInstance? = null
 
-    fun init (gManager: GlossaryManager, pManager: PantryListManager, ingredientType: IngredientType, ingredientInstance: IngredientInstance?,
+    fun init (gManager: GlossaryManager, pManager: PantryListManager, sManager: ShoppingListManager,
+              ingredientType: IngredientType, ingredientInstance: IngredientInstance?,
     reload: Boolean) {
         glossaryManager = gManager
         pantryListManager = pManager
+        shoppingListManager = sManager
         this.ingredientType = ingredientType
         if (reload) {
             if(ingredientInstance != null) {
@@ -78,6 +82,10 @@ class IngredientDetailViewModel: ViewModel() {
             pantryListManager.add(IngredientInstance(instanceId, ingredientType.id,
                 theAmount.value!!, theUnit.value!!, theDate.value!!))
         }
+    }
+
+    fun deleteFromShopping() {
+        shoppingListManager.delete(ingredientType)
     }
 
     fun changeDate(date:LocalDate) {

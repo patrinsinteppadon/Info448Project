@@ -26,7 +26,7 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
     companion object {
         const val ING_INST_EXTRA = "ifyoungmetrodonttrussu"
         const val ING_TYPE_EXTRA = "runitupturbo"
-        const val NEW_ING_TAG = "qwefiopjvdwef"
+        const val FOR_SHOPPING = "qwefiopjvdwef"
     }
 
     private val ingredientDetailViewModel: IngredientDetailViewModel by viewModels()
@@ -41,9 +41,10 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
         val glossaryManager = (applicationContext as PantryApp).glossaryManager
         val pantryListManager = (applicationContext as PantryApp).pantryManager
+        val shoppingListManager = (applicationContext as PantryApp).shoppingListManager
 
 
-        val ingredientInstance = intent.getParcelableExtra<IngredientInstance>("SELECTED_ING")
+        val ingredientInstance = intent.getParcelableExtra<IngredientInstance>(ING_INST_EXTRA)
         val ingredientType: IngredientType?
 
         // getting ingredient type
@@ -63,12 +64,12 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
         if (savedInstanceState != null) {
             ingredientDetailViewModel.init(
                 glossaryManager,
-                pantryListManager, ingredientType!!, ingredientInstance, false
+                pantryListManager, shoppingListManager, ingredientType!!, ingredientInstance, false
             )
         } else {
             ingredientDetailViewModel.init(
-                glossaryManager,
-                pantryListManager, ingredientType!!, ingredientInstance, true
+                glossaryManager, pantryListManager, shoppingListManager,
+                ingredientType!!, ingredientInstance, true
             )
         }
 
@@ -121,6 +122,9 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
         })
 
         btnSave.setOnClickListener {
+            if(intent.getBooleanExtra(FOR_SHOPPING, false)) {
+                ingredientDetailViewModel.deleteFromShopping()
+            }
             ingredientDetailViewModel.save()
             saveChange()
         }

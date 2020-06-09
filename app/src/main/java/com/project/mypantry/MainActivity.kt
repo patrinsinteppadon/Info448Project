@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.project.mypantry.GlossarySearchActivity.Companion.FOR_PANTRY
+import com.project.mypantry.IngredientDetailActivity.Companion.FOR_SHOPPING
+import com.project.mypantry.IngredientDetailActivity.Companion.ING_INST_EXTRA
+import com.project.mypantry.IngredientDetailActivity.Companion.ING_TYPE_EXTRA
 import com.project.mypantry.application.PantryApp
 import com.project.mypantry.fragments.ShoppingListFragment
 import com.project.mypantry.fragments.PantryListFragment
@@ -18,6 +21,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickListener, OnShoppingClickListener {
     lateinit var pantryApp: PantryApp
     private var pantryListFrag: PantryListFragment? = null
+    private var shoppingListFrag: ShoppingListFragment? =  null
+
+    companion object {
+        const val EDIT_PANTRY_RC = 123
+        const val ADD_SHOPPING_RC = 234
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +34,11 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
 
         pantryApp = application as PantryApp
         pantryListFrag = getPantryListFragment()
-        onPantryIconClick()
+        shoppingListFrag = getGroceryListFragment()
+        if (savedInstanceState == null) {
+
+            onPantryIconClick()
+        }
 
         pantryButton.setOnClickListener {
             onPantryIconClick()
@@ -48,7 +61,7 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
         RecipeListFragment.TAG)
 
     private fun getGroceryListFragment() = supportFragmentManager.findFragmentByTag(
-        ShoppingListFragment.TAG)
+        ShoppingListFragment.TAG) as? ShoppingListFragment
 
     private fun onPantryIconClick() {
         pantryListFrag = getPantryListFragment()
@@ -77,13 +90,12 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
 
     private fun onGroceryIconClick() {
         Log.i("patrin", "Tabbing to ShoppingList")
-        var groceryListFragment = getGroceryListFragment()
-        if (groceryListFragment == null) {
-            groceryListFragment =
-                ShoppingListFragment()
+        shoppingListFrag = getGroceryListFragment()
+        if (shoppingListFrag == null) {
+            shoppingListFrag = ShoppingListFragment()
             supportFragmentManager.popBackStack()
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragContainer, groceryListFragment, ShoppingListFragment.TAG)
+                .add(R.id.fragContainer, shoppingListFrag!!, ShoppingListFragment.TAG)
                 .addToBackStack(ShoppingListFragment.TAG)
                 .commit()
         }
@@ -103,11 +115,11 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
         } else if (lastFragmentName == PantryListFragment.TAG) {
             val intent = Intent(this, GlossarySearchActivity::class.java)
             intent.putExtra(FOR_PANTRY, true)
-            startActivityForResult(intent, 123)
+            startActivityForResult(intent, EDIT_PANTRY_RC)
         } else {
             val intent = Intent(this, GlossarySearchActivity::class.java)
             intent.putExtra(FOR_PANTRY, false)
-            startActivity(intent)
+            startActivityForResult(intent, ADD_SHOPPING_RC)
         }
     }
 
@@ -119,30 +131,33 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
 
     // TODO: Along with this, will probably need to include a listener for when the checkbox was clicked
     override fun onShoppingItemClicked(ing: IngredientType) {
-        Log.i("patrin", "Item has been clicked!")
         val intent = Intent(this, IngredientDetailActivity::class.java)
-        intent.putExtra(IngredientDetailActivity.ING_TYPE_EXTRA, ing)
-        startActivityForResult(intent, 123)
+        intent.putExtra(ING_TYPE_EXTRA, ing)
+        intent.putExtra(FOR_SHOPPING, true)
+        startActivityForResult(intent, 345)
     }
 
     override fun onPantryItemClicked(ing: IngredientInstance) {
         val intent = Intent(this, IngredientDetailActivity::class.java)
-        intent.putExtra("SELECTED_ING", ing)
-        //intent.putExtra("TEST_TYPE", IngredientType(1, "Ground Beef", "imgpath"))
-        startActivityForResult(intent, 123)
+        intent.putExtra(ING_INST_EXTRA, ing)
+        startActivityForResult(intent, EDIT_PANTRY_RC)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 123) {
+        if (requestCode == EDIT_PANTRY_RC) {
             if (resultCode == Activity.RESULT_OK) {
                 pantryListFrag?.updateAdapter()
-            } else {
-                Log.i("Tow", "no result")
             }
-        }
+        } else {
+                // change shopping
+                if (resultCode == Activity.RESULT_OK) {
+                    shoppingListFrag?.updateAdapter()
+                }
+            }
     }
 }
+
 
 interface OnRecipeClickListener {
     fun onRecipeItemClicked(recipe: Recipe)

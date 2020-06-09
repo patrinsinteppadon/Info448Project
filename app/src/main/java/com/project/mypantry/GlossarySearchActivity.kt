@@ -58,6 +58,7 @@ class GlossarySearchActivity : AppCompatActivity() {
                 app.glossaryManager.getIngredientType((id.toInt()))?.let {
                     app.shoppingListManager.add(it)
                 }
+                setResult(RESULT_OK)
                 finish()
             }
         }
