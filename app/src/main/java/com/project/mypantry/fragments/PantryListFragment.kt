@@ -53,7 +53,7 @@ class PantryListFragment(): Fragment() {
         }
 
         private fun setPantryAdapter() {
-            adapter = PantryListAdapter(pantryApp.pantryManager.pantry, pantryApp)
+            adapter = PantryListAdapter(pantryApp.pantryManager.pantry, pantryApp, onPantryClickedListener as Context)
 
             pantryList.adapter = adapter
 

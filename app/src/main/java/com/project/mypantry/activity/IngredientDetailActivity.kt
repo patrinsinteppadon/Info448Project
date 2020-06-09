@@ -18,6 +18,7 @@ import com.project.mypantry.fragments.SetDateListener
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.viewModels.IngredientDetailViewModel
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_ingredient_detail.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -76,10 +77,12 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
             )
         }
 
-
         // set concrete values: Ingredient Name and Photo from ingredientType
-        tvImagePlaceholder.text = ingredientType.ingredientImg
         tvIngredientType.text = ingredientType.ingredientName
+        var localImgLink = this.resources.getIdentifier(ingredientType.ingredientImg, "drawable", this.packageName)
+        Picasso.get().load(localImgLink)
+            .placeholder(R.drawable.ic_launcher_background)
+            .into(ivIngImg);
 
         // observe amount, unit and expiration date
         ingredientDetailViewModel.theAmount.observe(this) {

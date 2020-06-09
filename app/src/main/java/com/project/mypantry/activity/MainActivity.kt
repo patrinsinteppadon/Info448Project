@@ -40,6 +40,8 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
         pantryApp = application as PantryApp
         pantryListFrag = getPantryListFragment()
         shoppingListFrag = getGroceryListFragment()
