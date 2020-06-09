@@ -2,6 +2,7 @@ package com.project.mypantry.managers
 
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.Recipe
+import com.project.mypantry.objects.pantryResultsMod
 
 interface RecipeListManager {
     var recipes: MutableList<Recipe>

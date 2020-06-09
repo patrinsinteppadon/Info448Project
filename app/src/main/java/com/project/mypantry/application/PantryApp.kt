@@ -11,6 +11,10 @@ import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.objects.Recipe
 import java.time.LocalDate
 import com.project.mypantry.managers.*
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.ref.WeakReference
 
 class PantryApp: Application() {
@@ -22,11 +26,29 @@ class PantryApp: Application() {
     lateinit var notificationManager: MessageNotificationManager
     lateinit var httpManager: HTTPManager
 
+    private lateinit var recipeService: RecipeService
+    lateinit var apiManager: ApiManager
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
         super.onCreate()
         initManagers()
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
+
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(logging)
+            .build()
+        // init retrofit in api manager
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://raw.githubusercontent.com")
+            .addConverterFactory(GsonConverterFactory.create()) // this will automatically apply Gson conversion :)
+            .client(client)
+            .build()
+        recipeService = retrofit.create(RecipeService::class.java)
+        this.apiManager = ApiManager(recipeService)
     }
 
     /**

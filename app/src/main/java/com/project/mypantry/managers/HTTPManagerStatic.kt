@@ -9,6 +9,7 @@ import com.google.gson.Gson
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.objects.Recipe
+import com.project.mypantry.objects.pantryResultsMod
 
 /**
  * Used to request *static JSON* data, for the sake
@@ -16,7 +17,8 @@ import com.project.mypantry.objects.Recipe
  */
 class HTTPManagerStatic(private val context: Context):
     HTTPManager {
-    override var responseAsObject: JsonResponse? = null
+    override lateinit var pantryResults: pantryResultsMod
+
     companion object {
         const val PANTRY_JSON_URL = "NO URL YET"
         const val TAG = "MyPantry"
@@ -28,7 +30,7 @@ class HTTPManagerStatic(private val context: Context):
             Request.Method.GET,
             PANTRY_JSON_URL,
             { response -> // success
-                responseAsObject = Gson().fromJson(response, JsonResponse::class.java)
+//                responseAsObject = Gson().fromJson(response, JsonResponse::class.java)
                 // TODO: How can I send the results of responseAsObject to the other managers?
             },
             { response -> // error

@@ -1,15 +1,12 @@
 package com.project.mypantry.activity
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.project.mypantry.activity.GlossarySearchActivity.Companion.FOR_PANTRY
 import com.project.mypantry.R
 import android.view.View
-import com.project.mypantry.activity.GlossarySearchActivity.Companion.FOR_PANTRY
 import com.project.mypantry.activity.IngredientDetailActivity.Companion.FOR_SHOPPING
 import com.project.mypantry.activity.IngredientDetailActivity.Companion.ING_INST_EXTRA
 import com.project.mypantry.activity.IngredientDetailActivity.Companion.ING_TYPE_EXTRA
@@ -17,10 +14,12 @@ import com.project.mypantry.application.PantryApp
 import com.project.mypantry.fragments.ShoppingListFragment
 import com.project.mypantry.fragments.PantryListFragment
 import com.project.mypantry.fragments.RecipeListFragment
+import com.project.mypantry.managers.ApiManager
+import com.project.mypantry.managers.HTTPManager
+import com.project.mypantry.managers.RecipeListManager
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.objects.Recipe
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
@@ -30,6 +29,10 @@ class MainActivity : AppCompatActivity(),
     lateinit var pantryApp: PantryApp
     private var pantryListFrag: PantryListFragment? = null
     private var shoppingListFrag: ShoppingListFragment? =  null
+    private lateinit var apiManager: ApiManager
+    private lateinit var recipeManager: HTTPManager
+
+    private val TAG = "pantryApp"
 
     companion object {
         const val EDIT_PANTRY_RC = 123
@@ -43,10 +46,42 @@ class MainActivity : AppCompatActivity(),
         pantryApp = application as PantryApp
         pantryListFrag = getPantryListFragment()
         shoppingListFrag = getGroceryListFragment()
-        if (savedInstanceState == null) {
 
+
+        val recipApp = (application as PantryApp)
+        apiManager = recipApp.apiManager
+        recipeManager = pantryApp.httpManager
+//        testManager= pantryApp.recipeListManager
+        // fetch songList from internet yo, only if saved instance state isn't there, i.e.
+        // on startup
+        if (savedInstanceState == null) {
+//            apiManager.getListOfPantryRep({ listOfReps ->
+//                // pre fetch small image url
+//                recipeManager.pantryResults=listOfReps
+//                startUp()
+//            }, { t ->
+//                Toast.makeText(this, "Error: $t", Toast.LENGTH_LONG).show()
+//            })
+            startUp()
+
+            apiManager.getListOfPantryRep({ listrecipe ->
+                recipeManager.pantryResults=listrecipe
+                Log.i(TAG, "pantry of recipes: " + recipeManager.pantryResults)
+            })
             onPantryIconClick()
+
+        } else {
+            startUp()
         }
+
+
+
+
+
+    }
+
+
+    private fun startUp() {
 
         pantryButton.setOnClickListener {
             onPantryIconClick()
@@ -65,7 +100,9 @@ class MainActivity : AppCompatActivity(),
             pantryApp.shoppingListManager.clearList()
             shoppingListFrag?.updateAdapter()
         }
+
     }
+
 
     private fun getPantryListFragment() = supportFragmentManager.findFragmentByTag(
         PantryListFragment.TAG) as? PantryListFragment
