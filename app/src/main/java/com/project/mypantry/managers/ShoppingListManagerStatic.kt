@@ -14,23 +14,23 @@ class ShoppingListManagerStatic(private val context: Context):
     var checkMap: MutableMap<Int, Boolean> = mutableMapOf() // false means checkbox = unchecked
 
     init {
-        // Making test data to see if shoppingListFragment works
-        var testType = IngredientType(1000, "Ham", "PLACEHOLDER_IMG")
-        var testType1 = IngredientType(2000, "Eggs", "PLACEHOLDER_IMG")
-        var testType2 = IngredientType(3000, "Milk", "PLACEHOLDER_IMG")
-        var testType3 = IngredientType(4000, "Potatoes", "PLACEHOLDER_IMG")
-        add(testType)
-        add(testType1)
-        add(testType2)
-        add(testType3)
-        check(testType.id)
-        check(testType2.id)
+//        // Making test data to see if shoppingListFragment works
+//        var testType = IngredientType(1000, "Ham", "PLACEHOLDER_IMG")
+//        var testType1 = IngredientType(2000, "Eggs", "PLACEHOLDER_IMG")
+//        var testType2 = IngredientType(3000, "Milk", "PLACEHOLDER_IMG")
+//        var testType3 = IngredientType(4000, "Potatoes", "PLACEHOLDER_IMG")
+//        add(testType)
+//        add(testType1)
+//        add(testType2)
+//        add(testType3)
+//        check(testType.id)
+//        check(testType2.id)
     }
 
     override fun add(type: IngredientType) {
         shoppingList.add(type)
         checkMap[type.id] = false
-        Log.i("patrin", "added an item yeet")
+//        Log.i("patrin", "added an item yeet")
     }
 
     /** feel free to change arg if "type" would be more convenient as an InstanceID */

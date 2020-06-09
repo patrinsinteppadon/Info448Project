@@ -20,6 +20,7 @@ import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.viewModels.IngredientDetailViewModel
 import kotlinx.android.synthetic.main.activity_ingredient_detail.*
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
@@ -27,7 +28,7 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
     companion object {
         const val ING_INST_EXTRA = "ifyoungmetrodonttrussu"
         const val ING_TYPE_EXTRA = "runitupturbo"
-        const val NEW_ING_TAG = "qwefiopjvdwef"
+        const val FOR_SHOPPING = "qwefiopjvdwef"
     }
 
     private val ingredientDetailViewModel: IngredientDetailViewModel by viewModels()
@@ -42,9 +43,10 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
         val glossaryManager = (applicationContext as PantryApp).glossaryManager
         val pantryListManager = (applicationContext as PantryApp).pantryManager
+        val shoppingListManager = (applicationContext as PantryApp).shoppingListManager
 
 
-        val ingredientInstance = intent.getParcelableExtra<IngredientInstance>("SELECTED_ING")
+        val ingredientInstance = intent.getParcelableExtra<IngredientInstance>(ING_INST_EXTRA)
         val ingredientType: IngredientType?
 
         // getting ingredient type
@@ -57,6 +59,7 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
                 saveChange()
             }
         } else {
+            btnSave.text = "Add To Pantry"
             ingredientType = intent.getParcelableExtra<IngredientType>(ING_TYPE_EXTRA)
         }
 
@@ -64,12 +67,12 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
         if (savedInstanceState != null) {
             ingredientDetailViewModel.init(
                 glossaryManager,
-                pantryListManager, ingredientType!!, ingredientInstance, false
+                pantryListManager, shoppingListManager, ingredientType!!, ingredientInstance, false
             )
         } else {
             ingredientDetailViewModel.init(
-                glossaryManager,
-                pantryListManager, ingredientType!!, ingredientInstance, true
+                glossaryManager, pantryListManager, shoppingListManager,
+                ingredientType!!, ingredientInstance, true
             )
         }
 
@@ -85,7 +88,8 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
         ingredientDetailViewModel.theDate.observe(this) {
             if (it != null) {
-                btnExpirationDate.text = "EXP: ${it.toString()}"
+                val dateString = it.format(DateTimeFormatter.ofPattern("dd LLLL"))
+                btnExpirationDate.text = "Best Before: $dateString"
             }
         }
 
@@ -122,6 +126,9 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
         })
 
         btnSave.setOnClickListener {
+            if(intent.getBooleanExtra(FOR_SHOPPING, false)) {
+                ingredientDetailViewModel.deleteFromShopping()
+            }
             ingredientDetailViewModel.save()
             saveChange()
         }
