@@ -23,7 +23,7 @@ import java.time.LocalDate
 // TODO: Convert recipesAll into the list from shoppingListManager
 // maybe this fragment can initialize with shoppingListManager.shoppingList
 // as an argument? If that gives us the same instance of the list (rather than a
-// copy of it), then we'd have access to an updated list
+// copy of it), then we'd have access to an updated listq
 class ShoppingListFragment: Fragment() {
     private var shoppingManager: ShoppingListManager? = null
     private var groceriesAll: MutableList<IngredientType> = mutableListOf()

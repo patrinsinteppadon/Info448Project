@@ -64,7 +64,7 @@ class PantryListFragment(): Fragment() {
         }
 
     fun updateAdapter() {
-        adapter.update(pantryApp.pantryManager.getPantryList())
+        adapter.update(pantryApp.pantryManager.getPantryList().toList())
     }
 
 

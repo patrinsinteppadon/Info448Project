@@ -1,5 +1,6 @@
 package com.project.mypantry
 
+import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
@@ -52,8 +53,7 @@ class GlossarySearchActivity : AppCompatActivity() {
                         app.glossaryManager.getIngredientType(id.toInt())
                     )
                 }
-                startActivity(intent)
-                finish()
+                startActivityForResult(intent, 123)
             } else { // if for shopping list
                 app.glossaryManager.getIngredientType((id.toInt()))?.let {
                     app.shoppingListManager.add(it)
@@ -63,6 +63,14 @@ class GlossarySearchActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            setResult(Activity.RESULT_OK)
+            finish()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

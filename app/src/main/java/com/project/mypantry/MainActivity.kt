@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.project.mypantry.GlossarySearchActivity.Companion.FOR_PANTRY
 import com.project.mypantry.application.PantryApp
 import com.project.mypantry.fragments.PantryListFragment
 import com.project.mypantry.fragments.RecipeListFragment
@@ -83,17 +84,23 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
 //    }
 //
     private fun onAddClick() {
-        if (supportFragmentManager.primaryNavigationFragment is RecipeListFragment) {
+        val backStackTop = supportFragmentManager.getBackStackEntryAt(
+            supportFragmentManager.backStackEntryCount - 1
+        )
+        val lastFragmentName = backStackTop.name
+
+
+        if (lastFragmentName == RecipeListFragment.TAG) {
 //            val intent = Intent(this, RecipeDetailActivity::class.java)
 //            intent.putExtra("isAdding", true)
 //            startActivity(intent)
-        } else if (supportFragmentManager.primaryNavigationFragment is PantryListFragment) {
+        } else if (lastFragmentName == PantryListFragment.TAG) {
             val intent = Intent(this, GlossarySearchActivity::class.java)
-            intent.putExtra("isPantry", true)
-            startActivity(intent)
+            intent.putExtra(FOR_PANTRY, true)
+            startActivityForResult(intent, 123)
         } else {
             val intent = Intent(this, GlossarySearchActivity::class.java)
-            intent.putExtra("isPantry", false)
+            intent.putExtra(FOR_PANTRY, false)
             startActivity(intent)
         }
     }
@@ -118,10 +125,12 @@ class MainActivity : AppCompatActivity(), OnRecipeClickListener, OnPantryClickLi
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            pantryListFrag?.updateAdapter()
-        } else {
-            Log.i("Tow", "no result")
+        if (requestCode == 123) {
+            if (resultCode == Activity.RESULT_OK) {
+                pantryListFrag?.updateAdapter()
+            } else {
+                Log.i("Tow", "no result")
+            }
         }
     }
 }
