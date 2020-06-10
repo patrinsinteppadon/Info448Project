@@ -11,6 +11,8 @@ import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.objects.Recipe
 import java.time.LocalDate
 import com.project.mypantry.managers.*
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.ref.WeakReference
 
 class PantryApp: Application() {
@@ -20,7 +22,7 @@ class PantryApp: Application() {
     lateinit var glossaryManager: GlossaryManager
     lateinit var workManager: ExpireWorkManager
     lateinit var notificationManager: MessageNotificationManager
-    lateinit var httpManager: HTTPManager
+    lateinit var apiManager: ApiManager
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
@@ -49,7 +51,14 @@ class PantryApp: Application() {
         glossaryManager = GlossaryManagerStatic(
             this
         ) as GlossaryManager
-        httpManager = HTTPManagerStatic(this) as HTTPManager // work in progress
+
+        // intantiate retrofit
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://raw.githubusercontent.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val ingredientTypeService = retrofit.create(IngredientTypeService::class.java)
+        apiManager = ApiManager(ingredientTypeService) // work in progress
 
         // for phase 2. Let's not focus on notifications for now
         workManager = ExpireWorkManager(this)

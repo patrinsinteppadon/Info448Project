@@ -44,8 +44,13 @@ class MainActivity : AppCompatActivity(),
         pantryListFrag = getPantryListFragment()
         shoppingListFrag = getGroceryListFragment()
         if (savedInstanceState == null) {
-
-            onPantryIconClick()
+            // fetch from api and instantiate manager
+            pantryApp.apiManager.fetchGlossary({
+                pantryApp.glossaryManager.glossary = it
+                onPantryIconClick()
+            }, {
+                Log.i("Tow", "Fetch failed")
+            })
         }
 
         pantryButton.setOnClickListener {

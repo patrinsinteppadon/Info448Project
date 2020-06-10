@@ -63,7 +63,7 @@ class PantryListAdapter(
             var localImgLink = context.resources.getIdentifier(ingType?.ingredientImg, "drawable", context.packageName)
             Picasso.get().load(localImgLink)
                 .placeholder(R.drawable.ic_launcher_background)
-                .into(ivCovers);
+                .into(ivCovers)
 
             itemView.setOnClickListener{
                 onPantryClicked?.invoke(ing)

@@ -8,17 +8,22 @@ import retrofit2.http.GET
 
 class ApiManager(private val ingredientTypeService: IngredientTypeService) {
 
-    fun fetchGlossary(onGlossaryReady: (List<IngredientType>) -> Unit, onError: ((String) -> Unit)? = null) {
+    fun fetchGlossary(onGlossaryReady: (List<IngredientType>) -> Unit, onError: (() -> Unit)? = null) {
         ingredientTypeService.getGlossary().enqueue(object:Callback<List<IngredientType>> {
             override fun onFailure(call: Call<List<IngredientType>>, t: Throwable) {
-                TODO("Not yet implemented")
+                onError?.invoke()
             }
 
             override fun onResponse(
                 call: Call<List<IngredientType>>,
                 response: Response<List<IngredientType>>
             ) {
-                TODO("Not yet implemented")
+                val glossary = response.body()
+                if (glossary != null) {
+                    onGlossaryReady(glossary)
+                } else {
+                    onError?.invoke()
+                }
             }
 
         })
@@ -27,6 +32,6 @@ class ApiManager(private val ingredientTypeService: IngredientTypeService) {
 
 
 interface IngredientTypeService {
-    @GET("LiamAlbright/codesnippetspantry/master/IngredientType.json")
+    @GET("towm1204/codesnippet/master/IngredientType.json")
     fun getGlossary(): Call<List<IngredientType>>
 }

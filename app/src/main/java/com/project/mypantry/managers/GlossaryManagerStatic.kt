@@ -9,14 +9,7 @@ import java.io.IOException
 class GlossaryManagerStatic(context: Context):
     GlossaryManager
 {
-    override lateinit var glossary: List<IngredientType>
-
-    init {
-        val jsonFileString = getJsonDataFromAsset(context, "json/IngredientType.json")
-        val g = Gson()
-        val listType = object : TypeToken<List<IngredientType>>() {}.type
-        glossary = g.fromJson(jsonFileString, listType)
-    }
+    override var glossary: List<IngredientType> = listOf()
 
     override fun search(regex: String): List<IngredientType> {
         return glossary.filter {
