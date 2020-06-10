@@ -18,7 +18,7 @@ class ExpireWorker(context: Context, workParams: WorkerParameters): Worker(conte
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun doWork(): Result {
-        for (ing in  pantryManager.aboutToExpire()) {
+        if (pantryManager.aboutToExpire().isNotEmpty()) {
             notificationManager.notifyUser()
         }
 
