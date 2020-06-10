@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_grocery_list.*
 class ShoppingListFragment: Fragment() {
     private lateinit var shoppingManager: ShoppingListManager
     lateinit var adapter: ShoppingListAdapter
+    lateinit var contextImg: Context
     //private var groceriesAll: MutableList<IngredientType> = mutableListOf()
     private var onGrocerySelectedListener: OnShoppingClickListener? = null
 
@@ -37,6 +38,7 @@ class ShoppingListFragment: Fragment() {
         super.onAttach(context)
 
         // reference to shoppingListManager here
+        contextImg = context
         shoppingManager = (context.applicationContext as PantryApp).shoppingListManager
 
         if (context is OnShoppingClickListener) {
@@ -59,7 +61,7 @@ class ShoppingListFragment: Fragment() {
     }
 
     private fun setAdapter() {
-        adapter = ShoppingListAdapter(shoppingManager)
+        adapter = ShoppingListAdapter(shoppingManager, contextImg)
 
         rvShoppingList.adapter = adapter
 
