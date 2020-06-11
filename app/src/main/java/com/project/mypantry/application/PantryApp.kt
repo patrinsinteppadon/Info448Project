@@ -81,7 +81,7 @@ class PantryApp: Application() {
         )
         val map = HashMap<Int, Int>()
         map[1] = 20
-        recipeListManager.add(Recipe(1, "Recipe", "imglink", listOf(IngredientType(1, "Beef", "imglink")), map))
+        recipeListManager.add(Recipe(1, "Recipe", "img", "https://spoonacular.com/recipes/spaghetti-with-bolognese-sauce-660820"))
     }
 
     private val activityLifecycleCallbacks = object: ActivityLifecycleCallbacks {

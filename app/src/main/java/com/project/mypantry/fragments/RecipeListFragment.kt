@@ -72,13 +72,7 @@ class RecipeListFragment: Fragment() {
 
     private fun updateRecipeListViews() {
         recipesAll?.let {
-
-            val recipesMutfromAct = it.toMutableList()
-
-            val recipeAdapter =
-                RecipeListAdapter(
-                    recipesMutfromAct
-                )
+            val recipeAdapter = RecipeListAdapter(it)
 
             rvRecipeList.adapter = recipeAdapter
 

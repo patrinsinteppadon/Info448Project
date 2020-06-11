@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.project.mypantry.R
-import com.project.mypantry.adapters.RecipeIngredientListAdapter
 import com.project.mypantry.application.PantryApp
 import com.project.mypantry.objects.Recipe
 import com.squareup.picasso.Picasso
@@ -28,7 +27,6 @@ class RecipeDetailActivity: AppCompatActivity() {
             recipeImg.setImageResource(R.drawable.beforeyougo)
 //            val image: ImageView = findViewById(R.id.recipeImg)
 //            Picasso.get().load("https://picsum.photos/seed/Can%27tTouchThis/50").into(image)
-            ingredList.adapter = RecipeIngredientListAdapter((application as PantryApp), recipe)
         }
     }
 

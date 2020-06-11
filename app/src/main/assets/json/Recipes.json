@@ -3,65 +3,8 @@
     {
       "id": 1,
       "name": "Spaghetti",
-      "img": "imglink",
-      "ingredients": [
-        {
-          "id": 1,
-          "ingredientName": "Ground Beef",
-          "ingredientImg": "imglink"
-        },
-        {
-          "id": 2,
-          "ingredientName": "Onion",
-          "ingredientImg": "imglink"
-        },
-        {
-          "id": 3,
-          "ingredientName": "Garlic",
-          "ingredientImg": "imglink"
-        },
-        {
-          "id": 4,
-          "ingredientName": "Green Bell Pepper",
-          "ingredientImg": "imglink"
-        },
-        {
-          "id": 5,
-          "ingredientName": "Tomato Sauce",
-          "ingredientImg": "imglink"
-        },
-        {
-          "id": 6,
-          "ingredientName": "Oregano",
-          "ingredientImg": "imglink"
-        },
-        {
-          "id": 7,
-          "ingredientName": "Basil",
-          "ingredientImg": "imglink"
-        },
-        {
-          "id": 8,
-          "ingredientName": "Salt",
-          "ingredientImg": "imglink"
-        },
-        {
-          "id": 9,
-          "ingredientName": "Black Pepper",
-          "ingredientImg": "imglink"
-        }
-      ],
-      "amounts": [
-        {"1":  20},
-        {"2":  2},
-        {"3":  12},
-        {"4":  2},
-        {"5":  10},
-        {"6":  1},
-        {"7":  1},
-        {"8":  4},
-        {"9":  2}
-      ]
+      "img": "assets.json.Recipes.json",
+      "link": "https://spoonacular.com/recipes/spaghetti-with-bolognese-sauce-660820"
     }
   ]
 }

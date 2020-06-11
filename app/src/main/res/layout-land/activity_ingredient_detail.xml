@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.IngredientDetailActivity">
+
+    <TextView
+        android:id="@+id/tvUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unit"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnExpirationDate"
+        app:layout_constraintEnd_toEndOf="@+id/tvAmount"
+        app:layout_constraintStart_toStartOf="@+id/tvAmount"
+        app:layout_constraintTop_toBottomOf="@+id/tvAmount" />
+
+    <EditText
+        android:id="@+id/etUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="@+id/tvUnit"
+        app:layout_constraintStart_toStartOf="@+id/tvTheAmount"
+        app:layout_constraintTop_toTopOf="@+id/tvUnit" />
+
+    <ImageView
+        android:id="@+id/ivIngImg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toTopOf="@+id/tvIngredientType"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSave"
+        tools:src="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/tvIngredientType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ivIngImg"
+        app:layout_constraintStart_toStartOf="@+id/ivIngImg"
+        app:layout_constraintTop_toBottomOf="@+id/ivIngImg"
+        tools:text="Ingredient Type Name" />
+
+<!--    <androidx.constraintlayout.widget.Guideline-->
+<!--        android:id="@+id/guideline2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintVertical_weight="0.5" />-->
+
+    <TextView
+        android:id="@+id/tvAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Amount"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvUnit"
+        app:layout_constraintStart_toEndOf="@+id/ivIngImg"
+        app:layout_constraintTop_toBottomOf="@+id/btnSave" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="12dp"/>
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:backgroundTint="@color/colorWarning"
+        android:text="Delete"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/btnSave"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnExpirationDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick Expiration Date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivIngImg"
+        app:layout_constraintTop_toBottomOf="@+id/etUnit"/>
+
+    <TextView
+        android:id="@+id/tvTheAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAmount"
+        app:layout_constraintEnd_toStartOf="@+id/ibSubtractAmount"
+        app:layout_constraintStart_toEndOf="@+id/tvAmount" />
+
+    <ImageButton
+        android:id="@+id/ibAddAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/ibSubtractAmount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ibSubtractAmount"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+
+    <ImageButton
+        android:id="@+id/ibSubtractAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAmount"
+        app:layout_constraintEnd_toStartOf="@+id/ibAddAmount"
+        app:layout_constraintTop_toTopOf="@+id/tvAmount"
+        app:srcCompat="@drawable/ic_baseline_remove_circle_24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

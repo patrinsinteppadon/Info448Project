@@ -33,7 +33,7 @@ class RecipeListAdapter(initialRecipes: List<Recipe>): RecyclerView.Adapter<Reci
         fun bind(recipe: Recipe) {
             tvTitle.text = recipe.name
             //tvDescip.text = recipe.ingredients.toString()
-            ivCovers.setImageResource(R.drawable.ic_launcher_background)
+            ivCovers.setImageResource(R.drawable.spaghetti)
 //            val myUri = Uri.parse(recipe.smallImageURL)
 //            Picasso.get().load(myUri).into(ivCovers);
 

@@ -3,6 +3,7 @@ package com.project.mypantry.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -147,8 +148,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onRecipeItemClicked(recipe: Recipe) {
-        val intent = Intent(this, RecipeDetailActivity::class.java)
-        intent.putExtra("SELECTED_RECIPE", recipe)
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipe.link))
         startActivity(intent)
     }
 
