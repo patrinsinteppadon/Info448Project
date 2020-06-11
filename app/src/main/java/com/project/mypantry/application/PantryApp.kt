@@ -14,7 +14,7 @@ import com.project.mypantry.managers.*
 import java.lang.ref.WeakReference
 
 class PantryApp: Application() {
-    lateinit var pantryManager: PantryListManager
+    lateinit var pantryManager: PantryListManagerStatic
     lateinit var recipeListManager: RecipeListManager
     lateinit var shoppingListManager: ShoppingListManager
     lateinit var glossaryManager: GlossaryManager
@@ -39,7 +39,7 @@ class PantryApp: Application() {
     private fun initManagers() {
         pantryManager = PantryListManagerStatic(
             this
-        ) as PantryListManager
+        )
         recipeListManager = RecipeListManagerStatic(
             this
         ) as RecipeListManager
@@ -79,9 +79,9 @@ class PantryApp: Application() {
 //            IngredientInstance(pantryManager.getSize(),  6, 5, "lbs",
 //            LocalDate.now().plusDays(1))
 //        )
-        val map = HashMap<Int, Int>()
-        map[1] = 20
-        recipeListManager.add(Recipe(1, "Recipe", "img", "https://spoonacular.com/recipes/spaghetti-with-bolognese-sauce-660820"))
+//        val map = HashMap<Int, Int>()
+//        map[1] = 20
+//        recipeListManager.add(Recipe(1, "Recipe", "img", "https://spoonacular.com/recipes/spaghetti-with-bolognese-sauce-660820"))
     }
 
     private val activityLifecycleCallbacks = object: ActivityLifecycleCallbacks {

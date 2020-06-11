@@ -41,15 +41,16 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         pantryApp = application as PantryApp
-        pantryListFrag = getPantryListFragment()
-        shoppingListFrag = getGroceryListFragment()
-        if (savedInstanceState == null) {
-
-            onPantryIconClick()
+        pantryApp.pantryManager.getJsonFromOnline {
+            Log.i("Test", "Did it work?")
+            if (savedInstanceState == null) {
+                onPantryIconClick()
+                pantryListFrag = getPantryListFragment()
+                pantryListFrag?.updateAdapter()
+            }
         }
+        shoppingListFrag = getGroceryListFragment()
 
         pantryButton.setOnClickListener {
             onPantryIconClick()
@@ -96,6 +97,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun onRecipeIconClick() {
+        title = "Recipes"
         llButtons.visibility = View.GONE
         var recipeListFragment = getRecipeListFragment()
         if (recipeListFragment == null) {

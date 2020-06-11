@@ -11,6 +11,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.project.mypantry.R
 import com.project.mypantry.activity.MainActivity
 import com.project.mypantry.activity.TowsMain
+import kotlin.random.Random
 
 /**
  * Phase 2: Let's worry about notifications and stuff later
@@ -22,7 +23,7 @@ class MessageNotificationManager(private val context: Context) {
         createNotificationChannel()
     }
 
-    fun notifyUser(daysTillExpire: Long, ingredientName: String, instanceID: Int) {
+    fun notifyUser() {
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -32,14 +33,14 @@ class MessageNotificationManager(private val context: Context) {
         val notification = NotificationCompat.Builder(context, "MESSAGE_CHANNEL_ID")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("Food is expiring")
-            .setContentText("Your food is about to expire! Check on the food in your pantry!")
+            .setContentText("Your food is about to expire! Check your pantry to get rid of some food!")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .build()
 
-        notificationManagerCompat.notify(instanceID, notification)
+        notificationManagerCompat.notify(Random.nextInt(), notification)
     }
 
     private fun createNotificationChannel() {

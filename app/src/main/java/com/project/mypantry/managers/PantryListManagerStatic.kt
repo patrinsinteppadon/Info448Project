@@ -18,10 +18,9 @@ class PantryListManagerStatic(context: Context) : PantryListManager {
     override var pantry: MutableList<IngredientInstance> = mutableListOf()
     private val appContext = context
 
-    init {
-        getJsonFromOnline()
-        Log.i("PantryFetch", pantry.toString())
-    }
+//    init {
+//        getJsonFromOnline()
+//    }
 
     override fun add(ing: IngredientInstance) {
         ing.instanceID = pantry.size
@@ -92,14 +91,14 @@ class PantryListManagerStatic(context: Context) : PantryListManager {
     override fun aboutToExpire(): List<IngredientInstance> {
         val result = mutableListOf<IngredientInstance>()
         for (ing in pantry) {
-            if (ing.expiration < LocalDate.now().plusDays(4)) {
+            if (LocalDate.parse(ing.expiration) < LocalDate.now().plusDays(4)) {
                 result.add(ing)
             }
         }
         return result.toList()
     }
 
-    private fun getJsonFromOnline() {
+    fun getJsonFromOnline(initFun: () -> Unit) {
         val queue = Volley.newRequestQueue(appContext)
 
         val request = StringRequest(
@@ -111,6 +110,7 @@ class PantryListManagerStatic(context: Context) : PantryListManager {
                 pantry = ingredients
             },
             {
+                pantry = mutableListOf()
                 Log.i("PantryManager", "Could not find JSON")
             }
         )

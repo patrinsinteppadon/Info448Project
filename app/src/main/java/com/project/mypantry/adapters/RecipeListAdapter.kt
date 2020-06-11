@@ -1,4 +1,5 @@
 package com.project.mypantry.adapters
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,8 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.mypantry.objects.Recipe
 import com.project.mypantry.R
+import com.squareup.picasso.Picasso
 
-class RecipeListAdapter(initialRecipes: List<Recipe>): RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder>()  {
+class RecipeListAdapter(initialRecipes: List<Recipe>, context: Context): RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder>()  {
+    private val context = context
     private var allrecipes: List<Recipe> = initialRecipes.toList()  // This is so we create a duplicate of the list passed in
     var onRecipeClicked: ((recipe: Recipe) -> Unit)? = null
 
@@ -28,12 +31,15 @@ class RecipeListAdapter(initialRecipes: List<Recipe>): RecyclerView.Adapter<Reci
     inner class RecipeViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val tvTitle = itemView.findViewById<TextView>(R.id.name)
         //private val tvDescip = itemView.findViewById<TextView>(R.id.recipeDesc)
-        private val ivCovers = itemView.findViewById<ImageView>(R.id.ingPic)
+        private val recipePic = itemView.findViewById<ImageView>(R.id.ingPic)
 
         fun bind(recipe: Recipe) {
+            var localImgLink = context.resources.getIdentifier(recipe.img, "drawable", context.packageName)
             tvTitle.text = recipe.name
             //tvDescip.text = recipe.ingredients.toString()
-            ivCovers.setImageResource(R.drawable.spaghetti)
+            Picasso.get().load(localImgLink)
+                .placeholder(R.drawable.ic_launcher_background)
+                .into(recipePic)
 //            val myUri = Uri.parse(recipe.smallImageURL)
 //            Picasso.get().load(myUri).into(ivCovers);
 

@@ -18,10 +18,8 @@ class ExpireWorker(context: Context, workParams: WorkerParameters): Worker(conte
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun doWork(): Result {
-        for (ing in  pantryManager.aboutToExpire()) {
-            notificationManager.notifyUser(Duration.between(LocalDate.now().atStartOfDay(), ing.expiration.atStartOfDay()).toDays(),
-                glossaryManager.getIngredientType(ing.ingredientID)?.ingredientName?:"", ing.ingredientID)
-
+        if (pantryManager.aboutToExpire().isNotEmpty()) {
+            notificationManager.notifyUser()
         }
 
         return Result.success()
