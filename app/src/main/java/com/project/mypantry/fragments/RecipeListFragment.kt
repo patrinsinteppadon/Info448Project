@@ -52,8 +52,8 @@ class RecipeListFragment: Fragment() {
         updateRecipeListViews()
 
         // DEMO CODE ==========================
-        rvRecipeList.visibility = View.GONE
-        tvComingSoon.visibility = View.VISIBLE
+//        rvRecipeList.visibility = View.GONE
+//        tvComingSoon.visibility = View.VISIBLE
     }
 
 
