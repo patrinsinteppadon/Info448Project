@@ -131,12 +131,7 @@ class MainActivity : AppCompatActivity(),
         )
         val lastFragmentName = backStackTop.name
 
-
-        if (lastFragmentName == RecipeListFragment.TAG) {
-//            val intent = Intent(this, RecipeDetailActivity::class.java)
-//            intent.putExtra("isAdding", true)
-//            startActivity(intent)
-        } else if (lastFragmentName == PantryListFragment.TAG) {
+        if (lastFragmentName == PantryListFragment.TAG) {
             val intent = Intent(this, GlossarySearchActivity::class.java)
             intent.putExtra(GlossarySearchActivity.FOR_PANTRY, true)
             startActivityForResult(intent, EDIT_PANTRY_RC)
@@ -160,6 +155,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onPantryItemClicked(ing: IngredientInstance) {
+        Log.i("LocalDate", ing.expiration.toString())
         val intent = Intent(this, IngredientDetailActivity::class.java)
         intent.putExtra(ING_INST_EXTRA, ing)
         startActivityForResult(intent, EDIT_PANTRY_RC)

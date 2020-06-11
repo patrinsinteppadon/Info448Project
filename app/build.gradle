@@ -49,14 +49,15 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:2.3.4"
     implementation "com.squareup.picasso:picasso:2.71828"
 
-    //added dependenceies
+    //added dependencies
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation 'com.ericchee:songdataprovider:1.0.5'
     implementation 'androidx.cardview:cardview:1.0.0'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.8.6'
-// Retrofit
+
+    // Retrofit
     def retrofit_version = "2.8.1"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"

@@ -1,10 +1,8 @@
-{
-  "recipe": [
-    {
-      "id": 1,
-      "name": "Spaghetti",
-      "img": "assets.json.Recipes.json",
-      "link": "https://spoonacular.com/recipes/spaghetti-with-bolognese-sauce-660820"
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "name": "Spaghetti",
+    "img": "https://webknox.com/recipeImages/660820-556x370.jpg",
+    "link": "https://spoonacular.com/recipes/spaghetti-with-bolognese-sauce-660820"
+  }
+]
