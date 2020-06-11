@@ -16,6 +16,7 @@ import com.project.mypantry.objects.Recipe
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
 
 class RecipeListFragment: Fragment() {
+    lateinit var app: Context
     private var recipesAll: MutableList<Recipe> = mutableListOf()
     private var onRecipeSelectedListener: OnRecipeClickListener? = null
 
@@ -28,7 +29,7 @@ class RecipeListFragment: Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-
+        app = context.applicationContext as PantryApp
         recipesAll = (context.applicationContext as PantryApp).recipeListManager.recipes
 
         if (context is OnRecipeClickListener) {
@@ -60,13 +61,7 @@ class RecipeListFragment: Fragment() {
 
     private fun updateRecipeListViews() {
         recipesAll?.let {
-
-            val recipesMutfromAct = it.toMutableList()
-
-            val recipeAdapter =
-                RecipeListAdapter(
-                    recipesMutfromAct
-                )
+            val recipeAdapter = RecipeListAdapter(it, app)
 
             rvRecipeList.adapter = recipeAdapter
 

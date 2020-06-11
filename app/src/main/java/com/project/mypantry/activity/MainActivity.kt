@@ -3,6 +3,7 @@ package com.project.mypantry.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -41,17 +42,15 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
 
         pantryApp = application as PantryApp
-        pantryListFrag = getPantryListFragment()
-        shoppingListFrag = getGroceryListFragment()
-        if (savedInstanceState == null) {
-            // fetch from api and instantiate manager
-            pantryApp.apiManager.fetchGlossary({
-                pantryApp.glossaryManager.glossary = it
+        pantryApp.pantryManager.getJsonFromOnline {
+            Log.i("Test", "Did it work?")
+            if (savedInstanceState == null) {
                 onPantryIconClick()
-            }, {
-                Log.i("Tow", "Fetch failed")
-            })
+                pantryListFrag = getPantryListFragment()
+                pantryListFrag?.updateAdapter()
+            }
         }
+        shoppingListFrag = getGroceryListFragment()
 
         pantryButton.setOnClickListener {
             onPantryIconClick()
@@ -94,12 +93,14 @@ class MainActivity : AppCompatActivity(),
                 .addToBackStack(PantryListFragment.TAG)
                 .commit()
         }
+        llButtons.visibility = View.VISIBLE
+        clearButton.visibility = View.GONE
+        addButton.visibility = View.VISIBLE
     }
 
     private fun onRecipeIconClick() {
         title = "Recipes"
-        clearButton.visibility = View.GONE
-        addButton.visibility = View.GONE
+        llButtons.visibility = View.GONE
         var recipeListFragment = getRecipeListFragment()
         if (recipeListFragment == null) {
             recipeListFragment =
@@ -125,6 +126,9 @@ class MainActivity : AppCompatActivity(),
                 .addToBackStack(ShoppingListFragment.TAG)
                 .commit()
         }
+        llButtons.visibility = View.VISIBLE
+        clearButton.visibility = View.VISIBLE
+        addButton.visibility = View.VISIBLE
     }
 
     private fun onAddClick() {
@@ -133,12 +137,7 @@ class MainActivity : AppCompatActivity(),
         )
         val lastFragmentName = backStackTop.name
 
-
-        if (lastFragmentName == RecipeListFragment.TAG) {
-//            val intent = Intent(this, RecipeDetailActivity::class.java)
-//            intent.putExtra("isAdding", true)
-//            startActivity(intent)
-        } else if (lastFragmentName == PantryListFragment.TAG) {
+        if (lastFragmentName == PantryListFragment.TAG) {
             val intent = Intent(this, GlossarySearchActivity::class.java)
             intent.putExtra(GlossarySearchActivity.FOR_PANTRY, true)
             startActivityForResult(intent, EDIT_PANTRY_RC)
@@ -150,8 +149,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onRecipeItemClicked(recipe: Recipe) {
-        val intent = Intent(this, RecipeDetailActivity::class.java)
-        intent.putExtra("SELECTED_RECIPE", recipe)
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(recipe.link))
         startActivity(intent)
     }
 
@@ -163,6 +161,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onPantryItemClicked(ing: IngredientInstance) {
+        Log.i("LocalDate", ing.expiration.toString())
         val intent = Intent(this, IngredientDetailActivity::class.java)
         intent.putExtra(ING_INST_EXTRA, ing)
         startActivityForResult(intent, EDIT_PANTRY_RC)

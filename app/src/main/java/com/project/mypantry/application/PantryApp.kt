@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.ref.WeakReference
 
 class PantryApp: Application() {
-    lateinit var pantryManager: PantryListManager
+    lateinit var pantryManager: PantryListManagerStatic
     lateinit var recipeListManager: RecipeListManager
     lateinit var shoppingListManager: ShoppingListManager
     lateinit var glossaryManager: GlossaryManager
@@ -41,7 +41,7 @@ class PantryApp: Application() {
     private fun initManagers() {
         pantryManager = PantryListManagerStatic(
             this
-        ) as PantryListManager
+        )
         recipeListManager = RecipeListManagerStatic(
             this
         ) as RecipeListManager
@@ -64,31 +64,33 @@ class PantryApp: Application() {
         workManager = ExpireWorkManager(this)
         notificationManager = MessageNotificationManager(this)
 
-        pantryManager.add(
-            IngredientInstance(pantryManager.getSize(), 1, 1, "lbs",
-            LocalDate.now().plusDays(6))
-        )
-        pantryManager.add(
-            IngredientInstance(pantryManager.getSize(),  2, 2, "lbs",
-            LocalDate.now().plusDays(5))
-        )
-        pantryManager.add(
-            IngredientInstance(pantryManager.getSize(),  3, 1, "lbs",
-            LocalDate.now().plusDays(4))
-        )
-        pantryManager.add(
-            IngredientInstance(pantryManager.getSize(),  4, 5, "lbs",
-            LocalDate.now().plusDays(3))
-        )
-        pantryManager.add(
-            IngredientInstance(pantryManager.getSize(),  5, 3, "lbs",
-            LocalDate.now().plusDays(2))
-        )
-        pantryManager.add(
-            IngredientInstance(pantryManager.getSize(),  6, 5, "lbs",
-            LocalDate.now().plusDays(1))
-        )
-        recipeListManager.add(Recipe(1, "Recipe", "imglink", listOf(IngredientType(1, "ingredient name", "imglink"))))
+//        pantryManager.add(
+//            IngredientInstance(pantryManager.getSize(), 1, 1, "lbs",
+//            LocalDate.now().plusDays(6))
+//        )
+//        pantryManager.add(
+//            IngredientInstance(pantryManager.getSize(),  2, 2, "lbs",
+//            LocalDate.now().plusDays(5))
+//        )
+//        pantryManager.add(
+//            IngredientInstance(pantryManager.getSize(),  3, 1, "lbs",
+//            LocalDate.now().plusDays(4))
+//        )
+//        pantryManager.add(
+//            IngredientInstance(pantryManager.getSize(),  4, 5, "lbs",
+//            LocalDate.now().plusDays(3))
+//        )
+//        pantryManager.add(
+//            IngredientInstance(pantryManager.getSize(),  5, 3, "lbs",
+//            LocalDate.now().plusDays(2))
+//        )
+//        pantryManager.add(
+//            IngredientInstance(pantryManager.getSize(),  6, 5, "lbs",
+//            LocalDate.now().plusDays(1))
+//        )
+//        val map = HashMap<Int, Int>()
+//        map[1] = 20
+//        recipeListManager.add(Recipe(1, "Recipe", "img", "https://spoonacular.com/recipes/spaghetti-with-bolognese-sauce-660820"))
     }
 
     private val activityLifecycleCallbacks = object: ActivityLifecycleCallbacks {

@@ -28,16 +28,17 @@ class IngredientDetailViewModel: ViewModel() {
     lateinit var ingredientType: IngredientType
     private var ingredientInstance: IngredientInstance? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun init (gManager: GlossaryManager, pManager: PantryListManager, sManager: ShoppingListManager,
               ingredientType: IngredientType, ingredientInstance: IngredientInstance?,
-    reload: Boolean) {
+              reload: Boolean) {
         glossaryManager = gManager
         pantryListManager = pManager
         shoppingListManager = sManager
         this.ingredientType = ingredientType
         if (reload) {
             if(ingredientInstance != null) {
-                theDate.value = ingredientInstance.expiration
+                theDate.value = LocalDate.parse(ingredientInstance.expiration)
                 theAmount.value = ingredientInstance.amount
                 theUnit.value = ingredientInstance.unit
                 this.ingredientInstance = ingredientInstance
@@ -76,11 +77,11 @@ class IngredientDetailViewModel: ViewModel() {
         if (ingredientInstance != null) {
             Log.i("Save", "It is saving")
             ingredientInstance?.let{pantryListManager.updateInstance(it.instanceID,
-                IngredientInstance(it.instanceID, ingredientType.id, theAmount.value!!, theUnit.value!!, theDate.value!!))}
+                IngredientInstance(it.instanceID, ingredientType.id, theAmount.value!!, theUnit.value!!, theDate.value!!.toString()))}
         } else {
             val instanceId = pantryListManager.getSize()
             pantryListManager.add(IngredientInstance(instanceId, ingredientType.id,
-                theAmount.value!!, theUnit.value!!, theDate.value!!))
+                theAmount.value!!, theUnit.value!!, theDate.value!!.toString()))
         }
     }
 

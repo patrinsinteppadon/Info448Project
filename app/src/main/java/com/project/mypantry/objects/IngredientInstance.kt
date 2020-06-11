@@ -11,5 +11,5 @@ data class IngredientInstance (
     var ingredientID: Int, // maybe doesn't have to be Int
     var amount: Int,
     var unit: String,
-    var expiration: LocalDate // should it be date? Maybe some other type
+    var expiration: String // should it be date? Maybe some other type
 ): Parcelable

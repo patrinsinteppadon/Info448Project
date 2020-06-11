@@ -47,7 +47,7 @@ class PantryListAdapter(
     inner class PantryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val name = itemView.findViewById<TextView>(R.id.name)
         private val ivCovers = itemView.findViewById<ImageView>(R.id.ingPic)
-        private val expDate = itemView.findViewById<TextView>(R.id.expDate)
+        private val expDate = itemView.findViewById<TextView>(R.id.amount)
         private val amountAndUnit = itemView.findViewById<TextView>(R.id.amountAndUnit)
 
 

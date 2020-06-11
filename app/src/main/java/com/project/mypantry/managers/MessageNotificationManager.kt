@@ -11,6 +11,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.project.mypantry.R
 import com.project.mypantry.activity.MainActivity
 import com.project.mypantry.activity.TowsMain
+import kotlin.random.Random
 
 /**
  * Phase 2: Let's worry about notifications and stuff later
@@ -33,14 +34,13 @@ class MessageNotificationManager(private val context: Context) {
             .setSmallIcon(R.drawable.ic_baseline_fastfood_24)
             .setContentTitle("Smart Pantry")
             .setContentText("Food in your pantry is expiring in less than 3 days")
-            //  .setContentText("$ingredientName expiring in $daysTillExpire days")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .build()
 
-        notificationManagerCompat.notify(123, notification)
+        notificationManagerCompat.notify(Random.nextInt(), notification)
     }
 
     private fun createNotificationChannel() {

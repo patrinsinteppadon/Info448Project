@@ -2,17 +2,25 @@ package com.project.mypantry.managers
 
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
 import com.project.mypantry.application.PantryApp
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import java.time.LocalDate
 
 
-class PantryListManagerStatic(private val context: Context) :
-    PantryListManager {
-
+class PantryListManagerStatic(context: Context) : PantryListManager {
     override var pantry: MutableList<IngredientInstance> = mutableListOf()
+    private val appContext = context
+
+//    init {
+//        getJsonFromOnline()
+//    }
 
     override fun add(ing: IngredientInstance) {
         ing.instanceID = pantry.size
@@ -57,12 +65,22 @@ class PantryListManagerStatic(private val context: Context) :
     }
 
     override fun addToGroceries(ing: IngredientType) {
-        (context as PantryApp).shoppingListManager.add(ing)
+        (appContext as PantryApp).shoppingListManager.add(ing)
     }
 
     // sorts by expiration date
     override fun sort() {
         pantry.sortBy { it.expiration}
+    }
+
+    override fun getCount(ing: IngredientType): Int {
+        var count = 0
+        for (i in pantry) {
+            if(i.ingredientID == ing.id) {
+                count += i.amount
+            }
+        }
+        return count
     }
 
     override fun sendNotification(ing: IngredientType) {
@@ -73,10 +91,30 @@ class PantryListManagerStatic(private val context: Context) :
     override fun aboutToExpire(): List<IngredientInstance> {
         val result = mutableListOf<IngredientInstance>()
         for (ing in pantry) {
-            if (ing.expiration < LocalDate.now().plusDays(4)) {
+            if (LocalDate.parse(ing.expiration) < LocalDate.now().plusDays(4)) {
                 result.add(ing)
             }
         }
         return result.toList()
+    }
+
+    fun getJsonFromOnline(initFun: () -> Unit) {
+        val queue = Volley.newRequestQueue(appContext)
+
+        val request = StringRequest(
+            Request.Method.GET,
+            "https://raw.githubusercontent.com/ThomasThat467/PantryAppJSONs/master/IngredientInstance.json",
+            { response ->
+                val gson = Gson()
+                val ingredients = gson.fromJson(response, Array<IngredientInstance>::class.java).toMutableList()
+                pantry = ingredients
+            },
+            {
+                pantry = mutableListOf()
+                Log.i("PantryManager", "Could not find JSON")
+            }
+        )
+
+        queue.add(request)
     }
 }

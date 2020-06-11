@@ -37,7 +37,7 @@
             app:layout_constraintTop_toTopOf="@+id/ingPic" />
 
         <TextView
-            android:id="@+id/expDate"
+            android:id="@+id/amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="# / #"
