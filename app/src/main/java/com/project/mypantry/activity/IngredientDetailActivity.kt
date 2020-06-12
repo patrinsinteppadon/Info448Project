@@ -60,7 +60,7 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
             }
         } else {
             btnSave.text = "Add To Pantry"
-            ingredientType = intent.getParcelableExtra<IngredientType>(ING_TYPE_EXTRA)
+            ingredientType = intent.getParcelableExtra(ING_TYPE_EXTRA)
         }
 
         // init view model to handle rotation

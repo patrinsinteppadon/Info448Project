@@ -8,9 +8,6 @@ import androidx.work.WorkManager
 import com.project.mypantry.application.ExpireWorker
 import java.util.concurrent.TimeUnit
 
-/**
- * Phase 2: Let's worry about notifications and stuff later
- */
 class ExpireWorkManager(context: Context) {
     private var workManager = WorkManager.getInstance(context)
 
@@ -19,7 +16,6 @@ class ExpireWorkManager(context: Context) {
     }
 
     fun startWork() {
-
         val constraints = Constraints.Builder()
             .build()
 
@@ -29,7 +25,11 @@ class ExpireWorkManager(context: Context) {
             .addTag(WORKER_TAG)
             .build()
 
-        workManager.enqueueUniquePeriodicWork("StartNotifications", ExistingPeriodicWorkPolicy.KEEP, workRequest)
+        workManager.enqueueUniquePeriodicWork(
+            "StartNotifications",
+            ExistingPeriodicWorkPolicy.KEEP,
+            workRequest
+        )
     }
 
     fun stopWork() {

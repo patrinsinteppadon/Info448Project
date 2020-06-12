@@ -21,13 +21,14 @@ class GlossarySearchActivity : AppCompatActivity() {
 
 
     companion object {
-        const val FOR_PANTRY = "ripblackmambathelegend24"
+        const val FOR_PANTRY = "pantry"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_glossary_search)
         title = "Pick an Ingredient"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // initialize app and adapter
         app = (applicationContext as PantryApp)
@@ -90,7 +91,6 @@ class GlossarySearchActivity : AppCompatActivity() {
                 }
                 return true
             }
-
         })
 
         searchView.setOnCloseListener {
@@ -100,7 +100,10 @@ class GlossarySearchActivity : AppCompatActivity() {
         }
 
         return true
-
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
+    }
 }

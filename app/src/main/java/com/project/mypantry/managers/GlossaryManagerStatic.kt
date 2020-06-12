@@ -6,20 +6,13 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.project.mypantry.objects.IngredientType
-import java.io.IOException
 
-class GlossaryManagerStatic(context: Context): GlossaryManager {
+class GlossaryManagerStatic(context: Context) : GlossaryManager {
     override lateinit var glossary: List<IngredientType>
     private val appContext = context
 
     init {
-//        val jsonFileString = getJsonDataFromAsset(context, "json/IngredientType.json")
-//        val g = Gson()
-//        Log.i("GlossaryManager", jsonFileString)
-//        val listType = object : TypeToken<List<IngredientType>>() {}.type
-//        glossary = g.fromJson(jsonFileString, listType)
         getJsonFromOnline()
     }
 
@@ -37,17 +30,6 @@ class GlossaryManagerStatic(context: Context): GlossaryManager {
         }
 
         return null
-    }
-
-    private fun getJsonDataFromAsset(context: Context, fileName: String): String? {
-        val jsonString: String
-        try {
-            jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
-        } catch (ioException: IOException) {
-            ioException.printStackTrace()
-            return null
-        }
-        return jsonString
     }
 
     private fun getJsonFromOnline() {

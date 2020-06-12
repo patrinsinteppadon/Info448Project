@@ -13,13 +13,11 @@ import com.project.mypantry.objects.IngredientType
 import java.time.LocalDate
 
 class IngredientDetailViewModel : ViewModel() {
-
     // live data
     var theDate = MutableLiveData<LocalDate>()
     var theAmount = MutableLiveData<Int>(0)
     var theUnit = MutableLiveData<String>()
     var filledOut = MutableLiveData<Boolean>(false)
-
 
     // managers
     private lateinit var glossaryManager: GlossaryManager

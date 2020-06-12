@@ -12,9 +12,6 @@ import com.project.mypantry.R
 import com.project.mypantry.activity.MainActivity
 import kotlin.random.Random
 
-/**
- * Phase 2: Let's worry about notifications and stuff later
- */
 class MessageNotificationManager(private val context: Context) {
     private val notificationManagerCompat = NotificationManagerCompat.from(context)
 
@@ -27,7 +24,8 @@ class MessageNotificationManager(private val context: Context) {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent =
+            PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val notification = NotificationCompat.Builder(context, "MESSAGE_CHANNEL_ID")
             .setSmallIcon(R.drawable.ic_baseline_fastfood_24)

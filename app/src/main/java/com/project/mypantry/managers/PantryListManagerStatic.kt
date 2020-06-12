@@ -13,19 +13,13 @@ import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import java.time.LocalDate
 
-
 class PantryListManagerStatic(context: Context) : PantryListManager {
     override var pantry: MutableList<IngredientInstance> = mutableListOf()
     private val appContext = context
 
-//    init {
-//        getJsonFromOnline()
-//    }
-
     override fun add(ing: IngredientInstance) {
         ing.instanceID = pantry.size
         pantry.add(ing)
-
         sort()
     }
 
@@ -57,7 +51,7 @@ class PantryListManagerStatic(context: Context) : PantryListManager {
 
     override fun get(id: Int): IngredientInstance? {
         for (i in pantry) {
-            if(i.instanceID == id) {
+            if (i.instanceID == id) {
                 return i
             }
         }
@@ -70,21 +64,17 @@ class PantryListManagerStatic(context: Context) : PantryListManager {
 
     // sorts by expiration date
     override fun sort() {
-        pantry.sortBy { it.expiration}
+        pantry.sortBy { it.expiration }
     }
 
     override fun getCount(ing: IngredientType): Int {
         var count = 0
         for (i in pantry) {
-            if(i.ingredientID == ing.id) {
+            if (i.ingredientID == ing.id) {
                 count += i.amount
             }
         }
         return count
-    }
-
-    override fun sendNotification(ing: IngredientType) {
-        TODO("Not yet implemented")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -106,13 +96,13 @@ class PantryListManagerStatic(context: Context) : PantryListManager {
             "https://raw.githubusercontent.com/ThomasThat467/PantryAppJSONs/master/IngredientInstance.json",
             { response ->
                 val gson = Gson()
-                val ingredients = gson.fromJson(response, Array<IngredientInstance>::class.java).toMutableList()
+                val ingredients =
+                    gson.fromJson(response, Array<IngredientInstance>::class.java).toMutableList()
                 pantry = ingredients
 
                 initFun.invoke()
             },
             {
-                pantry = mutableListOf()
                 Log.i("PantryManager", "Could not find JSON")
             }
         )

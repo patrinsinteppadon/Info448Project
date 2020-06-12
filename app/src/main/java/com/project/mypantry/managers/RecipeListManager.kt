@@ -8,7 +8,6 @@ interface RecipeListManager {
 
     fun add(recipe: Recipe)
     fun delete(recipe: Recipe)
-    fun update(recipe: Recipe)
 
     /** returns whether all required ingredients for the recipe are in the pantry */
     fun canBeCreated(pantry: MutableList<IngredientInstance>, recipe: Recipe): Boolean

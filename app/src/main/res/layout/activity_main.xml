@@ -10,18 +10,18 @@
         android:id="@+id/llButtons"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/clearButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Clear"
             android:layout_weight="1"
-            android:visibility="gone"/>
+            android:text="Clear"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/addButton"
@@ -32,8 +32,6 @@
             android:text="Add" />
 
     </LinearLayout>
-
-
 
 
     <FrameLayout
