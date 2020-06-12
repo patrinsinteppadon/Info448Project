@@ -50,6 +50,11 @@ class PantryListFragment(): Fragment() {
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
             setPantryAdapter()
+            if (pantryApp.pantryManager.getPantryList().isEmpty()) {
+                pantryApp.pantryManager.getJsonFromOnline {
+                    updateAdapter()
+                }
+            }
         }
 
         private fun setPantryAdapter() {

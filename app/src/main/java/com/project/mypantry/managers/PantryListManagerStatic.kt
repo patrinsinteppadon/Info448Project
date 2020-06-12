@@ -108,6 +108,8 @@ class PantryListManagerStatic(context: Context) : PantryListManager {
                 val gson = Gson()
                 val ingredients = gson.fromJson(response, Array<IngredientInstance>::class.java).toMutableList()
                 pantry = ingredients
+
+                initFun.invoke()
             },
             {
                 pantry = mutableListOf()

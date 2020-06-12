@@ -28,13 +28,15 @@ class MainActivity : AppCompatActivity(),
     OnRecipeClickListener,
     OnPantryClickListener,
     OnShoppingClickListener {
-    lateinit var pantryApp: PantryApp
+    private lateinit var pantryApp: PantryApp
     private var pantryListFrag: PantryListFragment? = null
     private var shoppingListFrag: ShoppingListFragment? =  null
 
     companion object {
         const val EDIT_PANTRY_RC = 123
         const val ADD_SHOPPING_RC = 234
+        const val PANTRY = "pantry"
+        const val RECIPE = "recipe"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,15 +44,23 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
 
         pantryApp = application as PantryApp
-        pantryApp.pantryManager.getJsonFromOnline {
-            Log.i("Test", "Did it work?")
-            if (savedInstanceState == null) {
-                onPantryIconClick()
-                pantryListFrag = getPantryListFragment()
-                pantryListFrag?.updateAdapter()
+        if (savedInstanceState == null) {
+            onPantryIconClick()
+        } else {
+            with(savedInstanceState) {
+                when {
+                    getBoolean(PANTRY) -> {
+                        onPantryIconClick()
+                    }
+                    getBoolean(RECIPE) -> {
+                        onRecipeIconClick()
+                    }
+                    else -> {
+                        onGroceryIconClick()
+                    }
+                }
             }
         }
-        shoppingListFrag = getGroceryListFragment()
 
         pantryButton.setOnClickListener {
             onPantryIconClick()
@@ -71,6 +81,15 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        val backStackTop = supportFragmentManager.getBackStackEntryAt(
+            supportFragmentManager.backStackEntryCount - 1
+        )
+        outState.putBoolean(PANTRY, backStackTop.name == PantryListFragment.TAG)
+        outState.putBoolean(RECIPE, backStackTop.name == RecipeListFragment.TAG)
+        super.onSaveInstanceState(outState)
+    }
+
     private fun getPantryListFragment() = supportFragmentManager.findFragmentByTag(
         PantryListFragment.TAG) as? PantryListFragment
 
@@ -83,8 +102,6 @@ class MainActivity : AppCompatActivity(),
     private fun onPantryIconClick() {
         title = "My Pantry"
         pantryListFrag = getPantryListFragment()
-        clearButton.visibility = View.GONE
-        addButton.visibility = View.VISIBLE
         if (pantryListFrag == null) {
             pantryListFrag = PantryListFragment()
             supportFragmentManager.popBackStack()
@@ -115,8 +132,6 @@ class MainActivity : AppCompatActivity(),
 
     private fun onGroceryIconClick() {
         title = "Shopping List"
-        clearButton.visibility = View.VISIBLE
-        addButton.visibility = View.VISIBLE
         shoppingListFrag = getGroceryListFragment()
         if (shoppingListFrag == null) {
             shoppingListFrag = ShoppingListFragment()
