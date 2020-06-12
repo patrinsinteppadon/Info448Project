@@ -1,9 +1,7 @@
 package com.project.mypantry.fragments
 
 import android.content.Context
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,16 +13,10 @@ import com.project.mypantry.application.PantryApp
 import com.project.mypantry.objects.Recipe
 import kotlinx.android.synthetic.main.fragment_recipe_list.*
 
-class RecipeListFragment: Fragment() {
+class RecipeListFragment : Fragment() {
     lateinit var app: Context
     private var recipesAll: MutableList<Recipe> = mutableListOf()
     private var onRecipeSelectedListener: OnRecipeClickListener? = null
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -48,15 +40,8 @@ class RecipeListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         updateRecipeListViews()
-
-        // DEMO CODE ==========================
-//        rvRecipeList.visibility = View.GONE
-//        tvComingSoon.visibility = View.VISIBLE
     }
-
-
 
 
     private fun updateRecipeListViews() {
@@ -68,8 +53,6 @@ class RecipeListFragment: Fragment() {
             recipeAdapter.onRecipeClicked = { someRecipe: Recipe ->
                 onRecipeSelectedListener?.onRecipeItemClicked(someRecipe)
             }
-
-
         }
     }
 

@@ -15,65 +15,61 @@ import com.project.mypantry.adapters.PantryListAdapter
 import com.project.mypantry.objects.IngredientInstance
 import kotlinx.android.synthetic.main.fragment_pantry_list.*
 
+class PantryListFragment : Fragment() {
+    private var onPantryClickedListener: OnPantryClickListener? = null
+    private lateinit var adapter: PantryListAdapter
+    private lateinit var pantryApp: PantryApp
 
-class PantryListFragment(): Fragment() {
-        //private var ingAll: MutableList<IngredientInstance> = mutableListOf()
-        private var onPantryClickedListener: OnPantryClickListener? = null
-        lateinit var adapter: PantryListAdapter
-        lateinit var pantryApp: PantryApp
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
-
-        @RequiresApi(Build.VERSION_CODES.O)
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnPantryClickListener) {
+            onPantryClickedListener = context
+            pantryApp = (context.applicationContext as PantryApp)
         }
+    }
 
-        override fun onAttach(context: Context) {
-            super.onAttach(context)
-            if (context is OnPantryClickListener) {
-                onPantryClickedListener = context
-                pantryApp = (context.applicationContext as PantryApp)
-            }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return layoutInflater.inflate(R.layout.fragment_pantry_list, container, false)
+    }
 
-
-
-        }
-
-        override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-            return layoutInflater.inflate(R.layout.fragment_pantry_list, container, false)
-        }
-
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-            setPantryAdapter()
-            if (pantryApp.pantryManager.getPantryList().isEmpty()) {
-                pantryApp.pantryManager.getJsonFromOnline {
-                    updateAdapter()
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setPantryAdapter()
+        if (pantryApp.pantryManager.getPantryList().isEmpty()) {
+            pantryApp.pantryManager.getJsonFromOnline {
+                updateAdapter()
             }
         }
+    }
 
-        private fun setPantryAdapter() {
-            adapter = PantryListAdapter(pantryApp.pantryManager.pantry, pantryApp, onPantryClickedListener as Context)
+    private fun setPantryAdapter() {
+        adapter = PantryListAdapter(
+            pantryApp.pantryManager.pantry,
+            pantryApp,
+            onPantryClickedListener as Context
+        )
 
-            pantryList.adapter = adapter
+        pantryList.adapter = adapter
 
-            adapter.onPantryClicked = { ing: IngredientInstance ->
-                onPantryClickedListener?.onPantryItemClicked(ing)
-            }
+        adapter.onPantryClicked = { ing: IngredientInstance ->
+            onPantryClickedListener?.onPantryItemClicked(ing)
         }
+    }
 
     fun updateAdapter() {
         adapter.update(pantryApp.pantryManager.getPantryList().toList())
     }
 
-
-
-        companion object {
-            val TAG: String = PantryListFragment::class.java.simpleName
-        }
+    companion object {
+        val TAG: String = PantryListFragment::class.java.simpleName
+    }
 }

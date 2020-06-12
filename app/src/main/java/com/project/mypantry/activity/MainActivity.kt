@@ -1,16 +1,12 @@
 package com.project.mypantry.activity
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.project.mypantry.activity.GlossarySearchActivity.Companion.FOR_PANTRY
 import com.project.mypantry.R
 import android.view.View
-import com.project.mypantry.activity.GlossarySearchActivity.Companion.FOR_PANTRY
 import com.project.mypantry.activity.IngredientDetailActivity.Companion.FOR_SHOPPING
 import com.project.mypantry.activity.IngredientDetailActivity.Companion.ING_INST_EXTRA
 import com.project.mypantry.activity.IngredientDetailActivity.Companion.ING_TYPE_EXTRA
@@ -21,7 +17,6 @@ import com.project.mypantry.fragments.RecipeListFragment
 import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import com.project.mypantry.objects.Recipe
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
@@ -30,7 +25,7 @@ class MainActivity : AppCompatActivity(),
     OnShoppingClickListener {
     private lateinit var pantryApp: PantryApp
     private var pantryListFrag: PantryListFragment? = null
-    private var shoppingListFrag: ShoppingListFragment? =  null
+    private var shoppingListFrag: ShoppingListFragment? = null
 
     companion object {
         const val EDIT_PANTRY_RC = 123
@@ -44,6 +39,7 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
 
         pantryApp = application as PantryApp
+
         if (savedInstanceState == null) {
             onPantryIconClick()
         } else {
@@ -91,13 +87,16 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun getPantryListFragment() = supportFragmentManager.findFragmentByTag(
-        PantryListFragment.TAG) as? PantryListFragment
+        PantryListFragment.TAG
+    ) as? PantryListFragment
 
     private fun getRecipeListFragment() = supportFragmentManager.findFragmentByTag(
-        RecipeListFragment.TAG)
+        RecipeListFragment.TAG
+    )
 
     private fun getGroceryListFragment() = supportFragmentManager.findFragmentByTag(
-        ShoppingListFragment.TAG) as? ShoppingListFragment
+        ShoppingListFragment.TAG
+    ) as? ShoppingListFragment
 
     private fun onPantryIconClick() {
         title = "My Pantry"
@@ -176,7 +175,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onPantryItemClicked(ing: IngredientInstance) {
-        Log.i("LocalDate", ing.expiration.toString())
         val intent = Intent(this, IngredientDetailActivity::class.java)
         intent.putExtra(ING_INST_EXTRA, ing)
         startActivityForResult(intent, EDIT_PANTRY_RC)
@@ -199,14 +197,13 @@ class MainActivity : AppCompatActivity(),
                 pantryListFrag?.updateAdapter()
             }
         } else {
-                // change shopping
-                if (resultCode == Activity.RESULT_OK) {
-                    shoppingListFrag?.updateAdapter()
-                }
+            // change shopping
+            if (resultCode == Activity.RESULT_OK) {
+                shoppingListFrag?.updateAdapter()
             }
+        }
     }
 }
-
 
 interface OnRecipeClickListener {
     fun onRecipeItemClicked(recipe: Recipe)

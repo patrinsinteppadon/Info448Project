@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class Recipe (
     var id: Int,
     var name: String,
-    var img: String, // unsure what data type should be
+    var img: String,
     val link: String
 ): Parcelable

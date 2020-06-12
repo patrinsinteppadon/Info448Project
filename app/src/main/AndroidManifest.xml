@@ -18,9 +18,6 @@
             android:configChanges="orientation">
         </activity>
         <activity android:name=".activity.IngredientDetailActivity" />
-        <activity android:name=".activity.RecipeDetailActivity" />
-        <activity android:name=".activity.TowsMain">
-        </activity>
         <activity android:name=".activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

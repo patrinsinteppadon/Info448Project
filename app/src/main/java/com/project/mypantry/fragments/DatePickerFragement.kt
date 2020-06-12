@@ -4,21 +4,14 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.DatePicker
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
-import com.project.mypantry.R
-import java.lang.reflect.Array.set
 import java.time.LocalDate
 import java.util.*
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
-    var setDateListener: SetDateListener? = null
+    private var setDateListener: SetDateListener? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         if (context is SetDateListener) {

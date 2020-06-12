@@ -15,7 +15,7 @@ import com.project.mypantry.application.PantryApp
 import kotlinx.android.synthetic.main.activity_glossary_search.*
 
 class GlossarySearchActivity : AppCompatActivity() {
-    lateinit var listView: ListView
+    private lateinit var listView: ListView
     lateinit var app: PantryApp
     lateinit var adapter: GlossaryListAdapter
 
@@ -78,7 +78,7 @@ class GlossarySearchActivity : AppCompatActivity() {
 
         searchView.setSearchableInfo(manager.getSearchableInfo(componentName))
 
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView.clearFocus()
                 return true

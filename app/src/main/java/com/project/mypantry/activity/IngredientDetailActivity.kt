@@ -25,11 +25,10 @@ import java.time.format.DateTimeFormatter
 
 class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
-
     companion object {
-        const val ING_INST_EXTRA = "ifyoungmetrodonttrussu"
-        const val ING_TYPE_EXTRA = "runitupturbo"
-        const val FOR_SHOPPING = "qwefiopjvdwef"
+        const val ING_INST_EXTRA = "ingredient_instance"
+        const val ING_TYPE_EXTRA = "ingredient_type"
+        const val FOR_SHOPPING = "shopping"
     }
 
     private val ingredientDetailViewModel: IngredientDetailViewModel by viewModels()
@@ -79,14 +78,15 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
         // set concrete values: Ingredient Name and Photo from ingredientType
         tvIngredientType.text = ingredientType.ingredientName
-        var localImgLink = this.resources.getIdentifier(ingredientType.ingredientImg, "drawable", this.packageName)
+        var localImgLink =
+            this.resources.getIdentifier(ingredientType.ingredientImg, "drawable", this.packageName)
         Picasso.get().load(localImgLink)
             .placeholder(R.drawable.ic_launcher_background)
             .into(ivIngImg);
 
         // observe amount, unit and expiration date
         ingredientDetailViewModel.theAmount.observe(this) {
-                tvTheAmount.text = it.toString()
+            tvTheAmount.text = it.toString()
         }
 
         ingredientDetailViewModel.theDate.observe(this) {
@@ -106,15 +106,12 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
             btnSave.isEnabled = it
         }
 
-
-
-
         btnExpirationDate.setOnClickListener {
             val newFragment = DatePickerFragment()
             newFragment.show(supportFragmentManager, "datePicker")
         }
 
-        etUnit.addTextChangedListener(object: TextWatcher {
+        etUnit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -129,14 +126,14 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
         })
 
         btnSave.setOnClickListener {
-            if(intent.getBooleanExtra(FOR_SHOPPING, false)) {
+            if (intent.getBooleanExtra(FOR_SHOPPING, false)) {
                 ingredientDetailViewModel.deleteFromShopping()
             }
             ingredientDetailViewModel.save()
             saveChange()
         }
 
-        ibAddAmount.setOnClickListener{
+        ibAddAmount.setOnClickListener {
             ingredientDetailViewModel.addAmount()
         }
 
@@ -146,12 +143,10 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
 
     }
 
-    private fun saveChange(){
+    private fun saveChange() {
         setResult(Activity.RESULT_OK)
         finish()
     }
-
-
 
     override fun onDateSelected(date: LocalDate) {
         ingredientDetailViewModel.changeDate(date)
@@ -161,6 +156,4 @@ class IngredientDetailActivity : AppCompatActivity(), SetDateListener {
         finish()
         return super.onSupportNavigateUp()
     }
-
-
 }

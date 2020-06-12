@@ -12,7 +12,7 @@ import com.project.mypantry.objects.IngredientInstance
 import com.project.mypantry.objects.IngredientType
 import java.time.LocalDate
 
-class IngredientDetailViewModel: ViewModel() {
+class IngredientDetailViewModel : ViewModel() {
 
     // live data
     var theDate = MutableLiveData<LocalDate>()
@@ -29,15 +29,17 @@ class IngredientDetailViewModel: ViewModel() {
     private var ingredientInstance: IngredientInstance? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun init (gManager: GlossaryManager, pManager: PantryListManager, sManager: ShoppingListManager,
-              ingredientType: IngredientType, ingredientInstance: IngredientInstance?,
-              reload: Boolean) {
+    fun init(
+        gManager: GlossaryManager, pManager: PantryListManager, sManager: ShoppingListManager,
+        ingredientType: IngredientType, ingredientInstance: IngredientInstance?,
+        reload: Boolean
+    ) {
         glossaryManager = gManager
         pantryListManager = pManager
         shoppingListManager = sManager
         this.ingredientType = ingredientType
         if (reload) {
-            if(ingredientInstance != null) {
+            if (ingredientInstance != null) {
                 theDate.value = LocalDate.parse(ingredientInstance.expiration)
                 theAmount.value = ingredientInstance.amount
                 theUnit.value = ingredientInstance.unit
@@ -48,27 +50,26 @@ class IngredientDetailViewModel: ViewModel() {
     }
 
     fun delete() {
-        ingredientInstance?.let{pantryListManager.delete(it.instanceID)}
+        ingredientInstance?.let { pantryListManager.delete(it.instanceID) }
     }
 
     private fun checkFields() {
-        if(theDate.value == null) {
+        if (theDate.value == null) {
             filledOut.value = false
             return
         }
 
-        if(theAmount.value == 0) {
+        if (theAmount.value == 0) {
             filledOut.value = false
             return
         }
 
-        if(theUnit.value == null) {
+        if (theUnit.value == null) {
             filledOut.value = false
             return
         }
 
         filledOut.value = true
-
     }
 
 
@@ -76,12 +77,26 @@ class IngredientDetailViewModel: ViewModel() {
     fun save() {
         if (ingredientInstance != null) {
             Log.i("Save", "It is saving")
-            ingredientInstance?.let{pantryListManager.updateInstance(it.instanceID,
-                IngredientInstance(it.instanceID, ingredientType.id, theAmount.value!!, theUnit.value!!, theDate.value!!.toString()))}
+            ingredientInstance?.let {
+                pantryListManager.updateInstance(
+                    it.instanceID,
+                    IngredientInstance(
+                        it.instanceID,
+                        ingredientType.id,
+                        theAmount.value!!,
+                        theUnit.value!!,
+                        theDate.value!!.toString()
+                    )
+                )
+            }
         } else {
             val instanceId = pantryListManager.getSize()
-            pantryListManager.add(IngredientInstance(instanceId, ingredientType.id,
-                theAmount.value!!, theUnit.value!!, theDate.value!!.toString()))
+            pantryListManager.add(
+                IngredientInstance(
+                    instanceId, ingredientType.id,
+                    theAmount.value!!, theUnit.value!!, theDate.value!!.toString()
+                )
+            )
         }
     }
 
@@ -89,7 +104,7 @@ class IngredientDetailViewModel: ViewModel() {
         shoppingListManager.delete(ingredientType)
     }
 
-    fun changeDate(date:LocalDate) {
+    fun changeDate(date: LocalDate) {
         theDate.value = date
         checkFields()
     }
@@ -110,7 +125,7 @@ class IngredientDetailViewModel: ViewModel() {
         checkFields()
     }
 
-    fun changeUnit(unit:String) {
+    fun changeUnit(unit: String) {
         if (unit == theUnit.value) {
             return
         }
@@ -121,9 +136,4 @@ class IngredientDetailViewModel: ViewModel() {
         }
         checkFields()
     }
-
-    fun print() {
-        Log.i("tow1204", "${(theDate.value?.toString())?:"no date"}, ${theAmount.value}, ${theUnit.value?:"no unit"}, filledOut: ${filledOut.value}")
-    }
-
 }

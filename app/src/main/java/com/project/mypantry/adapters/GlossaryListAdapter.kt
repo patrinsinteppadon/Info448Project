@@ -1,13 +1,11 @@
 package com.project.mypantry.adapters
 
 import android.content.Context
-import android.util.MutableBoolean
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.project.mypantry.R
 import com.project.mypantry.objects.IngredientType
 
 class GlossaryListAdapter(private val context: Context,

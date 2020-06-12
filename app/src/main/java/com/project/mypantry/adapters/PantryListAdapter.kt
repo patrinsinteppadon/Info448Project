@@ -13,15 +13,15 @@ import com.project.mypantry.R
 import com.project.mypantry.application.PantryApp
 import com.project.mypantry.objects.IngredientInstance
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_ingredient_detail.*
 import java.time.format.DateTimeFormatter
 
 class PantryListAdapter(
     initialPantry: List<IngredientInstance>,
     pantryApp: PantryApp,
     private val context: Context
-): RecyclerView.Adapter<PantryListAdapter.PantryViewHolder>() {
-    private var allIng: List<IngredientInstance> = initialPantry.toList()  // This is so we create a duplicate of the list passed in
+) : RecyclerView.Adapter<PantryListAdapter.PantryViewHolder>() {
+    private var allIng: List<IngredientInstance> =
+        initialPantry.toList()  // This is so we create a duplicate of the list passed in
     var onPantryClicked: ((ingredient: IngredientInstance) -> Unit)? = null
     private val app: PantryApp = pantryApp
 
@@ -44,12 +44,11 @@ class PantryListAdapter(
         holder.bind(ingredient)
     }
 
-    inner class PantryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class PantryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val name = itemView.findViewById<TextView>(R.id.name)
-        private val ivCovers = itemView.findViewById<ImageView>(R.id.ingPic)
+        private val picture = itemView.findViewById<ImageView>(R.id.ingPic)
         private val expDate = itemView.findViewById<TextView>(R.id.amount)
         private val amountAndUnit = itemView.findViewById<TextView>(R.id.amountAndUnit)
-
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(ing: IngredientInstance) {
@@ -60,17 +59,18 @@ class PantryListAdapter(
             val dateString = ing.expiration.format(DateTimeFormatter.ofPattern("dd LLLL"))
             expDate.text = "Best Before:\n $dateString"
 
-            var localImgLink = context.resources.getIdentifier(ingType?.ingredientImg, "drawable", context.packageName)
+            var localImgLink = context.resources.getIdentifier(
+                ingType?.ingredientImg,
+                "drawable",
+                context.packageName
+            )
             Picasso.get().load(localImgLink)
                 .placeholder(R.drawable.ic_launcher_background)
-                .into(ivCovers)
+                .into(picture)
 
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 onPantryClicked?.invoke(ing)
             }
-
         }
-
-
     }
 }

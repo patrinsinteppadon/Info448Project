@@ -2,14 +2,12 @@ package com.project.mypantry.objects
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.time.LocalDate
-import java.util.*
 
 @Parcelize
 data class IngredientInstance (
     var instanceID: Int,
-    var ingredientID: Int, // maybe doesn't have to be Int
+    var ingredientID: Int,
     var amount: Int,
     var unit: String,
-    var expiration: String // should it be date? Maybe some other type
+    var expiration: String
 ): Parcelable
